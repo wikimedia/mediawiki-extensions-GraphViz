@@ -157,7 +157,7 @@ $wgExtensionMessagesFiles['GraphViz'] = dirname( __FILE__ ) . '/GraphViz.i18n.ph
 function wfGraphVizExtension() {
 	   global $wgParser;
 	   $wgParser->setHook( 'graphviz', 'renderGraphviz' );
-	   $wgParser->setHook( 'mscgen", "renderMscGen' );
+	   $wgParser->setHook( 'mscgen', 'renderMscGen' );
 	   return true;
 }
 
