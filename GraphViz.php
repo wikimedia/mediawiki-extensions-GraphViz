@@ -75,6 +75,8 @@
 
 if ( !defined( 'MEDIAWIKI' ) ) die();
 
+define( 'GraphViz_VERSION', '0.9.1 alpha' );
+
  /*
  * The GraphViz-Class with the essential settings
  */
@@ -133,21 +135,29 @@ if ( defined( 'MW_SUPPORTS_PARSERFIRSTCALLINIT' ) ) {
 	   $wgExtensionFunctions[] = 'wfGraphVizExtension';
 }
 
-  // Information about the people did this Parserhook
-  $wgExtensionCredits['parserhook'][] = array(
-   'name' => 'Graphviz',
-   'author' => 'CoffMan <http://wickle.com>, MasterOfDesaster <mailto://arno.venner@gmail.com>, Thomas Hummel <http://hummel-universe.net>',
-   'url' => 'http://www.mediawiki.org/wiki/Extension:GraphViz',
-   'description' => 'Graphviz (http://www.graphviz.org) is a program/language that allows the creation of numerous types of graphs.  This extension allows the embedding of graphviz markup in MediaWiki pages and generates inline images to display.'
- );
+// Information about the people did this Parserhook
+$wgExtensionCredits['parserhook'][] = array(
+	'name' => 'Graphviz',
+	'path' => __FILE__,
+	'version' => GraphViz_VERSION,
+	'author' => array(
+		'[http://wickle.com CoffMan]',
+		'[mailto://arno.venner@gmail.com MasterOfDesaster]',
+		'[http://hummel-universe.net Thomas Hummel]'
+	),
+	'url' => 'http://www.mediawiki.org/wiki/Extension:GraphViz',
+	'descriptionmsg' => 'graphviz-description'
+);
+ 
+$wgExtensionMessagesFiles['GraphViz'] = dirname( __FILE__ ) . '/GraphViz.i18n.php';
 
  /*
  * Information about the hooks used
  */
 function wfGraphVizExtension() {
 	   global $wgParser;
-	   $wgParser->setHook( "graphviz", "renderGraphviz" );
-	   $wgParser->setHook( "mscgen", "renderMscGen" );
+	   $wgParser->setHook( 'graphviz', 'renderGraphviz' );
+	   $wgParser->setHook( 'mscgen", "renderMscGen' );
 	   return true;
 }
 
