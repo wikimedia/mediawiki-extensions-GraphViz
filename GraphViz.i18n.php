@@ -15,5 +15,7 @@ $messages = array();
  * @author Jeroen De Dauw
  */
 $messages['en'] = array(
-	'graphviz-description' => '[http://www.graphviz.org Graphviz] is a program/language that allows the creation of numerous types of graphs.  This extension allows the embedding of graphviz markup in MediaWiki pages and generates inline images to display.',
+	'graphviz-desc' => '[http://www.graphviz.org Graphviz] is a program/language that allows the creation of numerous types of graphs.
+fThis extension allows the embedding of graphviz markup in MediaWiki pages and generates inline images to display.',
 );
+

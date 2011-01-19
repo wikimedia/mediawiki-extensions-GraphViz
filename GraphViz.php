@@ -146,7 +146,7 @@ $wgExtensionCredits['parserhook'][] = array(
 		'[http://hummel-universe.net Thomas Hummel]'
 	),
 	'url' => 'http://www.mediawiki.org/wiki/Extension:GraphViz',
-	'descriptionmsg' => 'graphviz-description'
+	'descriptionmsg' => 'graphviz-desc'
 );
  
 $wgExtensionMessagesFiles['GraphViz'] = dirname( __FILE__ ) . '/GraphViz.i18n.php';
