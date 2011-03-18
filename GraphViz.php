@@ -128,12 +128,7 @@ $wgGraphVizSettings->pruneAmount = '0.5';  // amount by which we prune
  * Media Wiki Plugin Stuff
  */
 
-// Check if the Wiki supports the new extension syntax
-if ( defined( 'MW_SUPPORTS_PARSERFIRSTCALLINIT' ) ) {
-	$wgHooks['ParserFirstCallInit'][] = 'wfGraphVizExtension';
-} else { // Otherwise do things the old fashioned way
-	$wgExtensionFunctions[] = 'wfGraphVizExtension';
-}
+$wgHooks['ParserFirstCallInit'][] = 'wfGraphVizSetHook';
 
 // Information about the people did this Parserhook
 $wgExtensionCredits['parserhook'][] = array(
@@ -154,10 +149,9 @@ $wgExtensionCredits['parserhook'][] = array(
 	/*
 	 * Information about the hooks used
 	 */
-	function wfGraphVizExtension() {
-		global $wgParser;
-		$wgParser->setHook( 'graphviz', 'renderGraphviz' );
-		$wgParser->setHook( 'mscgen', 'renderMscGen' );
+	function wfGraphVizSetHook( $parser ) {
+		$parser->setHook( 'graphviz', 'renderGraphviz' );
+		$parser->setHook( 'mscgen', 'renderMscGen' );
 		return true;
 	}
 
