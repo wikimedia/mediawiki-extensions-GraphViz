@@ -1,8 +1,5 @@
 <?php
 /*
- * @date: 2010-11-01
- * @version: 0.9 (by hummel-riegel)
- *
  * See mediawiki.org/wiki/Extension:GraphViz for more information
  *
  * Extension to allow Graphviz to work inside MediaWiki.
@@ -293,16 +290,11 @@ $wgExtensionCredits['parserhook'][] = array(
 		} elseif ( $wgGraphVizSettings->named == 'sha1' ) {
 			$storagename .= sha1( $timelinesrc );  // produce sha1-hash
 		} else { // named == 'named'
+			var_dump($wgGraphVizSettings->named);exit;
 			$storagename .=  str_replace( "%", '_perc_',
-			urlencode(
-			trim(
-			str_replace( "\n", '',
-			str_replace( "\\", '/',
-			substr( $timelinesrc, 0, strpos( $timelinesrc, '{' ) )  // extract the name of the graph out of the graph
-			)
-			)
-			)
-			)
+				urlencode( trim( str_replace( array( "\n", "\\" ), array( '', '/' ),
+					substr( $timelinesrc, 0, strpos( $timelinesrc, '{' ) )  // extract the name of the graph out of the graph
+				) ) )
 			);
 		}
 		$info .= "<pre>storagename=" . $storagename . "</pre>";
