@@ -290,7 +290,6 @@ $wgExtensionCredits['parserhook'][] = array(
 		} elseif ( $wgGraphVizSettings->named == 'sha1' ) {
 			$storagename .= sha1( $timelinesrc );  // produce sha1-hash
 		} else { // named == 'named'
-			var_dump($wgGraphVizSettings->named);exit;
 			$storagename .=  str_replace( "%", '_perc_',
 				urlencode( trim( str_replace( array( "\n", "\\" ), array( '', '/' ),
 					substr( $timelinesrc, 0, strpos( $timelinesrc, '{' ) )  // extract the name of the graph out of the graph
