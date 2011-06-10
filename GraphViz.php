@@ -286,9 +286,9 @@ $wgExtensionCredits['parserhook'][] = array(
 		$storagename = str_replace( "%", '_perc_', urlencode( $title ) ) . '---'; // clean up pagename (special chars etc)
 
 		if ( $wgGraphVizSettings->named == 'md5' ) {
-			$storagename .= md5( $timelinesrc );  // produce md5-hash out of the storagename !can be duplicate!
+			$storagename = md5( $storagename . $timelinesrc );  // produce md5-hash out of the storagename !can be duplicate!
 		} elseif ( $wgGraphVizSettings->named == 'sha1' ) {
-			$storagename .= sha1( $timelinesrc );  // produce sha1-hash
+			$storagename = sha1( $storagename . $timelinesrc );  // produce sha1-hash
 		} else { // named == 'named'
 			$storagename .=  str_replace( "%", '_perc_',
 				urlencode( trim( str_replace( array( "\n", "\\" ), array( '', '/' ),
