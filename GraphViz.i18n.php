@@ -45,3 +45,10 @@ $messages['mk'] = array(
 	'graphviz-desc' => 'Овозможува вметнување на кодово означување „[http://www.graphviz.org Graphviz]“ и создава слики во самите редови текст',
 );
 
+/** Dutch (Nederlands)
+ * @author Siebrand
+ */
+$messages['nl'] = array(
+	'graphviz-desc' => 'Maakt het mogelijk [http://www.graphviz.org Graphviz-markup] te gebruiken en inline afbeeldingen aan te maken',
+);
+
