@@ -24,6 +24,13 @@ $messages['de'] = array(
 	'graphviz-desc' => 'Ermöglicht das Einbetten und Anzeigen von Grafiken mit Hilfe von [http://www.graphviz.org Graphviz]',
 );
 
+/** French (Français)
+ * @author Gomoko
+ */
+$messages['fr'] = array(
+	'graphviz-desc' => 'Permet un balisage [http://www.graphviz.org Graphviz] embarqué et génère les images en ligne',
+);
+
 /** Galician (Galego)
  * @author Toliño
  */
@@ -36,6 +43,13 @@ $messages['gl'] = array(
  */
 $messages['ia'] = array(
 	'graphviz-desc' => 'Permitte incorporar le marcation [http://www.graphviz.org Graphviz] e genera imagines pro insertion in pagina',
+);
+
+/** Colognian (Ripoarisch)
+ * @author Purodha
+ */
+$messages['ksh'] = array(
+	'graphviz-desc' => 'Määd_et müjjelesch, <i lang="en">[http://www.graphviz.org Graphviz]</i> sing Befähle enzebenge un Belder enzefööje.',
 );
 
 /** Macedonian (Македонски)
