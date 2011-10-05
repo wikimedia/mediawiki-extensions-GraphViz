@@ -52,6 +52,13 @@ $messages['ksh'] = array(
 	'graphviz-desc' => 'Määd_et müjjelesch, <i lang="en">[http://www.graphviz.org Graphviz]</i> sing Befähle enzebenge un Belder enzefööje.',
 );
 
+/** Luxembourgish (Lëtzebuergesch)
+ * @author Robby
+ */
+$messages['lb'] = array(
+	'graphviz-desc' => "Erlaabt d'Abannen an d'Weise vu Biller mat Hëllef vu [http://www.graphviz.org Graphviz]",
+);
+
 /** Macedonian (Македонски)
  * @author Bjankuloski06
  */
@@ -64,5 +71,12 @@ $messages['mk'] = array(
  */
 $messages['nl'] = array(
 	'graphviz-desc' => 'Maakt het mogelijk [http://www.graphviz.org Graphviz-markup] te gebruiken en inline afbeeldingen aan te maken',
+);
+
+/** Russian (Русский)
+ * @author Александр Сигачёв
+ */
+$messages['ru'] = array(
+	'graphviz-desc' => 'Позволяет использовать разметку [http://www.graphviz.org Graphviz] и создавать встроенные изображения',
 );
 
