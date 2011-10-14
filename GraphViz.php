@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * See mediawiki.org/wiki/Extension:GraphViz for more information
  *
  * Extension to allow Graphviz to work inside MediaWiki.
@@ -74,7 +74,7 @@ if ( !defined( 'MEDIAWIKI' ) ) die();
 
 define( 'GraphViz_VERSION', '0.9.1 alpha' );
 
-/*
+/**
  * The GraphViz-Class with the essential settings
  */
 class GraphVizSettings {
@@ -88,7 +88,7 @@ class GraphVizSettings {
 
 $wgGraphVizSettings = new GraphVizSettings(); // create new instance of GraphVizSettings
 
-/*
+/**
  * Configuration of the graphviz instance
  * if parameters are overwritten in the LocalSettings.php nothing will be changed
  */
@@ -121,7 +121,7 @@ $wgGraphVizSettings->pruneAmount = '0.5';  // amount by which we prune
 
 
 
-/*
+/**
  * Media Wiki Plugin Stuff
  */
 
@@ -167,7 +167,7 @@ $wgExtensionCredits['parserhook'][] = array(
 	 */
 	function renderGraphviz( $timelinesrc, $args = null, $parser = null )	  // Raw Script data
 	{
-			
+
 		if ( isset( $args["renderer"] ) ) {
 			switch( $args["renderer"] ) {
 				case 'circo':
@@ -274,7 +274,7 @@ $wgExtensionCredits['parserhook'][] = array(
 		/* create actual storagename
 		 */
 		$wgGraphVizSettings->named = strtolower($wgGraphVizSettings->named );   // avoid problems with upper/lowercase
-		
+
 		/* get title name from parser. If parser not set, use $wgTitle instead
 		 */
 		if ($parser!=null){
@@ -282,7 +282,7 @@ $wgExtensionCredits['parserhook'][] = array(
 		} else{
 			$title = $wgTitle->getFulltext();
 		}
-		
+
 		$storagename = str_replace( "%", '_perc_', urlencode( $title ) ) . '---'; // clean up pagename (special chars etc)
 
 		if ( $wgGraphVizSettings->named == 'md5' ) {
