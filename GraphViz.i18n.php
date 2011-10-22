@@ -38,6 +38,13 @@ $messages['gl'] = array(
 	'graphviz-desc' => 'Permite a incorporación de formato [http://www.graphviz.org Graphviz] e xera imaxes en liña',
 );
 
+/** Hebrew (עברית)
+ * @author Amire80
+ */
+$messages['he'] = array(
+	'graphviz-desc' => 'מאפשרת הטמעת סימון [http://www.graphviz.org Graphviz] ומייצרת תמונות מתוך הטקסט',
+);
+
 /** Interlingua (Interlingua)
  * @author McDutchie
  */
