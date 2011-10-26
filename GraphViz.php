@@ -143,7 +143,7 @@ $wgExtensionCredits['parserhook'][] = array(
 
 	$wgExtensionMessagesFiles['GraphViz'] = dirname( __FILE__ ) . '/GraphViz.i18n.php';
 
-	/*
+	/**
 	 * Information about the hooks used
 	 */
 	function wfGraphVizSetHook( $parser ) {
@@ -187,7 +187,7 @@ $wgExtensionCredits['parserhook'][] = array(
 		return renderEngine( $timelinesrc, $args, $parser ); // go to the "normal" rendering stuff
 
 	}
-	/*
+	/**
 	 * The actual renderingfunction for handling all the stuff
 	 */
 	function renderEngine( $timelinesrc, $args = null, $parser = null )	  // Raw Script data
