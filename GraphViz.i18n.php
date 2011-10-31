@@ -80,6 +80,13 @@ $messages['nl'] = array(
 	'graphviz-desc' => 'Maakt het mogelijk [http://www.graphviz.org Graphviz-markup] te gebruiken en inline afbeeldingen aan te maken',
 );
 
+/** Piedmontese (Piemontèis)
+ * @author Dragonòt
+ */
+$messages['pms'] = array(
+	'graphviz-desc' => "A përmëtt d'anserì dij marcador [http://www.graphviz.org Graphviz] e a génera dle figure an linia",
+);
+
 /** Russian (Русский)
  * @author Александр Сигачёв
  */
