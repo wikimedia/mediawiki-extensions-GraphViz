@@ -45,6 +45,13 @@ $messages['he'] = array(
 	'graphviz-desc' => 'מאפשרת הטמעת סימון [http://www.graphviz.org Graphviz] ומייצרת תמונות מתוך הטקסט',
 );
 
+/** Upper Sorbian (Hornjoserbsce)
+ * @author Michawiki
+ */
+$messages['hsb'] = array(
+	'graphviz-desc' => 'Zmóžnja zasadźowanje a  wutworjenje wobrazow z pomocu [http://www.graphviz.org Graphviz]',
+);
+
 /** Interlingua (Interlingua)
  * @author McDutchie
  */
