@@ -17,6 +17,13 @@ $messages['en'] = array(
 	'graphviz-desc' => 'Allows embedding [http://www.graphviz.org Graphviz] markup and generates inline images',
 );
 
+/** Asturian (Asturianu)
+ * @author Xuacu
+ */
+$messages['ast'] = array(
+	'graphviz-desc' => 'Permite incorporar llinguax de marques de [http://www.graphviz.org Graphviz] y xenera imaxes en llinia',
+);
+
 /** German (Deutsch)
  * @author Kghbln
  */
