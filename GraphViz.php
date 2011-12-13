@@ -137,7 +137,7 @@ $wgExtensionCredits['parserhook'][] = array(
 		'[mailto://arno.venner@gmail.com MasterOfDesaster]',
 		'[http://hummel-universe.net Thomas Hummel]'
 		),
-	'url' => 'http://www.mediawiki.org/wiki/Extension:GraphViz',
+	'url' => 'https://www.mediawiki.org/wiki/Extension:GraphViz',
 	'descriptionmsg' => 'graphviz-desc'
 	);
 
