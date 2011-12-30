@@ -66,6 +66,13 @@ $messages['ia'] = array(
 	'graphviz-desc' => 'Permitte incorporar le marcation [http://www.graphviz.org Graphviz] e genera imagines pro insertion in pagina',
 );
 
+/** Japanese (日本語)
+ * @author Whym
+ */
+$messages['ja'] = array(
+	'graphviz-desc' => '[http://www.graphviz.org Graphviz]記法の埋め込みとインライン画像の生成を可能にする',
+);
+
 /** Colognian (Ripoarisch)
  * @author Purodha
  */
