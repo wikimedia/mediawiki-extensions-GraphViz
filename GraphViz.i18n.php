@@ -31,6 +31,13 @@ $messages['de'] = array(
 	'graphviz-desc' => 'Ermöglicht das Einbetten und Anzeigen von Grafiken mit Hilfe von [http://www.graphviz.org Graphviz]',
 );
 
+/** Lower Sorbian (Dolnoserbski)
+ * @author Michawiki
+ */
+$messages['dsb'] = array(
+	'graphviz-desc' => 'Zmóžnja zasajźowanje a  napóranje wobrazow z pomocu [http://www.graphviz.org Graphviz]',
+);
+
 /** French (Français)
  * @author Gomoko
  */
