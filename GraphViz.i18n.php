@@ -24,6 +24,13 @@ $messages['ast'] = array(
 	'graphviz-desc' => 'Permite incorporar llinguax de marques de [http://www.graphviz.org Graphviz] y xenera imaxes en llinia',
 );
 
+/** Belarusian (Taraškievica orthography) (‪Беларуская (тарашкевіца)‬)
+ * @author Wizardist
+ */
+$messages['be-tarask'] = array(
+	'graphviz-desc' => 'Дазваляе выкарыстаньне разьметкі [http://www.graphviz.org Graphviz] і стварэньня ўбудаваных выяваў',
+);
+
 /** German (Deutsch)
  * @author Kghbln
  */
