@@ -129,3 +129,10 @@ $messages['ru'] = array(
 	'graphviz-desc' => 'Позволяет использовать разметку [http://www.graphviz.org Graphviz] и создавать встроенные изображения',
 );
 
+/** Simplified Chinese (‪中文(简体)‬)
+ * @author Linforest
+ */
+$messages['zh-hans'] = array(
+	'graphviz-desc' => '允许内置 [http://www.graphviz.org Graphviz] 标记，并生成内嵌式图像',
+);
+
