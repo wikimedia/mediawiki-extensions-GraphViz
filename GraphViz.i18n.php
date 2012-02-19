@@ -115,6 +115,13 @@ $messages['nl'] = array(
 	'graphviz-desc' => 'Maakt het mogelijk [http://www.graphviz.org Graphviz-markup] te gebruiken en inline afbeeldingen aan te maken',
 );
 
+/** Polish (Polski)
+ * @author BeginaFelicysym
+ */
+$messages['pl'] = array(
+	'graphviz-desc' => 'Pozwala na osadzanie znaczników [http://www.graphviz.org Graphviz] i generuje wbudowane obrazy',
+);
+
 /** Piedmontese (Piemontèis)
  * @author Dragonòt
  */
