@@ -45,6 +45,13 @@ $messages['dsb'] = array(
 	'graphviz-desc' => 'Zmóžnja zasajźowanje a  napóranje wobrazow z pomocu [http://www.graphviz.org Graphviz]',
 );
 
+/** Spanish (Español)
+ * @author Armando-Martin
+ */
+$messages['es'] = array(
+	'graphviz-desc' => 'Permite incrustar etiquetado [http://www.graphviz.org Graphviz] y genera imágenes en línea',
+);
+
 /** French (Français)
  * @author Gomoko
  */
