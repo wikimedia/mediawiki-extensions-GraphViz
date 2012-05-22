@@ -87,6 +87,13 @@ $messages['ia'] = array(
 	'graphviz-desc' => 'Permitte incorporar le marcation [http://www.graphviz.org Graphviz] e genera imagines pro insertion in pagina',
 );
 
+/** Italian (Italiano)
+ * @author Beta16
+ */
+$messages['it'] = array(
+	'graphviz-desc' => 'Permette di inserire codice [http://www.graphviz.org Graphviz] e di generare immagini in linea',
+);
+
 /** Japanese (日本語)
  * @author Whym
  */
