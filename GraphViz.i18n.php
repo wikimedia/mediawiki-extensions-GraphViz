@@ -101,6 +101,13 @@ $messages['ja'] = array(
 	'graphviz-desc' => '[http://www.graphviz.org Graphviz]記法の埋め込みとインライン画像の生成を可能にする',
 );
 
+/** Korean (한국어)
+ * @author 아라
+ */
+$messages['ko'] = array(
+	'graphviz-desc' => '[http://www.graphviz.org Graphviz] 마크업을 삽입 허용하고 인라인 그림 생성',
+);
+
 /** Colognian (Ripoarisch)
  * @author Purodha
  */
