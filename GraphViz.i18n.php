@@ -17,7 +17,7 @@ $messages['en'] = array(
 	'graphviz-desc' => 'Allows embedding [http://www.graphviz.org Graphviz] markup and generates inline images',
 );
 
-/** Asturian (Asturianu)
+/** Asturian (asturianu)
  * @author Xuacu
  */
 $messages['ast'] = array(
@@ -45,14 +45,14 @@ $messages['dsb'] = array(
 	'graphviz-desc' => 'Zmóžnja zasajźowanje a  napóranje wobrazow z pomocu [http://www.graphviz.org Graphviz]',
 );
 
-/** Spanish (Español)
+/** Spanish (español)
  * @author Armando-Martin
  */
 $messages['es'] = array(
 	'graphviz-desc' => 'Permite incrustar etiquetado [http://www.graphviz.org Graphviz] y genera imágenes en línea',
 );
 
-/** French (Français)
+/** French (français)
  * @author Gomoko
  */
 $messages['fr'] = array(
@@ -80,14 +80,14 @@ $messages['hsb'] = array(
 	'graphviz-desc' => 'Zmóžnja zasadźowanje a  wutworjenje wobrazow z pomocu [http://www.graphviz.org Graphviz]',
 );
 
-/** Interlingua (Interlingua)
+/** Interlingua (interlingua)
  * @author McDutchie
  */
 $messages['ia'] = array(
 	'graphviz-desc' => 'Permitte incorporar le marcation [http://www.graphviz.org Graphviz] e genera imagines pro insertion in pagina',
 );
 
-/** Italian (Italiano)
+/** Italian (italiano)
  * @author Beta16
  */
 $messages['it'] = array(
@@ -122,7 +122,7 @@ $messages['lb'] = array(
 	'graphviz-desc' => "Erlaabt d'Abannen an d'Weise vu Biller mat Hëllef vu [http://www.graphviz.org Graphviz]",
 );
 
-/** Macedonian (Македонски)
+/** Macedonian (македонски)
  * @author Bjankuloski06
  */
 $messages['mk'] = array(
@@ -136,7 +136,7 @@ $messages['nl'] = array(
 	'graphviz-desc' => 'Maakt het mogelijk [http://www.graphviz.org Graphviz-markup] te gebruiken en inline afbeeldingen aan te maken',
 );
 
-/** Polish (Polski)
+/** Polish (polski)
  * @author BeginaFelicysym
  */
 $messages['pl'] = array(
@@ -150,14 +150,14 @@ $messages['pms'] = array(
 	'graphviz-desc' => "A përmëtt d'anserì dij marcador [http://www.graphviz.org Graphviz] e a génera dle figure an linia",
 );
 
-/** Russian (Русский)
+/** Russian (русский)
  * @author Александр Сигачёв
  */
 $messages['ru'] = array(
 	'graphviz-desc' => 'Позволяет использовать разметку [http://www.graphviz.org Graphviz] и создавать встроенные изображения',
 );
 
-/** Simplified Chinese (‪中文(简体)‬)
+/** Simplified Chinese (‪中文（简体）‬)
  * @author Linforest
  */
 $messages['zh-hans'] = array(
