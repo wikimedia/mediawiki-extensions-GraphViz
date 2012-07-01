@@ -24,7 +24,7 @@ $messages['ast'] = array(
 	'graphviz-desc' => 'Permite incorporar llinguax de marques de [http://www.graphviz.org Graphviz] y xenera imaxes en llinia',
 );
 
-/** Belarusian (Taraškievica orthography) (‪Беларуская (тарашкевіца)‬)
+/** Belarusian (Taraškievica orthography) (‪беларуская (тарашкевіца)‬)
  * @author Wizardist
  */
 $messages['be-tarask'] = array(
@@ -38,7 +38,7 @@ $messages['de'] = array(
 	'graphviz-desc' => 'Ermöglicht das Einbetten und Anzeigen von Grafiken mit Hilfe von [http://www.graphviz.org Graphviz]',
 );
 
-/** Lower Sorbian (Dolnoserbski)
+/** Lower Sorbian (dolnoserbski)
  * @author Michawiki
  */
 $messages['dsb'] = array(
@@ -59,7 +59,7 @@ $messages['fr'] = array(
 	'graphviz-desc' => 'Permet un balisage [http://www.graphviz.org Graphviz] embarqué et génère les images en ligne',
 );
 
-/** Galician (Galego)
+/** Galician (galego)
  * @author Toliño
  */
 $messages['gl'] = array(
@@ -73,7 +73,7 @@ $messages['he'] = array(
 	'graphviz-desc' => 'מאפשרת הטמעת סימון [http://www.graphviz.org Graphviz] ומייצרת תמונות מתוך הטקסט',
 );
 
-/** Upper Sorbian (Hornjoserbsce)
+/** Upper Sorbian (hornjoserbsce)
  * @author Michawiki
  */
 $messages['hsb'] = array(
