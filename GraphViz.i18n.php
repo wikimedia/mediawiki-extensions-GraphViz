@@ -157,6 +157,13 @@ $messages['ru'] = array(
 	'graphviz-desc' => 'Позволяет использовать разметку [http://www.graphviz.org Graphviz] и создавать встроенные изображения',
 );
 
+/** Tagalog (Tagalog)
+ * @author AnakngAraw
+ */
+$messages['tl'] = array(
+	'graphviz-desc' => 'Nagpapahintulot ng pagbabaon ng kamarkahan ng [http://www.graphviz.org Graphviz] at lumilikha ng mga imaheng nasa linya',
+);
+
 /** Simplified Chinese (‪中文（简体）‬)
  * @author Linforest
  */
