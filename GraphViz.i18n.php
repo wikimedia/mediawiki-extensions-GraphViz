@@ -129,6 +129,13 @@ $messages['mk'] = array(
 	'graphviz-desc' => 'Овозможува вметнување на кодово означување „[http://www.graphviz.org Graphviz]“ и создава слики во самите редови текст',
 );
 
+/** Maltese (Malti)
+ * @author Chrisportelli
+ */
+$messages['mt'] = array(
+	'graphviz-desc' => 'Tħalli li ddaħħal il-kodiċi [http://www.graphviz.org Graphviz] u tiġġenera stampi fil-linja',
+);
+
 /** Dutch (Nederlands)
  * @author Siebrand
  */
