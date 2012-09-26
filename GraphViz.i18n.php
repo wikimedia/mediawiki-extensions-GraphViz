@@ -178,3 +178,8 @@ $messages['zh-hans'] = array(
 	'graphviz-desc' => '允许内置 [http://www.graphviz.org Graphviz] 标记，并生成内嵌式图像',
 );
 
+/** Traditional Chinese (中文（繁體）‎) */
+$messages['zh-hant'] = array(
+	'graphviz-desc' => '允許內置 [http://www.graphviz.org Graphviz] 標記，並生成內嵌式圖像',
+);
+
