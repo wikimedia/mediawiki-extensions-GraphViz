@@ -24,7 +24,7 @@ $messages['ast'] = array(
 	'graphviz-desc' => 'Permite incorporar llinguax de marques de [http://www.graphviz.org Graphviz] y xenera imaxes en llinia',
 );
 
-/** Belarusian (Taraškievica orthography) (‪беларуская (тарашкевіца)‬)
+/** Belarusian (Taraškievica orthography) (беларуская (тарашкевіца)‎)
  * @author Wizardist
  */
 $messages['be-tarask'] = array(
@@ -171,7 +171,7 @@ $messages['tl'] = array(
 	'graphviz-desc' => 'Nagpapahintulot ng pagbabaon ng kamarkahan ng [http://www.graphviz.org Graphviz] at lumilikha ng mga imaheng nasa linya',
 );
 
-/** Simplified Chinese (‪中文（简体）‬)
+/** Simplified Chinese (中文（简体）‎)
  * @author Linforest
  */
 $messages['zh-hans'] = array(
