@@ -283,18 +283,14 @@ $wgExtensionCredits['parserhook'][] = array(
 			$title = $wgTitle->getFulltext();
 		}
 
-		$storagename = str_replace( "%", '_perc_', urlencode( $title ) ) . '---'; // clean up pagename (special chars etc)
+		$storagename = str_replace( array('\\', '/', ':', '*', '?', '"', '<', '>', "\n", "\r" ), '_', $title ); // clean up pagename (special chars etc)
 
 		if ( $wgGraphVizSettings->named == 'md5' ) {
 			$storagename = md5( $storagename . $timelinesrc );  // produce md5-hash out of the storagename !can be duplicate!
 		} elseif ( $wgGraphVizSettings->named == 'sha1' ) {
 			$storagename = sha1( $storagename . $timelinesrc );  // produce sha1-hash
 		} else { // named == 'named'
-			$storagename .=  str_replace( "%", '_perc_',
-				urlencode( trim( str_replace( array( "\n", "\\" ), array( '', '/' ),
-					substr( $timelinesrc, 0, strpos( $timelinesrc, '{' ) )  // extract the name of the graph out of the graph
-				) ) )
-			);
+			$storagename .= str_replace( array('\\', '/', ':', '*', '?', '"', '<', '>', "\n", "\r" ), '_', substr( $timelinesrc, 0, strpos( $timelinesrc, '{' )) ); // clean up pagename (special chars etc)
 		}
 		$info .= "<pre>storagename=" . $storagename . "</pre>";
 
@@ -441,7 +437,7 @@ $wgExtensionCredits['parserhook'][] = array(
 				$txt = imageAtrributes( $args, $storagename, $map, $outputType, $wgUploadPath ); // if we want borders/position/...
 			} else {
 				$txt  = '<map name="' . $storagename . '">' . $map . '</map>' .
-					 '<img src="' . $wgUploadPath . '/graphviz/' . $storagename . '.' . $outputType . '"' .
+					 '<img src="' . $wgUploadPath . '/graphviz/' . urlencode($storagename) . '.' . $outputType . '"' .
 							   ' usemap="#' . $storagename . '" />';
 			}
 
