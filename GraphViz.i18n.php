@@ -177,6 +177,13 @@ $messages['tl'] = array(
 	'graphviz-desc' => 'Nagpapahintulot ng pagbabaon ng kamarkahan ng [http://www.graphviz.org Graphviz] at lumilikha ng mga imaheng nasa linya',
 );
 
+/** Ukrainian (українська)
+ * @author Ата
+ */
+$messages['uk'] = array(
+	'graphviz-desc' => 'Дозволяє використовувати розмітку [http://www.graphviz.org Graphviz] і створює вбудовані зображення',
+);
+
 /** Simplified Chinese (中文（简体）‎)
  * @author Linforest
  */
