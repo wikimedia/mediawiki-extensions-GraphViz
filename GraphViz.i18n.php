@@ -17,6 +17,13 @@ $messages['en'] = array(
 	'graphviz-desc' => 'Allows embedding [http://www.graphviz.org Graphviz] markup and generates inline images',
 );
 
+/** Message documentation (Message documentation)
+ * @author Shirayuki
+ */
+$messages['qqq'] = array(
+	'graphviz-desc' => '{{desc|name=GraphViz|url=http://www.mediawiki.org/wiki/Extension:Graphviz}}',
+);
+
 /** Asturian (asturianu)
  * @author Xuacu
  */
@@ -95,10 +102,11 @@ $messages['it'] = array(
 );
 
 /** Japanese (日本語)
+ * @author Shirayuki
  * @author Whym
  */
 $messages['ja'] = array(
-	'graphviz-desc' => '[http://www.graphviz.org Graphviz]記法の埋め込みとインライン画像の生成を可能にする',
+	'graphviz-desc' => '[http://www.graphviz.org Graphviz] 記法の埋め込みができるようにし、インライン画像を生成する',
 );
 
 /** Korean (한국어)
