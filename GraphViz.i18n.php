@@ -94,6 +94,13 @@ $messages['ia'] = array(
 	'graphviz-desc' => 'Permitte incorporar le marcation [http://www.graphviz.org Graphviz] e genera imagines pro insertion in pagina',
 );
 
+/** Indonesian (Bahasa Indonesia)
+ * @author Farras
+ */
+$messages['id'] = array(
+	'graphviz-desc' => 'Memungkinkan penanaman markup [http://www.graphviz.org Graphviz] dan membuat gambar dalam kalimat',
+);
+
 /** Italian (italiano)
  * @author Beta16
  */
