@@ -178,6 +178,13 @@ $messages['pms'] = array(
 	'graphviz-desc' => "A përmëtt d'anserì dij marcador [http://www.graphviz.org Graphviz] e a génera dle figure an linia",
 );
 
+/** tarandíne (tarandíne)
+ * @author Joetaras
+ */
+$messages['roa-tara'] = array(
+	'graphviz-desc' => "Permette de 'ngapsulà [http://www.graphviz.org Graphviz] segnalatore e ccreje immaggine in linèe",
+);
+
 /** Russian (русский)
  * @author Александр Сигачёв
  */
