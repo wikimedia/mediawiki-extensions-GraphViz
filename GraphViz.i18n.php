@@ -120,7 +120,7 @@ $messages['ja'] = array(
  * @author 아라
  */
 $messages['ko'] = array(
-	'graphviz-desc' => '[http://www.graphviz.org Graphviz] 마크업을 삽입 허용하고 인라인 그림 생성',
+	'graphviz-desc' => '[http://www.graphviz.org Graphviz] 마크업을 포함하고 인라인 그림을 생성할 수 있습니다',
 );
 
 /** Colognian (Ripoarisch)
