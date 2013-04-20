@@ -40,9 +40,10 @@ $messages['be-tarask'] = array(
 
 /** Czech (česky)
  * @author Jezevec
+ * @author Mormegil
  */
 $messages['cs'] = array(
-	'graphviz-desc' => 'Umožňuje vkládat odkazy na [http://www.graphviz.org Graphviz] a vytvářet vložené obrázky',
+	'graphviz-desc' => 'Umožňuje vkládat skripty pro [http://www.graphviz.org Graphviz] a vytváří vložené obrázky',
 );
 
 /** German (Deutsch)
