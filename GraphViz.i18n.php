@@ -159,7 +159,7 @@ $messages['mt'] = array(
 	'graphviz-desc' => 'Tħalli li ddaħħal il-kodiċi [http://www.graphviz.org Graphviz] u tiġġenera stampi fil-linja',
 );
 
-/** Norwegian Bokmål (norsk (bokmål)‎)
+/** Norwegian Bokmål (norsk bokmål)
  */
 $messages['nb'] = array(
 	'graphviz-desc' => 'Muliggjør innbygging av [http://www.graphviz.org Graphviz]-merking og bruk av bilder i teksten',
