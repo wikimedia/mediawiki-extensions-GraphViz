@@ -172,6 +172,13 @@ $messages['nl'] = array(
 	'graphviz-desc' => 'Maakt het mogelijk [http://www.graphviz.org Graphviz-markup] te gebruiken en inline afbeeldingen aan te maken',
 );
 
+/** Occitan (occitan)
+ * @author Cedric31
+ */
+$messages['oc'] = array(
+	'graphviz-desc' => 'Permet un balisatge [http://www.graphviz.org Graphviz] embarcat e genèra los imatges en linha',
+);
+
 /** Polish (polski)
  * @author BeginaFelicysym
  */
