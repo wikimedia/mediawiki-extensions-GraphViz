@@ -38,7 +38,7 @@ $messages['be-tarask'] = array(
 	'graphviz-desc' => 'Дазваляе выкарыстаньне разьметкі [http://www.graphviz.org Graphviz] і стварэньня ўбудаваных выяваў',
 );
 
-/** Czech (česky)
+/** Czech (čeština)
  * @author Jezevec
  * @author Mormegil
  */
