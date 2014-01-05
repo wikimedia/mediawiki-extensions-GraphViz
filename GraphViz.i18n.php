@@ -67,6 +67,13 @@ $messages['es'] = array(
 	'graphviz-desc' => 'Permite incrustar etiquetado [http://www.graphviz.org Graphviz] y genera imágenes en línea',
 );
 
+/** Persian (فارسی)
+ * @author Armin1392
+ */
+$messages['fa'] = array(
+	'graphviz-desc' => 'اجازهٔ نصب سود افزودهٔ [http://www.graphviz.org Graphviz] و تولید تصاویر درون خطی',
+);
+
 /** French (français)
  * @author Gomoko
  */
