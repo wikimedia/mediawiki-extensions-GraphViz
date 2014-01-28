@@ -152,6 +152,13 @@ $messages['lb'] = array(
 	'graphviz-desc' => "Erlaabt d'Abannen an d'Weise vu Biller mat Hëllef vu [http://www.graphviz.org Graphviz]",
 );
 
+/** Latvian (latviešu)
+ * @author Papuass
+ */
+$messages['lv'] = array(
+	'graphviz-desc' => 'Atļauj iekļaut [http://www.graphviz.org Graphviz] kodu un ģenerē iekļautos attēlus',
+);
+
 /** Macedonian (македонски)
  * @author Bjankuloski06
  */
