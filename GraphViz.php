@@ -156,7 +156,7 @@ $wgExtensionCredits['parserhook'][] = array(
 	 * The renderingfunction for the mscgen-hook implementation
 	 * @author Matthewpearson
 	 */
-	function renderMscGen( $timelinesrc, $args = null, $parser = null )
+	function renderMscGen( $timelinesrc, $args , $parser )
 	{
 		$args["renderer"] = "mscgen"; // set renderer to mscgen - not that nice, could be done better
 		return renderEngine( $timelinesrc, $args, $parser ); // go to the "normal" rendering stuff
@@ -165,7 +165,7 @@ $wgExtensionCredits['parserhook'][] = array(
 	 * The renderingfunction for the graphviz-implementation
 	 * @author Thomas Hummel
 	 */
-	function renderGraphviz( $timelinesrc, $args = null, $parser = null )	  // Raw Script data
+	function renderGraphviz( $timelinesrc, $args, $parser )	  // Raw Script data
 	{
 
 		if ( isset( $args["renderer"] ) ) {
@@ -190,11 +190,10 @@ $wgExtensionCredits['parserhook'][] = array(
 	/**
 	 * The actual renderingfunction for handling all the stuff
 	 */
-	function renderEngine( $timelinesrc, $args = null, $parser = null )	  // Raw Script data
+	function renderEngine( $timelinesrc, $args, $parser )	  // Raw Script data
 	{
 
 		global
-		$wgTitle,
 		$wgUploadDirectory,	  // Storage of the final image (e.g. png) & map
 		$wgUploadPath,		   // HTML Reference
 		$wgGraphVizSettings,	 // Plugin Config
@@ -275,13 +274,7 @@ $wgExtensionCredits['parserhook'][] = array(
 		 */
 		$wgGraphVizSettings->named = strtolower($wgGraphVizSettings->named );   // avoid problems with upper/lowercase
 
-		/* get title name from parser. If parser not set, use $wgTitle instead
-		 */
-		if ($parser!=null){
-			$title = $parser->getTitle()->getFulltext();
-		} else{
-			$title = $wgTitle->getFulltext();
-		}
+		$title = $parser->getTitle()->getFulltext();
 
 		$storagename = str_replace( array('\\', '/', ':', '*', '?', '"', '<', '>', "\n", "\r" ), '_', $title ); // clean up pagename (special chars etc)
 
