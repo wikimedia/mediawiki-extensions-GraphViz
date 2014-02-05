@@ -1,8 +1,26 @@
 {
-	"@metadata": {
-		"authors": [
-			"Shirayuki"
-		]
-	},
-	"graphviz-desc": "{{desc|name=GraphViz|url=http://www.mediawiki.org/wiki/Extension:Graphviz}}"
+    "@metadata": {
+        "authors": [
+            "Shirayuki",
+            "Keith Welter"
+        ]
+    },
+    "graphviz-desc": "{{desc|name=GraphViz|url=http://www.mediawiki.org/wiki/Extension:Graphviz}}",
+    "graphviz-reload": "Used as an informational message to inform the user to reload the wiki page.",
+    "graphviz-no-input": "Used as error message",
+    "graphviz-dot-invalid-image": "Used as error message.  Parameters:\n* $1 - attribute name",
+    "graphviz-dot-attr-forbidden": "Used as an error message.  Parameters:\n* $1 - attribute name",
+    "graphviz-read-src-failed": "Used as error message.",
+    "graphviz-write-src-failed": "Used as error message.",
+    "graphviz-write-map-failed": "Used as error message.",
+    "graphviz-mkdir-failed": "Used as error message.",
+    "graphviz-delete-reason": "Describes the reason for deleting an uploaded file.",
+    "graphviz-alt": "This is the default alt text for a graph image if the user does not supply alt text. This is intended for visually impaired readers.",
+    "graphviz-uploaddisabledtext": "Used as error message.",
+    "graphviz-upload-not-permitted": "Used as error message.",
+    "graphviz-user-blocked": "Used as error message.",
+    "graphviz-read-only": "Used as error message.",
+    "graphviz-uploaderror": "Used as error message.",
+    "graphviz-upload-comment": "Comment supplied for an image uploaded by the extension.  Parameters:\n* $1 - article title",
+    "graphviz-map-desc": "Do not translate the tags <code><nowiki></code>, <code><imagemap></code>, <code></imagemap></code> or <code></nowiki></code>.  Parameters:\n* $1 - image file name\n* $2 - image map shape, coordinates and URL (0 or more lines)"
 }
