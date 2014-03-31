@@ -1,0 +1,8 @@
+{
+    "@metadata": {
+        "authors": [
+            "Armando-Martin"
+        ]
+    },
+    "graphviz-desc": "Permite incrustar etiquetado [http://www.graphviz.org Graphviz] y genera imágenes en línea"
+}

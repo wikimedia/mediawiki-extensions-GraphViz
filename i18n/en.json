@@ -1,0 +1,8 @@
+{
+    "@metadata": {
+        "authors": [
+            "Jeroen De Dauw"
+        ]
+    },
+    "graphviz-desc": "Allows embedding [http://www.graphviz.org Graphviz] markup and generates inline images"
+}

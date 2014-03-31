@@ -72,7 +72,7 @@
 
 if ( !defined( 'MEDIAWIKI' ) ) die();
 
-define( 'GraphViz_VERSION', '0.9.1 alpha' );
+define( 'GraphViz_VERSION', '0.10.0 alpha' );
 
 /**
  * The GraphViz-Class with the essential settings
@@ -141,7 +141,8 @@ $wgExtensionCredits['parserhook'][] = array(
 	'descriptionmsg' => 'graphviz-desc'
 	);
 
-	$wgExtensionMessagesFiles['GraphViz'] = dirname( __FILE__ ) . '/GraphViz.i18n.php';
+$wgMessagesDirs['GraphViz'] = __DIR__ . '/i18n';
+$wgExtensionMessagesFiles['GraphViz'] = dirname( __FILE__ ) . '/GraphViz.i18n.php';
 
 	/**
 	 * Information about the hooks used

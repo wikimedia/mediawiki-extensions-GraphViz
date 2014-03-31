@@ -1,0 +1,9 @@
+{
+    "@metadata": {
+        "authors": [
+            "Shirayuki",
+            "Whym"
+        ]
+    },
+    "graphviz-desc": "[http://www.graphviz.org Graphviz] 記法の埋め込みができるようにし、インライン画像を生成する"
+}

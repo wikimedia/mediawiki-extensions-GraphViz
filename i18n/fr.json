@@ -1,0 +1,8 @@
+{
+    "@metadata": {
+        "authors": [
+            "Gomoko"
+        ]
+    },
+    "graphviz-desc": "Permet un balisage [http://www.graphviz.org Graphviz] embarqué et génère les images en ligne"
+}
