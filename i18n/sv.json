@@ -1,0 +1,8 @@
+{
+    "@metadata": {
+        "authors": [
+            "Ainali"
+        ]
+    },
+    "graphviz-desc": "Tillåter inbäddning [http://www.graphviz.org Graphviz] -märkspråk och genererar bilder i texten"
+}
