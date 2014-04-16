@@ -1,8 +1,8 @@
 {
-    "@metadata": {
-        "authors": [
-            "Ата"
-        ]
-    },
-    "graphviz-desc": "Дозволяє використовувати розмітку [http://www.graphviz.org Graphviz] і створює вбудовані зображення"
+	"@metadata": {
+		"authors": [
+			"Ата"
+		]
+	},
+	"graphviz-desc": "Дозволяє використовувати розмітку [http://www.graphviz.org Graphviz] і створює вбудовані зображення"
 }

@@ -1,8 +1,8 @@
 {
-    "@metadata": {
-        "authors": [
-            "Cedric31"
-        ]
-    },
-    "graphviz-desc": "Permet un balisatge [http://www.graphviz.org Graphviz] embarcat e genèra los imatges en linha"
+	"@metadata": {
+		"authors": [
+			"Cedric31"
+		]
+	},
+	"graphviz-desc": "Permet un balisatge [http://www.graphviz.org Graphviz] embarcat e genèra los imatges en linha"
 }

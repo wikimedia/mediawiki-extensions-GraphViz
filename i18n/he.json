@@ -1,8 +1,8 @@
 {
-    "@metadata": {
-        "authors": [
-            "Amire80"
-        ]
-    },
-    "graphviz-desc": "מאפשרת הטמעת סימון [http://www.graphviz.org Graphviz] ומייצרת תמונות מתוך הטקסט"
+	"@metadata": {
+		"authors": [
+			"Amire80"
+		]
+	},
+	"graphviz-desc": "מאפשרת הטמעת סימון [http://www.graphviz.org Graphviz] ומייצרת תמונות מתוך הטקסט"
 }

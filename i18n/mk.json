@@ -1,8 +1,8 @@
 {
-    "@metadata": {
-        "authors": [
-            "Bjankuloski06"
-        ]
-    },
-    "graphviz-desc": "Овозможува вметнување на кодово означување „[http://www.graphviz.org Graphviz]“ и создава слики во самите редови текст"
+	"@metadata": {
+		"authors": [
+			"Bjankuloski06"
+		]
+	},
+	"graphviz-desc": "Овозможува вметнување на кодово означување „[http://www.graphviz.org Graphviz]“ и создава слики во самите редови текст"
 }

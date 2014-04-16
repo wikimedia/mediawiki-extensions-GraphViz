@@ -1,8 +1,8 @@
 {
-    "@metadata": {
-        "authors": [
-            "Papuass"
-        ]
-    },
-    "graphviz-desc": "Atļauj iekļaut [http://www.graphviz.org Graphviz] kodu un ģenerē iekļautos attēlus"
+	"@metadata": {
+		"authors": [
+			"Papuass"
+		]
+	},
+	"graphviz-desc": "Atļauj iekļaut [http://www.graphviz.org Graphviz] kodu un ģenerē iekļautos attēlus"
 }

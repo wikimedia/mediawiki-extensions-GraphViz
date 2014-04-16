@@ -1,8 +1,8 @@
 {
-    "@metadata": {
-        "authors": [
-            "Linforest"
-        ]
-    },
-    "graphviz-desc": "允许内置 [http://www.graphviz.org Graphviz] 标记，并生成内嵌式图像"
+	"@metadata": {
+		"authors": [
+			"Linforest"
+		]
+	},
+	"graphviz-desc": "允许内置 [http://www.graphviz.org Graphviz] 标记，并生成内嵌式图像"
 }

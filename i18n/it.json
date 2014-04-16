@@ -1,8 +1,8 @@
 {
-    "@metadata": {
-        "authors": [
-            "Beta16"
-        ]
-    },
-    "graphviz-desc": "Permette di inserire codice [http://www.graphviz.org Graphviz] e di generare immagini in linea"
+	"@metadata": {
+		"authors": [
+			"Beta16"
+		]
+	},
+	"graphviz-desc": "Permette di inserire codice [http://www.graphviz.org Graphviz] e di generare immagini in linea"
 }

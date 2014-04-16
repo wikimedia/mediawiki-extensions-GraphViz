@@ -1,8 +1,8 @@
 {
-    "@metadata": {
-        "authors": [
-            "Shirayuki"
-        ]
-    },
-    "graphviz-desc": "{{desc|name=GraphViz|url=http://www.mediawiki.org/wiki/Extension:Graphviz}}"
+	"@metadata": {
+		"authors": [
+			"Shirayuki"
+		]
+	},
+	"graphviz-desc": "{{desc|name=GraphViz|url=http://www.mediawiki.org/wiki/Extension:Graphviz}}"
 }

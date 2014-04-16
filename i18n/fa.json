@@ -1,8 +1,8 @@
 {
-    "@metadata": {
-        "authors": [
-            "Armin1392"
-        ]
-    },
-    "graphviz-desc": "اجازهٔ نصب سود افزودهٔ [http://www.graphviz.org Graphviz] و تولید تصاویر درون خطی"
+	"@metadata": {
+		"authors": [
+			"Armin1392"
+		]
+	},
+	"graphviz-desc": "اجازهٔ نصب سود افزودهٔ [http://www.graphviz.org Graphviz] و تولید تصاویر درون خطی"
 }
