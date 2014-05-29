@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Linforest"
+			"Linforest",
+			"Liuxinyu970226"
 		]
 	},
-	"graphviz-desc": "允许内置 [http://www.graphviz.org Graphviz] 标记，并生成内嵌式图像"
+	"graphviz-desc": "允许内置 [http://www.graphviz.org Graphviz] 标记，并生成内嵌式图像",
+	"graphviz-dot-attr-forbidden": "禁止点$1属性。"
 }

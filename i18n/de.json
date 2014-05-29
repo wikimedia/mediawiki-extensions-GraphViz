@@ -1,8 +1,27 @@
 {
 	"@metadata": {
 		"authors": [
-			"Kghbln"
+			"Kghbln",
+			"Metalhead64"
 		]
 	},
-	"graphviz-desc": "Ermöglicht das Einbetten und Anzeigen von Grafiken mit Hilfe von [http://www.graphviz.org Graphviz]"
+	"graphviz-desc": "Ermöglicht das Einbetten und Anzeigen von Grafiken mit Hilfe von [http://www.graphviz.org Graphviz]",
+	"graphviz-reload": "Die Grafikbildquelle wurde geändert. Lade die Seite erneut, um das aktualisierte Grafikbild anzuzeigen.",
+	"graphviz-no-input": "Die Grafikquelle fehlt.",
+	"graphviz-no-imagemap-class": "Die Erweiterung „ImageMap“ ist nicht installiert.",
+	"graphviz-dot-invalid-image": "Das Punktattribut „$1“ muss der Name einer hochgeladenen Datei sein.",
+	"graphviz-dot-attr-forbidden": "Das Punktattribut „$1“ ist nicht erlaubt.",
+	"graphviz-read-src-failed": "Der Grafiktext konnte vom Dateisystem nicht gelesen werden.",
+	"graphviz-write-src-failed": "Der Grafiktext konnte nicht in das Dateisystem geschrieben werden.",
+	"graphviz-write-map-failed": "Die Grafikkarte konnte nicht in das Dateisystem geschrieben werden.",
+	"graphviz-mkdir-failed": "Es konnte kein Verzeichnis im Dateisystem erstellt werden.",
+	"graphviz-delete-reason": "Diese temporäre Datei wurde von der Erweiterung „GraphViz“ gelöscht.",
+	"graphviz-alt": "Dies ist eine Grafik mit Rahmen und Knoten, die Hyperlinks enthalten könnten.",
+	"graphviz-uploaddisabledtext": "Das Erstellen von Grafikbildern ist nicht möglich, da Dateiuploads deaktiviert wurden.",
+	"graphviz-upload-not-permitted": "Das Erstellen von Grafikbildern erfordert Hochladerechte.",
+	"graphviz-user-blocked": "Das Erstellen von Grafikbildern ist nicht für gesperrte Benutzer erlaubt.",
+	"graphviz-read-only": "Das Erstellen von Grafikbildern ist nicht möglich, da das Wiki in den Nur-Lese-Modus versetzt wurde.",
+	"graphviz-uploaderror": "Das Hochladen des Grafikbildes für die Datei „$1“ ist gescheitert",
+	"graphviz-upload-comment": "generiert von der Erweiterung „[[Special:Version#Installed_extensions|GraphViz]]“ von der Seite [[$1]]",
+	"graphviz-map-desc": "= ImageMap =\nVerwende beim Einbinden dieses Bildes in eine Wikiseite den folgenden Code, um Links zu ermöglichen:\n <nowiki>\n<imagemap>\nDatei:$1\n$2</imagemap>\n</nowiki>\nSiehe [https://www.mediawiki.org/wiki/Extension:ImageMap ImageMap] für weitere Informationen."
 }

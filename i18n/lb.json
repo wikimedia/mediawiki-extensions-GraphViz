@@ -4,5 +4,7 @@
 			"Robby"
 		]
 	},
-	"graphviz-desc": "Erlaabt d'Abannen an d'Weise vu Biller mat Hëllef vu [http://www.graphviz.org Graphviz]"
+	"graphviz-desc": "Erlaabt d'Abannen an d'Weise vu Biller mat Hëllef vu [http://www.graphviz.org Graphviz]",
+	"graphviz-no-imagemap-class": "D'Erweiderung ImageMap ass net installéiert",
+	"graphviz-delete-reason": "Dësen temporäre Fichier gouf vun der Erweiderung GraphViz geläscht."
 }
