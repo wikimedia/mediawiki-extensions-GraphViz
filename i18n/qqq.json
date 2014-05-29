@@ -8,6 +8,7 @@
     "graphviz-desc": "{{desc|name=GraphViz|url=http://www.mediawiki.org/wiki/Extension:Graphviz}}",
     "graphviz-reload": "Used as an informational message to inform the user to reload the wiki page.",
     "graphviz-no-input": "Used as error message",
+    "graphviz-no-imagemap-class": "Used as error message",
     "graphviz-dot-invalid-image": "Used as error message.  Parameters:\n* $1 - attribute name",
     "graphviz-dot-attr-forbidden": "Used as an error message.  Parameters:\n* $1 - attribute name",
     "graphviz-read-src-failed": "Used as error message.",
