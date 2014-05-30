@@ -1,8 +1,16 @@
 {
 	"@metadata": {
 		"authors": [
-			"Chrisportelli"
+			"Chrisportelli",
+			"CharlieTheCabbie"
 		]
 	},
-	"graphviz-desc": "Tħalli li ddaħħal il-kodiċi [http://www.graphviz.org Graphviz] u tiġġenera stampi fil-linja"
+	"graphviz-desc": "Tħalli li ddaħħal il-kodiċi [http://www.graphviz.org Graphviz] u tiġġenera stampi fil-linja",
+	"graphviz-no-input": "Sors ta 'grafika hija nieqsa.",
+	"graphviz-dot-invalid-image": "Il-punt  $1  attribwit għandu jkun l-isem ta 'fajl imtella.",
+	"graphviz-dot-attr-forbidden": "Il-punt  $1  attribut huwa pprojbit.",
+	"graphviz-read-src-failed": "Ma jistax jaqra t-test ta 'grafika mis-sistema tal-fajl.",
+	"graphviz-mkdir-failed": "Ma jistax joħloq direttorju fis-sistema tal-fajl.",
+	"graphviz-delete-reason": "Dan il-fajl temporanju ġie mħassar bl-estensjoni ta ' l-GraphViz.",
+	"graphviz-alt": "Dan huwa graff mal-fruntieri u linfatiċi li jistgħu jkun fihom iperlinks."
 }
