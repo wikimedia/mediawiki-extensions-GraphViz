@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"AnakngAraw"
+			"AnakngAraw",
+			"Jewel457"
 		]
 	},
-	"graphviz-desc": "Nagpapahintulot ng pagbabaon ng kamarkahan ng [http://www.graphviz.org Graphviz] at lumilikha ng mga imaheng nasa linya"
+	"graphviz-desc": "Nagpapahintulot ng pagbabaon ng kamarkahan ng [http://www.graphviz.org Graphviz] at lumilikha ng mga imaheng nasa linya",
+	"graphviz-delete-reason": "Ang pansamantalang talaksan na ito ay binura ng GraphViz extension."
 }

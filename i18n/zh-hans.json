@@ -6,5 +6,8 @@
 		]
 	},
 	"graphviz-desc": "允许内置 [http://www.graphviz.org Graphviz] 标记，并生成内嵌式图像",
-	"graphviz-dot-attr-forbidden": "禁止点$1属性。"
+	"graphviz-no-input": "丢失图表源。",
+	"graphviz-no-imagemap-class": "ImageMap拓展未安装。",
+	"graphviz-dot-attr-forbidden": "禁止点$1属性。",
+	"graphviz-delete-reason": "此临时文件被GraphViz拓展删除。"
 }
