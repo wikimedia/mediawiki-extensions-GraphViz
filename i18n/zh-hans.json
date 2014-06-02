@@ -2,12 +2,15 @@
 	"@metadata": {
 		"authors": [
 			"Linforest",
-			"Liuxinyu970226"
+			"Liuxinyu970226",
+			"御坂美琴"
 		]
 	},
 	"graphviz-desc": "允许内置 [http://www.graphviz.org Graphviz] 标记，并生成内嵌式图像",
 	"graphviz-no-input": "丢失图表源。",
 	"graphviz-no-imagemap-class": "ImageMap拓展未安装。",
 	"graphviz-dot-attr-forbidden": "禁止点$1属性。",
+	"graphviz-write-src-failed": "无法将图形文本写入文件系统。",
+	"graphviz-mkdir-failed": "无法创建目录。",
 	"graphviz-delete-reason": "此临时文件被GraphViz拓展删除。"
 }

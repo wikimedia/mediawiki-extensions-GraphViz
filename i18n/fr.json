@@ -4,5 +4,23 @@
 			"Gomoko"
 		]
 	},
-	"graphviz-desc": "Permet un balisage [http://www.graphviz.org Graphviz] embarqué et génère les images en ligne"
+	"graphviz-desc": "Permet un balisage [http://www.graphviz.org Graphviz] embarqué et génère les images en ligne",
+	"graphviz-reload": "La source de l’image du graphique a changée. Recharger la page pour afficher l’image du graphique mise à jour.",
+	"graphviz-no-input": "La source du graphique est absente.",
+	"graphviz-no-imagemap-class": "L’extension ImageMap n’est pas installée.",
+	"graphviz-dot-invalid-image": "Le point attribut $1 doit être le nom d’un fichier téléchargé.",
+	"graphviz-dot-attr-forbidden": "Le point attribut $1 est interdit.",
+	"graphviz-read-src-failed": "Impossible de lire le texte du graphique depuis le système de fichiers.",
+	"graphviz-write-src-failed": "Impossible d’écrire le texte du graphique sur le système de fichiers.",
+	"graphviz-write-map-failed": "Impossible d’écrire la carte du graphique sur le système de fichiers.",
+	"graphviz-mkdir-failed": "Impossible de créer un répertoire dans le système de fichiers.",
+	"graphviz-delete-reason": "Ce fichier temporaire a été supprimé par l’extension GraphViz.",
+	"graphviz-alt": "Voici un graphique avec des bordures et des nœuds qui peut contenir des hyperliens.",
+	"graphviz-uploaddisabledtext": "La création d’une image de graphique n’est pas autorisée car les téléchargements de fichier sont désactivés.",
+	"graphviz-upload-not-permitted": "La création d’image de graphique nécessite le droit d’importer.",
+	"graphviz-user-blocked": "La création d’image de graphique n’est pas autorisée pour les utilisateurs bloqués.",
+	"graphviz-read-only": "La création d’image de graphique n’est pas autorisée car le wiki est en mode lecture seule.",
+	"graphviz-uploaderror": "Le téléchargement d’image de graphique a échoué pour le fichier : $1",
+	"graphviz-upload-comment": "généré par l’[[Special:Version#Installed_extensions|extension]] GraphViz depuis la page [[$1]]",
+	"graphviz-map-desc": "= ImageMap =\nEn incluant cette image dans une page wiki, utilisez le marquage suivant pour activer les liens :\n <nowiki>\n<imagemap>\nFile:$1\n$2</imagemap>\n</nowiki>\nVoyez [https://www.mediawiki.org/wiki/Extension:ImageMap ImageMap] pour plus d’information."
 }
