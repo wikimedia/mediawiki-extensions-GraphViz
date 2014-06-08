@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Amire80"
+			"Amire80",
+			"Ronel1"
 		]
 	},
-	"graphviz-desc": "מאפשרת הטמעת סימון [http://www.graphviz.org Graphviz] ומייצרת תמונות מתוך הטקסט"
+	"graphviz-desc": "מאפשרת הטמעת סימון [http://www.graphviz.org Graphviz] ומייצרת תמונות מתוך הטקסט",
+	"graphviz-read-src-failed": "אין אפשרות לקרוא את הטקסט גרף ממערכת הקבצים."
 }
