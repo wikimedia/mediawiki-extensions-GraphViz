@@ -6,5 +6,22 @@
 		]
 	},
 	"graphviz-desc": "מאפשרת הטמעת סימון [http://www.graphviz.org Graphviz] ומייצרת תמונות מתוך הטקסט",
-	"graphviz-read-src-failed": "אין אפשרות לקרוא את הטקסט גרף ממערכת הקבצים."
+	"graphviz-reload": "גרף מקור התמונה השתנתה.  רענן דף תצוגה עדכון גרף התמונה.",
+	"graphviz-no-input": "מקור גרף חסר.",
+	"graphviz-no-imagemap-class": "הסיומת ImageMap אינו מותקן.",
+	"graphviz-dot-invalid-image": "הנקודה  $1  התכונה חייב להיות השם של קובץ שהועלה.",
+	"graphviz-dot-attr-forbidden": "הנקודה  $1  התכונה אסורה.",
+	"graphviz-read-src-failed": "אין אפשרות לקרוא את הטקסט גרף ממערכת הקבצים.",
+	"graphviz-write-src-failed": "אין אפשרות לקרוא את הטקסט גרף ממערכת הקבצים.",
+	"graphviz-write-map-failed": "אין אפשרות לכתוב את המפה גרף למערכת הקבצים.",
+	"graphviz-mkdir-failed": "אין אפשרות ליצור ספריה במערכת הקבצים.",
+	"graphviz-delete-reason": "קובץ זמני זה נמחק על ידי הסיומת GraphViz.",
+	"graphviz-alt": "זהו גרף עם גבולות של צמתי שעשויים להכיל היפר-קישורים.",
+	"graphviz-uploaddisabledtext": "יצירת תמונת הגרף אינו מותר מכיוון שהעלאת קבצים אינם זמינים.",
+	"graphviz-upload-not-permitted": "יצירת תמונת גרף דורש אישור להעלות.",
+	"graphviz-user-blocked": "יצירת תמונת הגרף אינו מותר עבור משתמשים חסומים.",
+	"graphviz-read-only": "יצירת תמונת גרף אינה מותרת כיוון wiki נמצא במצב קריאה בלבד.",
+	"graphviz-uploaderror": "טעינה של תמונה גרף נכשלה עבור קובץ:$1",
+	"graphviz-upload-comment": "המופקים מאת GraphViz [[Installed_extensions|extension # מיוחד: גרסה]] [[ $1 ]] דף",
+	"graphviz-map-desc": "= ImageMap =\nכאשר כולל תמונה זו בדף wiki, להשתמש את מארק הבאים כדי לאפשר קישורים:\n <nowiki>\n<imagemap>\nFile:$1\n$2</imagemap>\n</nowiki>\nלקבלת מידע נוסף, ראה [https://www.mediawiki.org/wiki/Extension:ImageMap ImageMap]."
 }
