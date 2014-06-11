@@ -1,8 +1,12 @@
 {
 	"@metadata": {
 		"authors": [
-			"Armando-Martin"
+			"Armando-Martin",
+			"Fitoschido"
 		]
 	},
-	"graphviz-desc": "Permite incrustar etiquetado [http://www.graphviz.org Graphviz] y genera imágenes en línea"
+	"graphviz-desc": "Permite incrustar etiquetado [http://www.graphviz.org Graphviz] y genera imágenes en línea",
+	"graphviz-reload": "La imagen fuente del gráfico ha cambiado. Recarga la página para mostrar el gráfico actualizado.",
+	"graphviz-no-input": "Falta la fuente del gráfico.",
+	"graphviz-no-imagemap-class": "La extensión ImageMap no está instalada."
 }
