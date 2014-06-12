@@ -8,5 +8,11 @@
 	"graphviz-desc": "Permite incrustar etiquetado [http://www.graphviz.org Graphviz] y genera imágenes en línea",
 	"graphviz-reload": "La imagen fuente del gráfico ha cambiado. Recarga la página para mostrar el gráfico actualizado.",
 	"graphviz-no-input": "Falta la fuente del gráfico.",
-	"graphviz-no-imagemap-class": "La extensión ImageMap no está instalada."
+	"graphviz-no-imagemap-class": "La extensión ImageMap no está instalada.",
+	"graphviz-read-src-failed": "No se pudo leer el texto del gráfico desde el sistema de archivos.",
+	"graphviz-write-src-failed": "No se pudo escribir el texto del gráfico en el sistema de archivos.",
+	"graphviz-write-map-failed": "No se pudo escribir el mapa del gráfico en el sistema de archivos.",
+	"graphviz-mkdir-failed": "No se pudo crear un directorio en el sistema de archivos.",
+	"graphviz-delete-reason": "La extensión GraphViz eliminó este archivo temporal.",
+	"graphviz-upload-comment": "generado por la [[Special:Version#Installed_extensions|extensión]] GraphViz, desde la página [[$1]]"
 }
