@@ -1,6 +1,4 @@
 <?php
-if ( !defined( 'MEDIAWIKI' ) ) die();
-
 /**
  * Extension to allow Graphviz to work inside MediaWiki.
  * See mediawiki.org/wiki/Extension:GraphViz for more information
@@ -33,7 +31,9 @@ if ( !defined( 'MEDIAWIKI' ) ) die();
  * @ingroup Extensions
  */
 
-define( 'GraphViz_VERSION', '1.0' );
+if ( !defined( 'MEDIAWIKI' ) ) die();
+
+define( 'GraphViz_VERSION', '1.1.0' );
 
 /**
  * The GraphViz settings class.
@@ -67,43 +67,47 @@ class GraphVizSettings {
 	 * @var string $defaultImageType
 	 */
 	public $defaultImageType;
-} ;
-
+};
 
 $wgGraphVizSettings = new GraphVizSettings();
 
-// Set execution path
-if ( stristr( PHP_OS, 'WIN' ) && !stristr( PHP_OS, 'Darwin' ) ) {
-	$wgGraphVizSettings->execPath = 'C:/Program Files/Graphviz/bin/';
-} else {
-	$wgGraphVizSettings->execPath = '/usr/bin/';
-}
+//self executing anonymous function to prevent global scope assumptions
+call_user_func( function() {
 
-$wgGraphVizSettings->mscgenPath = '';
-$wgGraphVizSettings->defaultImageType = 'png';
+	// Set execution path
+	if ( stristr( PHP_OS, 'WIN' ) && !stristr( PHP_OS, 'Darwin' ) ) {
+		$GLOBALS['wgGraphVizSettings']->execPath = 'C:/Program Files/Graphviz/bin/';
+	} else {
+		$GLOBALS['wgGraphVizSettings']->execPath = '/usr/bin/';
+	}
 
-$dir = __DIR__ . '/';
-$wgMessagesDirs['GraphViz'] = $dir . 'i18n';
-$wgExtensionMessagesFiles['GraphViz'] = $dir . 'GraphViz.i18n.php';
-$wgAutoloadClasses['GraphViz'] = $dir . "GraphViz_body.php";
-$wgAutoloadClasses['GraphRenderParms'] = $dir . "GraphRenderParms.php";
-$wgAutoloadClasses['UploadLocalFile'] = $dir . "UploadLocalFile.php";
-$wgHooks['ParserFirstCallInit'][] = 'GraphViz::onParserInit';
-$wgHooks['PageContentSave'][] = 'GraphViz::onPageContentSave';
-$wgHooks['PageContentSaveComplete'][] = 'GraphViz::onPageContentSaveComplete';
-$wgHooks['OutputPageParserOutput'][] = 'GraphViz::onOutputPageParserOutput';
-$wgHooks['ArticleDeleteComplete'][] = 'GraphViz::onArticleDeleteComplete';
+	$GLOBALS['wgGraphVizSettings']->mscgenPath = '';
+	$GLOBALS['wgGraphVizSettings']->defaultImageType = 'png';
 
-$wgExtensionCredits['parserhook'][] = array(
-	'name' => 'Graphviz',
-	'path' => __FILE__,
-	'version' => GraphViz_VERSION,
-	'author' => array(
-		'[http://wickle.com CoffMan]',
-		'[mailto://arno.venner@gmail.com MasterOfDesaster]',
-		'[http://hummel-universe.net Thomas Hummel]',
-		'[mailto://welterk@gmail.com Keith Welter]'
-		),
-	'url' => 'https://www.mediawiki.org/wiki/Extension:GraphViz',
-	'descriptionmsg' => 'graphviz-desc'
-	);
+	$dir = __DIR__ . '/';
+
+	$GLOBALS['wgMessagesDirs']['GraphViz'] = $dir . 'i18n';
+	$GLOBALS['wgExtensionMessagesFiles']['GraphViz'] = $dir . 'GraphViz.i18n.php';
+	$GLOBALS['wgAutoloadClasses']['GraphViz'] = $dir . "GraphViz_body.php";
+	$GLOBALS['wgAutoloadClasses']['GraphRenderParms'] = $dir . "GraphRenderParms.php";
+	$GLOBALS['wgAutoloadClasses']['UploadLocalFile'] = $dir . "UploadLocalFile.php";
+	$GLOBALS['wgHooks']['ParserFirstCallInit'][] = 'GraphViz::onParserInit';
+	$GLOBALS['wgHooks']['PageContentSave'][] = 'GraphViz::onPageContentSave';
+	$GLOBALS['wgHooks']['PageContentSaveComplete'][] = 'GraphViz::onPageContentSaveComplete';
+	$GLOBALS['wgHooks']['OutputPageParserOutput'][] = 'GraphViz::onOutputPageParserOutput';
+	$GLOBALS['wgHooks']['ArticleDeleteComplete'][] = 'GraphViz::onArticleDeleteComplete';
+
+	$GLOBALS['wgExtensionCredits']['parserhook'][] = array(
+		'name' => 'Graphviz',
+		'path' => __FILE__,
+		'version' => GraphViz_VERSION,
+		'author' => array(
+			'[http://wickle.com CoffMan]',
+			'[mailto://arno.venner@gmail.com MasterOfDesaster]',
+			'[http://hummel-universe.net Thomas Hummel]',
+			'[mailto://welterk@gmail.com Keith Welter]'
+			),
+		'url' => 'https://www.mediawiki.org/wiki/Extension:GraphViz',
+		'descriptionmsg' => 'graphviz-desc'
+		);
+} );
