@@ -5,7 +5,7 @@
 			"Metalhead64"
 		]
 	},
-	"graphviz-desc": "Ermöglicht das Einbetten und Anzeigen von Grafiken mit Hilfe von [http://www.graphviz.org Graphviz]",
+	"graphviz-desc": "Ermöglicht das auf [http://www.graphviz.org/ Graphviz] gestützte Einbetten und Anzeigen von Grafiken",
 	"graphviz-reload": "Die Grafikbildquelle wurde geändert. Lade die Seite erneut, um das aktualisierte Grafikbild anzuzeigen.",
 	"graphviz-no-input": "Die Grafikquelle fehlt.",
 	"graphviz-no-imagemap-class": "Die Erweiterung „ImageMap“ ist nicht installiert.",
