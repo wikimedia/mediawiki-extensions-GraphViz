@@ -1,5 +1,5 @@
 {
-	"name": "mediawiki/graphviz",
+	"name": "mediawiki/graph-viz",
 	"type": "mediawiki-extension",
 	"description": "Online DOT graph renderer and message sequence chart renderer",
 	"keywords": [
