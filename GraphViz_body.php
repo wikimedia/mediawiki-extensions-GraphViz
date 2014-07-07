@@ -312,14 +312,31 @@ class GraphViz {
 	}
 
 	/**
-	 * Hook function to record when a page is being saved.
+	 * Hook function front-end to GraphViz::onTitleSave.
 	 * @author Keith Welter
 	 */
 	public static function onPageContentSave( $wikiPage, $user, $content, $summary, $isMinor, $isWatch, $section, $flags, $status ) {
 		$titleText = $wikiPage->getTitle()->getFulltext();
+		return self::onTitleSave( $titleText );
+	}
+
+	/**
+	 * Function to record when a page with the given title is being saved.
+	 * @author Keith Welter
+	 */
+	public static function onTitleSave( $titleText ) {
 		self::$titlesBeingSaved[$titleText] = '';
 		wfDebug( __METHOD__ . ": saving: $titleText\n" );
 		return true;
+	}
+
+	/**
+	 * Backwards-compatible (< MW 1.21) hook function front-end to GraphViz::onTitleSave.
+	 * @author Keith Welter
+	 */
+	public static function onArticleSave( &$article, &$user, &$text, &$summary, $minor, $watchthis, $sectionanchor, &$flags, &$status ) {
+		$titleText = $article->getTitle()->getFulltext();
+		return self::onTitleSave( $titleText );
 	}
 
 	/**
@@ -331,18 +348,36 @@ class GraphViz {
 	}
 
 	/**
-	 * Hook function to clean-up when a page is done being saved.  Firstly, this function invokes
-	 * deleteInactiveFiles() to delete inactive graph files associated with a page when
-	 * it is done being saved.  Lastly, this function removes the record that the page is being
-	 * saved as well as the list of active files for the page.
+	 * Hook function front-end to GraphViz::onTitleSaveComplete.
 	 * @author Keith Welter
 	 */
 	public static function onPageContentSaveComplete( $wikiPage, $user, $content, $summary, $isMinor, $isWatch, $section, $flags, $revision, $status, $baseRevId ) {
 		$titleText = $wikiPage->getTitle()->getFulltext();
+		return self::onTitleSaveComplete( $titleText );
+	}
+
+	/**
+	 * Function to clean-up when a page with the given title is done being saved.  
+	 * Firstly, this function invokes deleteInactiveFiles() to delete inactive 
+	 * graph files associated with a page when it is done being saved.  Lastly, 
+	 * this function removes the record that the page is being saved as well as 
+	 * the list of active files for the page.
+	 * @author Keith Welter
+	 */
+	public static function onTitleSaveComplete( $titleText ) {
 		self::deleteInactiveFiles( $titleText );
 		wfDebug( __METHOD__ . ": done saving: $titleText\n" );
 		unset( self::$titlesBeingSaved[$titleText] );
 		return true;
+	}
+
+	/**
+	 * Backwards-compatible (< MW 1.21) hook function front-end to GraphViz::onTitleSaveComplete.
+	 * @author Keith Welter
+	 */
+	public static function onArticleSaveComplete( &$article, &$user, $text, $summary, $minoredit, $watchthis, $sectionanchor, &$flags, $revision, &$status, $baseRevId ) {
+		$titleText = $article->getTitle()->getFulltext();
+		return self::onTitleSaveComplete( $titleText );
 	}
 
 	/**

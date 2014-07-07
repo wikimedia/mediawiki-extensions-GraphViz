@@ -33,7 +33,7 @@
 
 if ( !defined( 'MEDIAWIKI' ) ) die();
 
-define( 'GraphViz_VERSION', '1.1.0' );
+define( 'GraphViz_VERSION', '1.3.1' );
 
 /**
  * The GraphViz settings class.
@@ -92,10 +92,19 @@ call_user_func( function() {
 	$GLOBALS['wgAutoloadClasses']['GraphRenderParms'] = $dir . "GraphRenderParms.php";
 	$GLOBALS['wgAutoloadClasses']['UploadLocalFile'] = $dir . "UploadLocalFile.php";
 	$GLOBALS['wgHooks']['ParserFirstCallInit'][] = 'GraphViz::onParserInit';
-	$GLOBALS['wgHooks']['PageContentSave'][] = 'GraphViz::onPageContentSave';
-	$GLOBALS['wgHooks']['PageContentSaveComplete'][] = 'GraphViz::onPageContentSaveComplete';
 	$GLOBALS['wgHooks']['OutputPageParserOutput'][] = 'GraphViz::onOutputPageParserOutput';
 	$GLOBALS['wgHooks']['ArticleDeleteComplete'][] = 'GraphViz::onArticleDeleteComplete';
+
+	$oldVersion = version_compare( $GLOBALS['wgVersion'], '1.21', '<' );
+	if ( $oldVersion ) {
+		# Do stuff for MediaWiki 1.20 and older
+		$GLOBALS['wgHooks']['ArticleSave'][] = 'GraphViz::onArticleSave';
+		$GLOBALS['wgHooks']['ArticleSaveComplete'][] = 'GraphViz::onArticleSaveComplete';
+	} else {
+		# Do stuff for MediaWiki 1.21 and newer
+		$GLOBALS['wgHooks']['PageContentSave'][] = 'GraphViz::onPageContentSave';
+		$GLOBALS['wgHooks']['PageContentSaveComplete'][] = 'GraphViz::onPageContentSaveComplete';
+	}
 
 	$GLOBALS['wgExtensionCredits']['parserhook'][] = array(
 		'name' => 'Graphviz',

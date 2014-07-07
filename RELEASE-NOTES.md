@@ -1,6 +1,9 @@
 These are the release notes for the [MediaWiki][mediawiki] [GraphViz extension][gv_ext].
 
-## GraphViz 1.3.0 ## (2014-06-27)
+## GraphViz 1.3.1 ## (2014-07-07)
+* Fix for [bug 67587](https://bugzilla.wikimedia.org/show_bug.cgi?id=67587).
+
+## GraphViz 1.3.0 ## (2014-06-30)
 * Added README.md and RELEASE-NOTES.md.
 
 ## GraphViz 1.2.0 ## (2014-06-25)
@@ -26,8 +29,8 @@ These are the release notes for the [MediaWiki][mediawiki] [GraphViz extension][
 ### New features
 * rendered graph and message sequence chart images are uploaded to the wiki
 * graphs and message sequence charts are only re-rendered when the source changes
-* embedded links work properly when the rendered image is resized (powered by [[Extension:ImageMap]])
-* embedded links support tooltips (powered by [[Extension:ImageMap]])
+* embedded links work properly when the rendered image is resized (powered by [ImageMap][image_map_ext])
+* embedded links support tooltips (powered by [ImageMap][image_map_ext])
 * support for the DOT [image attribute](http://www.graphviz.org/content/attrs#dimage image)
 * deterministic file clean-up (active files are retained, inactive files are deleted)
 * support for multiple message sequence charts per page (uniquifier)

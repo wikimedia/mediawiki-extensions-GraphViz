@@ -246,8 +246,16 @@ class UploadLocalFile {
 
 		if ( $exists && isset( $pageText ) ) {
 			$wikiPage = new WikiFilePage( $title );
-			$content = ContentHandler::makeContent( $pageText, $title );
-			$status = $wikiPage->doEditContent( $content, $comment, EDIT_UPDATE | EDIT_SUPPRESS_RC, false, $user );
+
+			$oldVersion = version_compare( $GLOBALS['wgVersion'], '1.21', '<' );
+			if ( $oldVersion ) {
+				# Do stuff for MediaWiki 1.20 and older
+				$status = $wikiPage->doEdit( $pageText, $comment, EDIT_UPDATE | EDIT_SUPPRESS_RC, false, $user );
+			} else {
+				# Do stuff for MediaWiki 1.21 and newer
+				$content = ContentHandler::makeContent( $pageText, $title );
+				$status = $wikiPage->doEditContent( $content, $comment, EDIT_UPDATE | EDIT_SUPPRESS_RC, false, $user );
+			}
 		}
 
 		return true;
