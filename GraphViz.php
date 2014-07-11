@@ -94,6 +94,7 @@ call_user_func( function() {
 	$GLOBALS['wgHooks']['ParserFirstCallInit'][] = 'GraphViz::onParserInit';
 	$GLOBALS['wgHooks']['OutputPageParserOutput'][] = 'GraphViz::onOutputPageParserOutput';
 	$GLOBALS['wgHooks']['ArticleDeleteComplete'][] = 'GraphViz::onArticleDeleteComplete';
+	$GLOBALS['wgHooks']['UnitTestsList'][] = 'GraphViz::onUnitTestsList';
 
 	$oldVersion = version_compare( $GLOBALS['wgVersion'], '1.21', '<' );
 	if ( $oldVersion ) {

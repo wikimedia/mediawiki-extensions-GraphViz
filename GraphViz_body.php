@@ -182,6 +182,16 @@ class GraphViz {
 	}
 
 	/**
+	 * Unit test hook.
+	 * @author Keith Welter
+	 * @return true
+	 */
+	public static function onUnitTestsList( &$files ) {
+		$files = array_merge( $files, glob( __DIR__ . '/tests/phpunit/*Test.php' ) );
+		return true;
+	}
+
+	/**
 	 * Set parser hook functions for supported graph types.
 	 * @author Keith Welter
 	 * @return true
