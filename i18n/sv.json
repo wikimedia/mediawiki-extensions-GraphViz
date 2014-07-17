@@ -1,8 +1,27 @@
 {
 	"@metadata": {
 		"authors": [
-			"Ainali"
+			"Ainali",
+			"Lokal Profil"
 		]
 	},
-	"graphviz-desc": "Tillåter inbäddning [http://www.graphviz.org Graphviz] -märkspråk och genererar bilder i texten"
+	"graphviz-desc": "Tillåter inbäddning [http://www.graphviz.org Graphviz] -märkspråk och genererar bilder i texten",
+	"graphviz-reload": "Grafikens bildkälla har ändrats. Ladda om sidan för att visa den uppdaterade grafikbilden.",
+	"graphviz-no-input": "Grafikkällan saknas",
+	"graphviz-no-imagemap-class": "ImageMap-tillägget är inte installerat.",
+	"graphviz-dot-invalid-image": "Punktattributet $1 måste vara namnet på en uppladdad fil.",
+	"graphviz-dot-attr-forbidden": "Punktattributet $1 är förbjudet.",
+	"graphviz-read-src-failed": "Kunde inte läsa grafiktexten från filsystemet.",
+	"graphviz-write-src-failed": "Kunde inte skriva grafiktexten till filsystemet.",
+	"graphviz-write-map-failed": "Kunde inte skriva grafikkartan till filsystemet.",
+	"graphviz-mkdir-failed": "Kunde inte skapa en katalog i filsystemet.",
+	"graphviz-delete-reason": "Denna tillfälliga fil raderades av GraphViz-tillägget.",
+	"graphviz-alt": "Detta är en grafik med kanter och noder som kan innehålla hyperlänkar.",
+	"graphviz-uploaddisabledtext": "Skapande av grafikbilder tillåts inte då filuppladdning är inaktiverat.",
+	"graphviz-upload-not-permitted": "Skapande av grafikbilder kräver uppladdningsbehörighet.",
+	"graphviz-user-blocked": "Skapande av grafikbilder är inte tillåtet för blockerade användare.",
+	"graphviz-read-only": "Skapande av grafikbilder är inte tillåtet eftersom wikin är i skrivskyddat läge.",
+	"graphviz-uploaderror": "Uppladdning av grafikbild misslyckades för fil: $1",
+	"graphviz-upload-comment": "genererad av GraphViz-[[Special:Version#Installed_extensions|tillägget]] från [[$1]]-sidan",
+	"graphviz-map-desc": "= ImageMap =\nNär denna bild ska inkluderas på en wikisida, använd följande uppmärkning för att aktivera länkar:\n <nowiki>\n<imagemap>\nFile:$1\n$2</imagemap>\n</nowiki>\nSe [https://www.mediawiki.org/wiki/Extension:ImageMap ImageMap] för mer information."
 }
