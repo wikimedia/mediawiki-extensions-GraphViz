@@ -13,5 +13,7 @@
 	"graphviz-write-src-failed": "无法将图形文本写入文件系统。",
 	"graphviz-mkdir-failed": "无法创建目录。",
 	"graphviz-delete-reason": "此临时文件被GraphViz拓展删除。",
+	"graphviz-uploaderror": "为文件上传图表图片失败：$1",
+	"graphviz-upload-comment": "由GraphViz[[Special:Version#Installed_extensions|拓展]]从页面[[$1]]生成",
 	"graphviz-map-desc": "= ImageMap =\n当某wiki页面包含此图像时，使用以下标记启用连接：\n <nowiki>\n<imagemap>\nFile:$1\n$2</imagemap>\n</nowiki>\n更多信息请参见[https://www.mediawiki.org/wiki/Extension:ImageMap ImageMap]。"
 }
