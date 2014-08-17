@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Александр Сигачёв"
+			"Александр Сигачёв",
+			"Okras"
 		]
 	},
-	"graphviz-desc": "Позволяет использовать разметку [http://www.graphviz.org Graphviz] и создавать встроенные изображения"
+	"graphviz-desc": "Позволяет использовать разметку [http://www.graphviz.org Graphviz] и создавать встроенные изображения",
+	"graphviz-upload-comment": "создано с помощью [[Special:Version#Installed_extensions|расширения]] GraphViz со страницы [[$1]]"
 }
