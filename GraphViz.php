@@ -69,7 +69,7 @@ class GraphVizSettings {
 	public $defaultImageType;
 };
 
-$wgGraphVizSettings = new GraphVizSettings();
+$GLOBALS['wgGraphVizSettings'] = new GraphVizSettings();
 
 //self executing anonymous function to prevent global scope assumptions
 call_user_func( function() {
