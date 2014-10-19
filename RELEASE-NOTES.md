@@ -1,7 +1,9 @@
 These are the release notes for the [MediaWiki][mediawiki] [GraphViz extension][gv_ext].
 
-## GraphViz 1.4.x ## (not released yet)
+## GraphViz 1.4.0 ## (2014-10-19)
 * Add unit test hook, first unit test.
+* Avoid reload message ("Graph image source changed. Reload page to display updated graph image.")
+* Add COPYING notice.
 
 ## GraphViz 1.3.1 ## (2014-07-07)
 * Fix for [bug 67587](https://bugzilla.wikimedia.org/show_bug.cgi?id=67587).

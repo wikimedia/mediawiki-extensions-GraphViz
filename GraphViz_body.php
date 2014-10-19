@@ -99,6 +99,14 @@ class GraphViz {
 	const IMAGE_SUBDIR = "images/";
 
 	/**
+	 * The basename to use for dummy graph image files.
+	 * @see GraphViz::createDummyImageFilePage
+	 *
+	 * @var string IMAGE_DUMMY
+	 */
+	const IMAGE_DUMMY = "File_graph_GraphVizExtensionDummy";
+
+	/**
 	 * Used as an array key in GraphViz::$graphTypes and other arrays.
 	 * It must be a unique value in GraphViz::$graphTypes.
 	 *
@@ -192,11 +200,100 @@ class GraphViz {
 	}
 
 	/**
+	 * Create dummy file pages for each image type supported by this extension.
+	 * @see GraphViz::createDummyImageFilePage
+	 * @param[in] Parser $parser
+	 * @author Keith Welter
+	 */
+	public static function initDummyFilePages( Parser &$parser ) {
+		foreach ( GraphRenderParms::$supportedDotImageTypes as $imageType ) {
+			if ( !self::imageTypeAllowed( $imageType ) ) {
+				wfDebug( __METHOD__ . ": skipping $imageType\n" );
+				continue;
+			}
+
+			$imageFileName = self::IMAGE_DUMMY . '.' . $imageType;
+			$imageTitle = Title::newFromText( $imageFileName, NS_FILE );
+
+			if ( !$imageTitle->exists() ) {
+				wfDebug( __METHOD__ . ": file page for $imageFileName does not exist\n" );
+				self::createDummyImageFilePage( $parser, $imageType );
+			} else if ( self::titleHasMultipleRevisions( $imageTitle ) ) {
+				wfDebug( __METHOD__ . ": file page for $imageFileName has multiple revisions\n" );
+				self::deleteFilePage( $imageTitle );
+
+				self::createDummyImageFilePage( $parser, $imageType );
+			}
+		}
+	}
+
+	/**
+	 * Check if a given image type is probably allowed to be uploaded
+	 * (does not consult any file extension blacklists).
+	 * @param[in] string $imageType is the type of image (e.g. png) to check.
+	 * @author Keith Welter
+	 */
+	public static function imageTypeAllowed( $imageType ) {
+		global $wgFileExtensions;
+
+		if ( !in_array( strtolower( $imageType ), $wgFileExtensions ) ) {
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * Delete a file page with the given title.
+	 * This is used to delete dummy file pages with multiple revisions
+	 * so that they don't bloat the database.
+	 * @see GraphViz::createDummyImageFilePage
+	 * @param[in] Title $title
+	 * @author Keith Welter
+	 */
+	public static function deleteFilePage( $title ) {
+		$file = wfLocalFile( $title );
+		$oldimage = null;
+		$reason = '';
+		$suppress = false;
+		FileDeleteForm::doDelete( $title, $file, $oldimage, $reason, $suppress );
+	}
+
+	/**
+	 * Create a dummy file page with a trivial graph image of the given image type.
+	 * New graph images of the same type may be uploaded on top of this dummy without
+	 * triggering any parser code.  This makes it possible to do graph image file
+	 * uploads in the context of a tag function like GraphViz::render.
+	 * @param[in] Parser $parser
+	 * @param[in] string $imageType is the type of image (e.g. png) to create a dummy file page for.
+	 * @author Keith Welter
+	 */
+	public static function createDummyImageFilePage( Parser &$parser, $imageType ) {
+		$input = "graph GraphVizExtensionDummy { GraphViz }";
+		$args['format'] = $imageType;
+		$isDummy = true;
+		self::render( $input, $args, $parser, $isDummy );
+	}
+
+	/**
+	 * Determine if the given title has multiple revisions.
+	 * @param[in] Title $title is the title of the wiki page to check for multiple revisions.
+	 * @author Keith Welter
+	 * @return true if the given title has multiple revisions, otherwise false.
+	 */
+	public static function titleHasMultipleRevisions( $title ) {
+		return $title->getLatestRevID() != $title->getFirstRevision()->getId();
+	}
+
+	/**
 	 * Set parser hook functions for supported graph types.
+	 * Also, ensure initDummyFilePages() is be called before parsing the edit page.
 	 * @author Keith Welter
 	 * @return true
 	 */
 	public static function onParserInit( Parser &$parser ) {
+		self::initDummyFilePages( $parser );
+
 		foreach ( self::$graphTypes as $graphType ) {
 			$parser->setHook( self::$tags[$graphType] , array( __CLASS__, self::$parserHookFunctions[$graphType] ) );
 		}
@@ -204,13 +301,34 @@ class GraphViz {
 	}
 
 	/**
+	 * Hook function front-end to GraphViz::initDummyFilePages for edit preview.
+	 * initDummyFilePages() must be called before parsing for edit previews.
+	 * @author Keith Welter
+	 */
+	public static function onEditPageGetPreviewContent( $editPage, &$content ) {
+		global $wgParser;
+		StubObject::unstub( $wgParser );
+		wfDebug( __METHOD__ . ": calling self::initDummyFilePages\n" );
+		self::initDummyFilePages( $wgParser );
+	}
+
+	/**
+	 * Backwards-compatible (< MW 1.21) hook function front-end to GraphViz::initDummyFilePages for edit preview.
+	 * initDummyFilePages() must be called before parsing for edit previews.
+	 * @author Keith Welter
+	 */
+	public static function onEditPageGetPreviewText( $editPage, &$toParse ) {
+		global $wgParser;
+		$wgParser->_unstub();
+		wfDebug( __METHOD__ . ": calling self::initDummyFilePages\n" );
+		self::initDummyFilePages( $wgParser );
+		return true;
+	}
+
+	/**
 	 * When parsing is complete for a page, check for any graph image files associated with the page and
 	 * upload them.  The uploading must be deferred until this point because the upload code path
 	 * invokes parsing logic which throws an exception if called from a parser hook function.
-	 * It would be nicer to upload a given image when the corresponding graph wiki text is parsed
-	 * (rather than deferring the upload to this point) but the architecture of the core doesn't
-	 * allow for that as described.  The consequence of deferring the upload until this point is that
-	 * the user must reload the page in order to see the uploaded images.
 	 *
 	 * @return true
 	 * @author Keith Welter
@@ -218,18 +336,32 @@ class GraphViz {
 	public static function onOutputPageParserOutput( OutputPage &$out, ParserOutput $parserOutput ) {
 		global $wgUser;
 
-		// find any stored images for the page
 		$title = $out->getTitle();
+
+		self::uploadImagesForTitle( $title, $wgUser );
+
+		return true;
+	}
+
+	/**
+	 * Check for any graph image files associated with the title and upload them.
+	 *
+	 * @return int number of uploaded images
+	 * @author Keith Welter
+	 */
+	public static function uploadImagesForTitle( $title, $user ) {
+		// find any stored images for the page
 		$titleText = $title->getFulltext();
 		$imageDir = self::getImageDir();
 		$globPattern = $imageDir . self::makeFriendlyGraphName( $titleText ) . "*.*";
 		$imageFilePaths = glob( $globPattern );
+		$uploaded = 0;
 
 		// if any were found, upload them now
 		if ( !empty( $imageFilePaths ) ) {
 			$errorText = "";
 
-			$uploaded = self::uploadImages( $titleText, $imageFilePaths, $wgUser, $errorText );
+			$uploaded = self::uploadImages( $titleText, $imageFilePaths, $user, $errorText );
 
 			if ( $errorText != "" ) {
 				$errorHTML = self::multilineErrorHTML( $errorText );
@@ -243,7 +375,7 @@ class GraphViz {
 			}
 		}
 
-		return true;
+		return $uploaded;
 	}
 
 	/**
@@ -252,7 +384,7 @@ class GraphViz {
 	 * @param[in] string $titleText is the title text of the wiki page.
 	 * @param[in] string $imageFilePaths is an array of graph image file paths.
 	 * @param[in] User $user is the user on behalf of whom the upload is to be done.
-	 * @param[out] string $errorHTML is used for returning an HTML error message if any errors occur.
+	 * @param[out] string $errorText is used for returning an HTML error message if any errors occur.
 	 *
 	 * @return integer number of uploaded files.
 	 *
@@ -268,20 +400,43 @@ class GraphViz {
 			wfDebug( __METHOD__ . ": uploading $imageFilePath\n" );
 			$imageFileName = basename( $imageFilePath );
 			$pageText = self::getMapHowToText( $imageFileName );
-			if ( !UploadLocalFile::upload( $imageFileName, $imageFilePath, $user, $comment, $pageText, $watch, $removeTempFile ) ) {
-				wfDebug( __METHOD__ . ": upload failed for $imageFileName\n" );
-				if ( file_exists( $imageFilePath ) ) {
-					wfDebug( __METHOD__ . ": unlinking $imageFilePath\n" );
-					unlink( $imageFilePath );
+
+			$imageTitle = Title::newFromText( $imageFileName, NS_FILE );
+			if ( !$imageTitle->exists() ) {
+				if ( !UploadLocalFile::upload( $imageFileName, $imageFilePath, $user, $comment, $pageText, $watch, $removeTempFile ) ) {
+					wfDebug( __METHOD__ . ": upload failed for $imageFileName\n" );
+					if ( file_exists( $imageFilePath ) ) {
+						wfDebug( __METHOD__ . ": unlinking $imageFilePath\n" );
+						unlink( $imageFilePath );
+					}
+					$graphName = pathinfo( $imageFilePath, PATHINFO_FILENAME );
+					self::deleteGraphFiles( $graphName, self::getSourceAndMapDir() );
+					$errorText .= wfMessage( 'graphviz-uploaderror', $imageFileName )->text() . "\n";
+				} else {
+					wfDebug( __METHOD__ . ": uploaded $imageFilePath\n" );
+					$uploaded++;
 				}
-				$graphName = pathinfo( $imageFilePath, PATHINFO_FILENAME );
-				self::deleteGraphFiles( $graphName, self::getSourceAndMapDir() );
-				$errorText .= wfMessage( 'graphviz-uploaderror', $imageFileName )->text() . "\n";
 			} else {
+				// The upload for this title has already occured in GraphViz::render
+				// but the page text and comment have not been updated yet so do it now.
+				unlink( $imageFilePath );
+				$wikiPage = new WikiFilePage( $imageTitle );
+
+				$oldVersion = version_compare( $GLOBALS['wgVersion'], '1.21', '<' );
+				if ( $oldVersion ) {
+					// Do stuff for MediaWiki 1.20 and older
+					$status = $wikiPage->doEdit( $pageText, $comment, EDIT_UPDATE | EDIT_SUPPRESS_RC, false, $user );
+				} else {
+					// Do stuff for MediaWiki 1.21 and newer
+					$content = ContentHandler::makeContent( $pageText, $imageTitle );
+					$status = $wikiPage->doEditContent( $content, $comment, EDIT_UPDATE | EDIT_SUPPRESS_RC, false, $user );
+				}
+				wfDebug( __METHOD__ . ": updated file page for $imageFilePath\n" );
+
+				// Go ahead and count this as an upload since it has been done.
 				$uploaded++;
 			}
 		}
-
 		wfDebug( __METHOD__ . ": uploaded $uploaded files for article: $titleText\n" );
 
 		return $uploaded;
@@ -362,19 +517,24 @@ class GraphViz {
 	 * @author Keith Welter
 	 */
 	public static function onPageContentSaveComplete( $wikiPage, $user, $content, $summary, $isMinor, $isWatch, $section, $flags, $revision, $status, $baseRevId ) {
-		$titleText = $wikiPage->getTitle()->getFulltext();
-		return self::onTitleSaveComplete( $titleText );
+		$title = $wikiPage->getTitle();
+		return self::onTitleSaveComplete( $title );
 	}
 
 	/**
-	 * Function to clean-up when a page with the given title is done being saved.  
-	 * Firstly, this function invokes deleteInactiveFiles() to delete inactive 
-	 * graph files associated with a page when it is done being saved.  Lastly, 
-	 * this function removes the record that the page is being saved as well as 
+	 * Function to clean-up when a page with the given title is done being saved.
+	 * Firstly, this function invokes uploadImagesForTitle() to upload any graph
+	 * images newly created for the given title.
+	 * Secondly, this function invokes deleteInactiveFiles() to delete inactive
+	 * graph files associated with a page when it is done being saved.  Lastly,
+	 * this function removes the record that the page is being saved as well as
 	 * the list of active files for the page.
 	 * @author Keith Welter
 	 */
-	public static function onTitleSaveComplete( $titleText ) {
+	public static function onTitleSaveComplete( $title ) {
+		global $wgUser;
+		$titleText = $title->getFulltext();
+		self::uploadImagesForTitle( $title, $wgUser );
 		self::deleteInactiveFiles( $titleText );
 		wfDebug( __METHOD__ . ": done saving: $titleText\n" );
 		unset( self::$titlesBeingSaved[$titleText] );
@@ -386,8 +546,8 @@ class GraphViz {
 	 * @author Keith Welter
 	 */
 	public static function onArticleSaveComplete( &$article, &$user, $text, $summary, $minoredit, $watchthis, $sectionanchor, &$flags, $revision, &$status, $baseRevId ) {
-		$titleText = $article->getTitle()->getFulltext();
-		return self::onTitleSaveComplete( $titleText );
+		$title = $article->getTitle();
+		return self::onTitleSaveComplete( $title );
 	}
 
 	/**
@@ -589,12 +749,14 @@ class GraphViz {
 	 * among those supported for the graph language.  @ref Files.
 	 *
 	 * @param[in] Parser $parser
+	 * @param[in] boolean $isDummy indicates whether the input represents the source for
+	 * a dummy graph image (see GraphViz::createDummyImageFilePage).
 	 *
 	 * @return string HTML of a graph image and optional map or an HTML error message.
 	 *
 	 * @author Keith Welter et al.
 	 */
-	protected static function render( $input, $args, $parser )
+	protected static function render( $input, $args, $parser, $isDummy = false )
 	{
 		global
 		$wgUser,
@@ -611,11 +773,15 @@ class GraphViz {
 			return self::i18nErrorMessageHTML( 'graphviz-no-imagemap-class' );
 		}
 
-		// get title object from parser...
+		// get title text
 		$title = $parser->getTitle();
-
-		// ...and the corresponding text.
-		$titleText = $title->getFulltext();
+		if ( $isDummy ) {
+			$titleText = "File";
+		} else if ( $title ) {
+			$titleText = $title->getFulltext();
+		} else {
+			$titleText = "";
+		}
 
 		// begin the graphName with the article title text...
 		$graphName = $titleText;
@@ -677,7 +843,12 @@ class GraphViz {
 
 		// initialize context variables
 		$saving = false;
-		$isPreview = $parser->getOptions()->getIsPreview();
+		$isPreview = false;
+		$parserOptions = $parser->getOptions();
+
+		if ( $parserOptions ) {
+			$isPreview = $parserOptions->getIsPreview();
+		}
 
 		if ( !$isPreview ) {
 			$saving = self::saving( $titleText );
@@ -713,16 +884,23 @@ class GraphViz {
 		}
 		wfDebug( __METHOD__ . ": sourceChanged: $sourceChanged\n" );
 
+		$imageFileName = $graphParms->getImageFileName( $isPreview );
+		$imageFilePath = $graphParms->getImagePath( $isPreview );
+		$uploaded = false;
+		$usedDummy = false;
+
 		// generate image and map files only if the graph source changed or the image or map files do not exist
-		if ( $sourceChanged || !$imageExists || !$mapExists ) {
+		if ( $isDummy || $sourceChanged || !$imageExists || !$mapExists ) {
 			// first, check if the user is allowed to upload the image
 			if ( !UploadLocalFile::isUploadAllowedForUser( $user, $errorText ) ) {
+				wfDebug( __METHOD__ . ": $errorText\n" );
 				return self::errorHTML( $errorText );
 			}
 
 			// if the source changed, update it on disk
 			if ( $sourceChanged ) {
 				if ( !self::updateSource( $graphParms->getSourcePath( $isPreview ), $input, $errorText ) ) {
+					wfDebug( __METHOD__ . ": $errorText\n" );
 					self::deleteFiles( $graphParms, $isPreview, false );
 					return self::errorHTML( $errorText );
 				}
@@ -731,6 +909,7 @@ class GraphViz {
 			// execute the image creation command
 			if ( !self::executeCommand( $graphParms->getImageCommand( $isPreview ), $errorText ) )
 			{
+				wfDebug( __METHOD__ . ": $errorText\n" );
 				self::deleteFiles( $graphParms, $isPreview, false );
 
 				// remove path info from the errorText
@@ -742,12 +921,13 @@ class GraphViz {
 			// check if the upload is allowed for the intended title (the image file must exist prior to this check)
 			if ( !UploadLocalFile::isUploadAllowedForTitle(
 				$user,
-				$graphParms->getImageFileName( $isPreview ),
-				$graphParms->getImagePath( $isPreview ),
+				$imageFileName,
+				$imageFilePath,
 				false,
-				$parser->getFunctionLang(),
+				wfGetLangObj(),
 				$errorText ) )
 			{
+				wfDebug( __METHOD__ . ": $errorText\n" );
 				self::deleteFiles( $graphParms, $isPreview, false );
 				return self::errorHTML( $errorText );
 			}
@@ -755,6 +935,7 @@ class GraphViz {
 			// execute the map creation command
 			if ( !self::executeCommand( $graphParms->getMapCommand( $isPreview ), $errorText ) )
 			{
+				wfDebug( __METHOD__ . ": $errorText\n" );
 				self::deleteFiles( $graphParms, $isPreview, false );
 
 				// remove path info from the errorText (file base names are allowed to pass)
@@ -765,6 +946,7 @@ class GraphViz {
 
 			// normalize the map file contents
 			if ( !self::normalizeMapFileContents( $graphParms->getMapPath( $isPreview ), $graphParms->getRenderer(), $errorText ) ) {
+				wfDebug( __METHOD__ . ": $errorText\n" );
 				self::deleteFiles( $graphParms, $isPreview, false );
 				return self::errorHTML( $errorText );
 			}
@@ -774,15 +956,92 @@ class GraphViz {
 				self::recordActiveFile( $titleText, $graphParms->getMapPath( $isPreview ) );
 			}
 
-			// bail-out (can't upload while parsing... that would lead to an illegal recursive call to Parser::parse)
-			return wfMessage( 'graphviz-reload' )->escaped();
+			$imageTitle = Title::newFromText( $imageFileName, NS_FILE );
+			$imageTitleText = $imageTitle->getText();
+			$dummyFilePath = self::getImageDir() . self::IMAGE_DUMMY . '.' . $imageType;
+
+			// decide whether to upload the graph image on top of a dummy or
+			// on top of an existing file page for the graph (or neither)
+			if ( !$imageTitle->exists() ) {
+				// there is no image page for the graph yet so try to use a dummy
+				wfDebug( __METHOD__ . ": $imageTitleText does not exist\n" );
+
+				if ( $dummyFilePath != $imageFilePath) {
+					$dummyFileName = basename( $dummyFilePath );
+					$dummyTitle = Title::newFromText( $dummyFileName, NS_FILE );
+
+					if ( $dummyTitle->exists() ) {
+						if ( self::titleHasMultipleRevisions( $dummyTitle ) ) {
+							// the dummy file page exists but has already been used so we must bail out
+							$dummyTitleText = $dummyTitle->getText();
+							wfDebug( __METHOD__ . ": $dummyTitleText has multiple revisions\n" );
+							return wfMessage( 'graphviz-reload' )->escaped();
+						} else {
+							// the dummy file page exists and has not been copied over yet... use it now!
+							wfDebug( __METHOD__ . ": copying $imageFilePath to $dummyFilePath\n" );
+							copy( $imageFilePath, $dummyFilePath );
+							$imageFilePath = $dummyFilePath;
+							$imageFileName = basename( $imageFilePath );
+							$usedDummy = true;
+						}
+					} else {
+						// the dummy file page does not exist (unexpected) so we must bail out
+						$dummyTitleText = $dummyTitle->getText();
+						wfDebug( __METHOD__ . ": $dummyTitleText does not exist\n" );
+						return wfMessage( 'graphviz-reload' )->escaped();
+					}
+				}
+			} else {
+				wfDebug( __METHOD__ . ": $imageTitleText exists\n" );
+				if ( $dummyFilePath == $imageFilePath) { //SNO
+					return;
+				}
+			}
+
+			// prepare to upload
+			$pageText = "";
+			$comment = "";
+			$watch = false;
+			$removeTempFile = true;
+
+			// Upload the graph image.
+			// We can only do this here when a file page already exists for the given image.
+			// Otherwise, file page creation triggers parsing of the page text and comment
+			// resulting in an illegal recursive parse and an exception (StripState invalid marker).
+			// The exception is not even thrown on a path that this extension can wrap try/catch logic around.
+			// So we must really jump through hoops to accomplish file uploads in this context.
+			if ( !UploadLocalFile::upload( $imageFileName, $imageFilePath, $user, $comment, $pageText, $watch, $removeTempFile ) ) {
+				wfDebug( __METHOD__ . ": upload failed for $imageFileName\n" );
+				if ( file_exists( $imageFilePath ) ) {
+					wfDebug( __METHOD__ . ": unlinking $imageFilePath\n" );
+					unlink( $imageFilePath );
+				}
+				$graphName = pathinfo( $imageFilePath, PATHINFO_FILENAME );
+				self::deleteGraphFiles( $graphName, self::getSourceAndMapDir() );
+				return wfMessage( 'graphviz-reload' )->escaped();
+			} else {
+				wfDebug( __METHOD__ . ": uploaded $imageFilePath\n" );
+				$uploaded = true;
+				touch( $imageFilePath );
+			}
+		}
+
+		// If rendering a dummy graph image just return without producing HTML.
+		if ( $isDummy ) {
+			return;
 		}
 
 		// get the map file contents
 		$mapContents = self::getMapContents( $graphParms->getMapPath( $isPreview ) );
 
+		// If an upload was done using a dummy then set the ImageMap desc parameter to none.
+		// Otherwise, the image would contain a link to the dummy graph image file page.
+		if ( $uploaded && $usedDummy ) {
+			$args['desc'] = "none";
+		}
+
 		// generate the input for the ImageMap renderer
-		$imageMapInput = self::generateImageMapInput( $args, $graphParms->getImageFileName( $isPreview ), $mapContents );
+		$imageMapInput = self::generateImageMapInput( $args, $imageFileName, $mapContents );
 
 		// render the image map (image must be uploaded first)
 		$imageMapOutput = ImageMap::render( $imageMapInput, null, $parser );
@@ -790,6 +1049,12 @@ class GraphViz {
 		if ( $saving ) {
 			self::recordActiveFile( $titleText, $graphParms->getSourcePath( $isPreview ) );
 			self::recordActiveFile( $titleText, $graphParms->getMapPath( $isPreview ) );
+		}
+
+		// purge the page if an upload was successful so that active images may be displayed
+		if ( $title && $uploaded ) {
+			$wikiPage = WikiPage::factory( $title );
+			$wikiPage->doPurge();
 		}
 
 		// return the rendered HTML
@@ -987,7 +1252,7 @@ class GraphViz {
 	 * -# shape name
 	 * -# coordinates
 	 * -# link in one of the following forms:
-	 *   - [[Page title]] 
+	 *   - [[Page title]]
 	 *   - [[Page title|description]]
 	 *   - [URL]
 	 *   - [URL description]

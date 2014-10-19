@@ -33,7 +33,7 @@
 
 if ( !defined( 'MEDIAWIKI' ) ) die();
 
-define( 'GraphViz_VERSION', '1.3.1' );
+define( 'GraphViz_VERSION', '1.4.0' );
 
 /**
  * The GraphViz settings class.
@@ -101,10 +101,12 @@ call_user_func( function() {
 		# Do stuff for MediaWiki 1.20 and older
 		$GLOBALS['wgHooks']['ArticleSave'][] = 'GraphViz::onArticleSave';
 		$GLOBALS['wgHooks']['ArticleSaveComplete'][] = 'GraphViz::onArticleSaveComplete';
+		$GLOBALS['wgHooks']['EditPageGetPreviewText'][] = 'GraphViz::onEditPageGetPreviewText';
 	} else {
 		# Do stuff for MediaWiki 1.21 and newer
 		$GLOBALS['wgHooks']['PageContentSave'][] = 'GraphViz::onPageContentSave';
 		$GLOBALS['wgHooks']['PageContentSaveComplete'][] = 'GraphViz::onPageContentSaveComplete';
+		$GLOBALS['wgHooks']['EditPageGetPreviewContent'][] = 'GraphViz::onEditPageGetPreviewContent';
 	}
 
 	$GLOBALS['wgExtensionCredits']['parserhook'][] = array(

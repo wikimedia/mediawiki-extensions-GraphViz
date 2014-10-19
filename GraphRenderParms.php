@@ -46,7 +46,7 @@ class GraphRenderParms {
 	 * @see http://www.graphviz.org/doc/info/output.html
 	 * @var array $supportedDotImageTypes
 	 */
-	private static $supportedDotImageTypes = array(
+	public static $supportedDotImageTypes = array(
 		'gif',
 		'jpg',
 		'jpeg',

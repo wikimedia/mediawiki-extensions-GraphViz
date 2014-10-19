@@ -224,9 +224,8 @@ class UploadLocalFile {
 	 * @param[in] string|null $pageText text to use for the description page or null to keep the text of an existing page.
 	 * @param[in] bool $watch indicates whether or not to make the user watch the new page.
 	 * @param[in] bool $removeLocalFile remove the local file?
-	 * @param[out] Status $status contains the result of the upload operation.
 	 *
-	 * @return bool true if the upload success, false if it fails.
+	 * @return bool true if the upload succeeds, false if it fails.
 	 */
 	static function upload( $desiredDestName, $localPath, $user, $comment, $pageText, $watch, $removeLocalFile ) {
 		// Initialize path info
@@ -235,7 +234,6 @@ class UploadLocalFile {
 		$upload->initializePathInfo( $desiredDestName, $localPath, $fileSize, $removeLocalFile );
 
 		$title = $upload->getTitle();
-		$exists = $title->exists();
 
 		$status = $upload->performUpload( $comment, $pageText, $watch, $user );
 		if ( !$status->isGood() ) {
@@ -243,20 +241,6 @@ class UploadLocalFile {
 		}
 
 		RepoGroup::singleton()->clearCache( $title );
-
-		if ( $exists && isset( $pageText ) ) {
-			$wikiPage = new WikiFilePage( $title );
-
-			$oldVersion = version_compare( $GLOBALS['wgVersion'], '1.21', '<' );
-			if ( $oldVersion ) {
-				# Do stuff for MediaWiki 1.20 and older
-				$status = $wikiPage->doEdit( $pageText, $comment, EDIT_UPDATE | EDIT_SUPPRESS_RC, false, $user );
-			} else {
-				# Do stuff for MediaWiki 1.21 and newer
-				$content = ContentHandler::makeContent( $pageText, $title );
-				$status = $wikiPage->doEditContent( $content, $comment, EDIT_UPDATE | EDIT_SUPPRESS_RC, false, $user );
-			}
-		}
 
 		return true;
 	}
