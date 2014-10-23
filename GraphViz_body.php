@@ -271,8 +271,9 @@ class GraphViz {
 	public static function createDummyImageFilePage( Parser &$parser, $imageType ) {
 		$input = "graph GraphVizExtensionDummy { GraphViz }";
 		$args['format'] = $imageType;
+		$frame = false;
 		$isDummy = true;
-		self::render( $input, $args, $parser, $isDummy );
+		self::render( $input, $args, $parser, $frame, $isDummy );
 	}
 
 	/**
@@ -606,10 +607,10 @@ class GraphViz {
 	 * @see http://www.mcternan.me.uk/mscgen/
 	 * @author Matthew Pearson
 	 */
-	public static function mscgenParserHook( $input, $args, $parser )
+	public static function mscgenParserHook( $input, $args, $parser, $frame )
 	{
 		$args['renderer'] = self::$graphLanguages[self::MSCGEN];
-		return self::render( $input, $args, $parser );
+		return self::render( $input, $args, $parser, $frame );
 	}
 
 	/**
@@ -619,7 +620,7 @@ class GraphViz {
 	 * @see http://www.graphviz.org/content/dot-language
 	 * @author Thomas Hummel
 	 */
-	public static function graphvizParserHook( $input, $args, $parser )
+	public static function graphvizParserHook( $input, $args, $parser, $frame )
 	{
 		if ( isset( $args['renderer'] ) ) {
 			switch( $args['renderer'] ) {
@@ -637,7 +638,7 @@ class GraphViz {
 			$args['renderer'] = self::$graphLanguages[self::GRAPHVIZ];
 		}
 
-		return self::render( $input, $args, $parser );
+		return self::render( $input, $args, $parser, $frame );
 	}
 
 	/**
@@ -756,7 +757,7 @@ class GraphViz {
 	 *
 	 * @author Keith Welter et al.
 	 */
-	protected static function render( $input, $args, $parser, $isDummy = false )
+	protected static function render( $input, $args, $parser, $frame, $isDummy = false )
 	{
 		global
 		$wgUser,
@@ -833,14 +834,6 @@ class GraphViz {
 		// instantiate an object to hold the graph rendering parameters
 		$graphParms = new GraphRenderParms( $renderer, $graphName, $userName, $imageType, $sourceAndMapDir, $imageDir );
 
-		$errorText = "";
-		// if the input is in the dot language, sanitize it
-		if ( $graphParms->getRenderer() != self::$graphLanguages[self::MSCGEN] ) {
-			if ( !self::sanitizeDotInput( $input, $errorText ) ) {
-				return self::errorHTML( $errorText );
-			}
-		}
-
 		// initialize context variables
 		$saving = false;
 		$isPreview = false;
@@ -857,7 +850,41 @@ class GraphViz {
 				self::deleteFiles( $graphParms, true, true );
 			}
 		}
-		wfDebug( __METHOD__ . ": isPreview: $isPreview saving: $saving\n" );
+		wfDebug( __METHOD__ . ": isPreview: $isPreview saving: $saving isDummy: $isDummy\n" );
+
+		// determine whether or not to call recursiveTagParse
+		$doRecursiveTagParse = false;
+		$preParseType = "none";
+
+		if ( !$isDummy ) {
+			if ( isset( $args['preparse'] ) ) {
+				$preParseType = $args['preparse'];
+				if ( $preParseType == "dynamic" ) {
+					$doRecursiveTagParse = true;
+					$parser->disableCache();
+				} else if ( $preParseType == "static" ) {
+					if ( $saving || $isPreview ) {
+						$doRecursiveTagParse = true;
+					}
+				} else {
+					return self::i18nErrorMessageHTML( 'graphviz-unrecognized-preparse-value', $preParseType );
+				}
+			}
+		}
+		wfDebug( __METHOD__ . ": preParseType: $preParseType doRecursiveTagParse: $doRecursiveTagParse\n" );
+
+		// call recursiveTagParse if appropriate
+		if ( $doRecursiveTagParse ) {
+			$input = $parser->recursiveTagParse( $input, $frame );
+		}
+
+		$errorText = "";
+		// if the input is in the dot language, sanitize it
+		if ( $graphParms->getRenderer() != self::$graphLanguages[self::MSCGEN] ) {
+			if ( !self::sanitizeDotInput( $input, $errorText ) ) {
+				return self::errorHTML( $errorText );
+			}
+		}
 
 		// determine if the image to render exists
 		$imageExists = UploadLocalFile::getUploadedFile( $graphParms->getImageFileName( $isPreview ) ) ? true : false;
@@ -876,8 +903,9 @@ class GraphViz {
 		// - the wiki text is being saved or
 		// - an edit of the wiki text is being previewed or
 		// - the graph image or map file does not exist
+		// - doing recursiveTagParse
 		$sourceChanged = false;
-		if ( $saving || $isPreview || !$imageExists || !$mapExists ) {
+		if ( $saving || $isPreview || !$imageExists || !$mapExists || $doRecursiveTagParse ) {
 			if ( !self::isSourceChanged( $graphParms->getSourcePath( $isPreview ), $input, $sourceChanged, $errorText ) ) {
 				return self::errorHTML( $errorText );
 			}

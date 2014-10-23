@@ -23,5 +23,6 @@
 	"graphviz-read-only": "Used as error message.",
 	"graphviz-uploaderror": "Used as error message.",
 	"graphviz-upload-comment": "Comment supplied for an image uploaded by the extension.  Parameters:\n* $1 - article title",
+	"graphviz-unrecognized-preparse-value": "Used as error message.  Parameters:\n* $1 - attribute name",
 	"graphviz-map-desc": "Do not translate the tags <code><nowiki></code>, <code><imagemap></code>, <code></imagemap></code> or <code></nowiki></code>.  Parameters:\n* $1 - image file name\n* $2 - image map shape, coordinates and URL (0 or more lines)"
 }
