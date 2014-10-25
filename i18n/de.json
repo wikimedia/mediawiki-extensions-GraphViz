@@ -23,5 +23,6 @@
 	"graphviz-read-only": "Das Erstellen von Grafikbildern ist nicht möglich, da das Wiki in den Nur-Lese-Modus versetzt wurde.",
 	"graphviz-uploaderror": "Das Hochladen des Grafikbildes für die Datei „$1“ ist gescheitert",
 	"graphviz-upload-comment": "generiert von der Erweiterung „[[Special:Version#Installed_extensions|GraphViz]]“ von der Seite [[$1]]",
+	"graphviz-unrecognized-preparse-value": "Der vorgeparste Wert „$1“ wurde nicht erkannt.",
 	"graphviz-map-desc": "= ImageMap =\nVerwende beim Einbinden dieses Bildes in eine Wikiseite den folgenden Code, um Links zu ermöglichen:\n <nowiki>\n<imagemap>\nDatei:$1\n$2</imagemap>\n</nowiki>\nSiehe [https://www.mediawiki.org/wiki/Extension:ImageMap ImageMap] für weitere Informationen."
 }
