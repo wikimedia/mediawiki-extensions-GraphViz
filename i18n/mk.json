@@ -22,5 +22,6 @@
 	"graphviz-read-only": "Создавањето на графиконски слики не е дозволено бидејќи викито е во неуредувачки (читачки) режим.",
 	"graphviz-uploaderror": "Подигањето на податотеката за графиконската слика не успеа: $1",
 	"graphviz-upload-comment": "исцртано со [[Special:Version#Installed_extensions|додатокот]] GraphViz од страницата [[$1]]",
+	"graphviz-unrecognized-preparse-value": "Предразложената вредност „$1“ не е препознаена.",
 	"graphviz-map-desc": "= ImageMap =\nКога сакате да ја ставите сликава во викистраница, послужете се со следниве викиознаки за да овозможите врски:\n <nowiki>\n<imagemap>\nПодатотека:$1\n$2</imagemap>\n</nowiki>\nПовеќе информации ќе најдете на [https://www.mediawiki.org/wiki/Extension:ImageMap ImageMap]."
 }
