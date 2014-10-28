@@ -159,12 +159,16 @@ class GraphRenderParms {
 		return $this->getGraphName( $userSpecific ) . '.src';
 	}
 
+	public function getImageBaseName( $userSpecific ) {
+		return $this->getGraphName( $userSpecific ) . '_' . $this->getRenderer();
+	}
+
 	public function getImageFileName( $userSpecific ) {
-		return $this->getGraphName( $userSpecific ) . '.' . $this->imageType;
+		return $this->getImageBaseName( $userSpecific ) . '.' . $this->imageType;
 	}
 
 	public function getMapFileName( $userSpecific ) {
-		return $this->getGraphName( $userSpecific ) . '.map';
+		return $this->getImageBaseName( $userSpecific ) . '.map';
 	}
 
 	public function getSourcePath( $userSpecific ) {

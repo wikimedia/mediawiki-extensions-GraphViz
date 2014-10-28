@@ -104,7 +104,7 @@ class GraphViz {
 	 *
 	 * @var string IMAGE_DUMMY
 	 */
-	const IMAGE_DUMMY = "File_graph_GraphVizExtensionDummy";
+	const IMAGE_DUMMY = "File_graph_GraphVizExtensionDummy_dot";
 
 	/**
 	 * Used as an array key in GraphViz::$graphTypes and other arrays.
@@ -121,6 +121,27 @@ class GraphViz {
 	 * @var integer MSCGEN
 	 */
 	const MSCGEN = 1;
+
+	/**
+	 * The name of the root category containing pages created by this extension.
+	 *
+	 * @var integer ROOT_CATEGORY
+	 */
+	const ROOT_CATEGORY = "GraphViz";
+
+	/**
+	 * Subcategories of pages created by this extension.
+	 * @var array $subCategories
+	 */
+	private static $subCategories = array(
+		'mscgen',
+		'dot',
+		'neato',
+		'fdp',
+		'sfdp',
+		'circo',
+		'twopi'
+	);
 
 	/**
 	 * A list of dot attributes that are forbidden.
@@ -260,6 +281,50 @@ class GraphViz {
 	}
 
 	/**
+	 * Create a category page for GraphViz::ROOT_CATEGORY and subcategory pages for GraphViz::$subCategories.
+	 * @author Keith Welter
+	 */
+	public static function createCategoryPages() {
+		$rootCategoryName = self::ROOT_CATEGORY;
+		$rootCategoryDesc = wfMessage( 'graphviz-category-desc', "[[:Category:$rootCategoryName]]" )->text();
+		self::createCategoryPage( $rootCategoryName, $rootCategoryDesc, "" );
+
+		foreach( self::$subCategories as $subCategory ) {
+			$subCategoryName = $rootCategoryName . ' ' . $subCategory;
+			$subCategoryDesc = wfMessage( 'graphviz-subcategory-desc', "[[:Category:$subCategoryName]]", $subCategory )->text();
+			$subCategoryDesc .= "[[Category:$rootCategoryName]]";
+			self::createCategoryPage( $subCategoryName, $subCategoryDesc, "" );
+		}
+	}
+
+	public static function getCategoryTags( $renderer ) {
+		$rootCategoryName = self::ROOT_CATEGORY;
+		return "[[Category:$rootCategoryName]][[Category:$rootCategoryName $renderer]]";
+	}
+
+	/**
+	 * Create a category page with the given name if it does not already exist.
+	 * @param[in] string $name is the name to use for the new category page.
+	 * @param[in] string $pageText is the page text to supply.
+	 * @param[in] string $comment is the comment to supply for the edit.
+	 * @author Keith Welter
+	 */
+	public static function createCategoryPage( $name, $pageText, $comment ) {
+		$title = Title::newFromText( "Category:" . $name );
+
+		if ( !$title->exists() ) {
+			$wikiPage = new WikiPage( $title );
+			$flags = EDIT_NEW;
+			$status = self::doEditContent( $wikiPage, $title, $pageText, $comment, $flags, null );
+			if ( $status->isOK() ) {
+				wfDebug( __METHOD__ . ": created category '$name'\n" );
+			} else {
+				wfDebug( __METHOD__ . ": create failed for category '$name'\n" );
+			}
+		}
+	}
+
+	/**
 	 * Create a dummy file page with a trivial graph image of the given image type.
 	 * New graph images of the same type may be uploaded on top of this dummy without
 	 * triggering any parser code.  This makes it possible to do graph image file
@@ -293,6 +358,8 @@ class GraphViz {
 	 * @return true
 	 */
 	public static function onParserInit( Parser &$parser ) {
+		self::createCategoryPages();
+
 		self::initDummyFilePages( $parser );
 
 		foreach ( self::$graphTypes as $graphType ) {
@@ -380,6 +447,44 @@ class GraphViz {
 	}
 
 	/**
+	 * Convenience function for creating or editing page text.
+	 *
+	 * @param[in] WikiPage $wikiPage is the wiki page to create or edit.
+	 * @param[in] string $title is the title of the wiki page to create or edit.
+	 * @param[in] string $pageText is the page text to supply.
+	 * @param[in] string $comment is the comment to supply for the edit.
+	 * @param[in] integer $flags see the WikiPage::doEditContent flags documentation
+	 * @param[in] User $user is the user on behalf of whom the edit is recorded.
+	 *
+	 * @return Status.
+	 *
+	 * @author Keith Welter
+	 */
+	public static function doEditContent( $wikiPage, $title, $pageText, $comment, $flags, $user ) {
+		$status = Status::newGood();
+
+		$oldVersion = version_compare( $GLOBALS['wgVersion'], '1.21', '<' );
+		if ( $oldVersion ) {
+			// Do stuff for MediaWiki 1.20 and older
+			$status = $wikiPage->doEdit( $pageText, $comment, $flags, false, $user );
+		} else {
+			// Do stuff for MediaWiki 1.21 and newer
+			$content = ContentHandler::makeContent( $pageText, $title );
+			$status = $wikiPage->doEditContent( $content, $comment, $flags, false, $user );
+		}
+
+		return $status;
+	}
+
+	public static function getRendererFromImageFileName( $imageFileName ) {
+		$renderer = strrev( $imageFileName );
+		$renderer = substr( $renderer, 0, strpos( $renderer, '_' ) );
+		$renderer = strrev( $renderer );
+		wfDebug( __METHOD__ . ": imageFileName: $imageFileName renderer: $renderer\n" );
+		return $renderer;
+	}
+
+	/**
 	 * Upload a list of graph images for a wiki page with the given title text.
 	 *
 	 * @param[in] string $titleText is the title text of the wiki page.
@@ -400,7 +505,8 @@ class GraphViz {
 		foreach ( $imageFilePaths as $imageFilePath ) {
 			wfDebug( __METHOD__ . ": uploading $imageFilePath\n" );
 			$imageFileName = basename( $imageFilePath );
-			$pageText = self::getMapHowToText( $imageFileName );
+			$renderer = self::getRendererFromImageFileName( pathinfo ( $imageFilePath, PATHINFO_FILENAME ) );
+			$pageText = self::getMapHowToText( $imageFileName ) . self::getCategoryTags( $renderer );
 
 			$imageTitle = Title::newFromText( $imageFileName, NS_FILE );
 			if ( !$imageTitle->exists() ) {
@@ -421,17 +527,10 @@ class GraphViz {
 				// The upload for this title has already occured in GraphViz::render
 				// but the page text and comment have not been updated yet so do it now.
 				unlink( $imageFilePath );
-				$wikiPage = new WikiFilePage( $imageTitle );
 
-				$oldVersion = version_compare( $GLOBALS['wgVersion'], '1.21', '<' );
-				if ( $oldVersion ) {
-					// Do stuff for MediaWiki 1.20 and older
-					$status = $wikiPage->doEdit( $pageText, $comment, EDIT_UPDATE | EDIT_SUPPRESS_RC, false, $user );
-				} else {
-					// Do stuff for MediaWiki 1.21 and newer
-					$content = ContentHandler::makeContent( $pageText, $imageTitle );
-					$status = $wikiPage->doEditContent( $content, $comment, EDIT_UPDATE | EDIT_SUPPRESS_RC, false, $user );
-				}
+				$wikiPage = new WikiFilePage( $imageTitle );
+				$flags = EDIT_UPDATE | EDIT_SUPPRESS_RC;
+				self::doEditContent( $wikiPage, $imageTitle, $pageText, $comment, $flags, $user );
 				wfDebug( __METHOD__ . ": updated file page for $imageFilePath\n" );
 
 				// Go ahead and count this as an upload since it has been done.
@@ -1027,8 +1126,8 @@ class GraphViz {
 			}
 
 			// prepare to upload
-			$pageText = "";
-			$comment = "";
+			$pageText = self::getCategoryTags( $renderer );
+			$comment = wfMessage( 'graphviz-upload-comment', $titleText )->text();
 			$watch = false;
 			$removeTempFile = true;
 
@@ -1246,9 +1345,15 @@ class GraphViz {
 		$graphParms->deleteFiles( $isPreview );
 
 		if ( $deleteUploads ) {
-			$imageFile = UploadLocalFile::getUploadedFile( $graphParms->getImageFileName( $isPreview ) );
+			$imageFileName = $graphParms->getImageFileName( $isPreview );
+			$imageFile = UploadLocalFile::getUploadedFile( $imageFileName );
 			if ( $imageFile ) {
 				$imageFile->delete( wfMessage( 'graphviz-delete-reason' )->text() );
+
+				$imageTitle = Title::newFromText( $imageFileName, NS_FILE );
+				if ( $imageTitle->exists() ) {
+					self::deleteFilePage( $imageTitle );
+				}
 			}
 		}
 	}
