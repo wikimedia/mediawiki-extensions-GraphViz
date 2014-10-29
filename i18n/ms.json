@@ -1,0 +1,9 @@
+{
+	"@metadata": {
+		"authors": [
+			"Anakmalaysia"
+		]
+	},
+	"graphviz-category-desc": "$1 mengandungi laman-laman yang dihasilkan oleh sambungan GraphViz.",
+	"graphviz-subcategory-desc": "$1 mengandungi laman-laman yang dicipta dengan menggunakan perintah $2."
+}
