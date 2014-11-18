@@ -201,6 +201,55 @@ class GraphViz {
 	private static $titlesBeingSaved = array();
 
 	/**
+	 * A variable for temporarily holding a copy of GLOBALS['wgHooks'].
+	 * @var $disabledHooks
+	 */
+	private static $disabledHooks = null;
+
+	/**
+	 * Disable all hook functions (GLOBALS['wgHooks']).
+	 * @author Keith Welter
+	 * @return true upon success, false upon failure.
+	 */
+	protected static function disableHooks() {
+		if ( isset( $GLOBALS['wgHooks'] ) ) {
+			if ( isset( self::$disabledHooks ) ) {
+				wfDebug( __METHOD__ . ": hooks already disabled\n" );
+			} else {
+				self::$disabledHooks = $GLOBALS['wgHooks'];
+				$GLOBALS['wgHooks'] = null;
+				wfDebug( __METHOD__ . ": hooks disabled\n" );
+				return true;
+			}
+		} else {
+			wfDebug( __METHOD__ . ": hooks not set\n" );
+		}
+		return false;
+	}
+
+	/**
+	 * Re-enable all hook functions (GLOBALS['wgHooks']).
+	 * Must be called after GraphViz::disableHooks.
+	 * @author Keith Welter
+	 * @return true upon success, false upon failure.
+	 */
+	protected static function enableHooks() {
+		if ( isset( self::$disabledHooks ) ) {
+			if ( isset( $GLOBALS['wgHooks'] ) ) {
+				wfDebug( __METHOD__ . ": hooks are already set - aborting\n" );
+			} else {
+				$GLOBALS['wgHooks'] = self::$disabledHooks;
+				self::$disabledHooks = null;
+				wfDebug( __METHOD__ . ": hooks enabled\n" );
+				return true;
+			}
+		} else {
+			wfDebug( __METHOD__ . ": hooks not disabled\n" );
+		}
+		return false;
+	}
+
+	/**
 	 * @return string regular expression for matching an image attribute in the DOT language.
 	 *
 	 * @see http://www.graphviz.org/content/attrs#dimage
@@ -1131,6 +1180,11 @@ class GraphViz {
 			$watch = false;
 			$removeTempFile = true;
 
+			// prevent recusive call to Parser::parse (see bug 73073).
+			if ( !self::disableHooks() ) {
+				return wfMessage( 'graphviz-reload' )->escaped();
+			}
+
 			// Upload the graph image.
 			// We can only do this here when a file page already exists for the given image.
 			// Otherwise, file page creation triggers parsing of the page text and comment
@@ -1150,6 +1204,10 @@ class GraphViz {
 				wfDebug( __METHOD__ . ": uploaded $imageFilePath\n" );
 				$uploaded = true;
 				touch( $imageFilePath );
+			}
+
+			if ( !self::enableHooks() ) {
+				throw new MWException( "failed to re-enable hooks" );
 			}
 		}
 
