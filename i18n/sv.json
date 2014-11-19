@@ -23,5 +23,8 @@
 	"graphviz-read-only": "Skapande av grafikbilder är inte tillåtet eftersom wikin är i skrivskyddat läge.",
 	"graphviz-uploaderror": "Uppladdning av grafikbild misslyckades för fil: $1",
 	"graphviz-upload-comment": "genererad av GraphViz-[[Special:Version#Installed_extensions|tillägget]] från [[$1]]-sidan",
+	"graphviz-unrecognized-preparse-value": "Det förtolkade värdet \"$1\" är okänt.",
+	"graphviz-category-desc": "$1 innehåller sidor som skapas av GraphViz-tillägget.",
+	"graphviz-subcategory-desc": "$1 innehåller sidor skapade med $2-kommandot.",
 	"graphviz-map-desc": "= ImageMap =\nNär denna bild ska inkluderas på en wikisida, använd följande uppmärkning för att aktivera länkar:\n <nowiki>\n<imagemap>\nFile:$1\n$2</imagemap>\n</nowiki>\nSe [https://www.mediawiki.org/wiki/Extension:ImageMap ImageMap] för mer information."
 }
