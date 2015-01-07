@@ -3,13 +3,14 @@
 		"authors": [
 			"Linforest",
 			"Liuxinyu970226",
-			"御坂美琴"
+			"御坂美琴",
+			"Yfdyh000"
 		]
 	},
 	"graphviz-desc": "允许内置 [http://www.graphviz.org Graphviz] 标记，并生成内嵌式图像",
 	"graphviz-reload": "图形图像来源已变更。请重新加载页面，以显示更新之后的图形图像。",
 	"graphviz-no-input": "丢失图表源。",
-	"graphviz-no-imagemap-class": "ImageMap拓展未安装。",
+	"graphviz-no-imagemap-class": "ImageMap扩展未安装。",
 	"graphviz-dot-invalid-image": "属性$1必须是已经上传文件的名称。",
 	"graphviz-dot-attr-forbidden": "禁止点$1属性。",
 	"graphviz-read-src-failed": "无法从文件系统中读取图形文本。",
