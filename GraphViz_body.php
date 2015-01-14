@@ -409,8 +409,6 @@ class GraphViz {
 	public static function onParserInit( Parser &$parser ) {
 		self::createCategoryPages();
 
-		self::initDummyFilePages( $parser );
-
 		foreach ( self::$graphTypes as $graphType ) {
 			$parser->setHook( self::$tags[$graphType] , array( __CLASS__, self::$parserHookFunctions[$graphType] ) );
 		}
@@ -639,6 +637,9 @@ class GraphViz {
 	 * @author Keith Welter
 	 */
 	public static function onTitleSave( $titleText ) {
+		global $wgParser;
+		self::initDummyFilePages( $wgParser );
+
 		self::$titlesBeingSaved[$titleText] = '';
 		wfDebug( __METHOD__ . ": saving: $titleText\n" );
 		return true;
