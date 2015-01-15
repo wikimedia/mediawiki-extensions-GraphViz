@@ -272,10 +272,15 @@ class GraphViz {
 	/**
 	 * Create dummy file pages for each image type supported by this extension.
 	 * @see GraphViz::createDummyImageFilePage
-	 * @param[in] Parser $parser
 	 * @author Keith Welter
 	 */
-	public static function initDummyFilePages( Parser &$parser ) {
+	public static function initDummyFilePages() {
+		global $wgParser;
+
+		if ( $wgParser instanceof StubObject ) {
+			$wgParser->_unstub();
+		}
+
 		foreach ( GraphRenderParms::$supportedDotImageTypes as $imageType ) {
 			if ( !self::imageTypeAllowed( $imageType ) ) {
 				wfDebug( __METHOD__ . ": skipping $imageType\n" );
@@ -287,12 +292,12 @@ class GraphViz {
 
 			if ( !$imageTitle->exists() ) {
 				wfDebug( __METHOD__ . ": file page for $imageFileName does not exist\n" );
-				self::createDummyImageFilePage( $parser, $imageType );
+				self::createDummyImageFilePage( $wgParser, $imageType );
 			} else if ( self::titleHasMultipleRevisions( $imageTitle ) ) {
 				wfDebug( __METHOD__ . ": file page for $imageFileName has multiple revisions\n" );
 				self::deleteFilePage( $imageTitle );
 
-				self::createDummyImageFilePage( $parser, $imageType );
+				self::createDummyImageFilePage( $wgParser, $imageType );
 			}
 		}
 	}
@@ -402,7 +407,6 @@ class GraphViz {
 
 	/**
 	 * Set parser hook functions for supported graph types.
-	 * Also, ensure initDummyFilePages() is be called before parsing the edit page.
 	 * @author Keith Welter
 	 * @return true
 	 */
@@ -421,10 +425,7 @@ class GraphViz {
 	 * @author Keith Welter
 	 */
 	public static function onEditPageGetPreviewContent( $editPage, &$content ) {
-		global $wgParser;
-		StubObject::unstub( $wgParser );
-		wfDebug( __METHOD__ . ": calling self::initDummyFilePages\n" );
-		self::initDummyFilePages( $wgParser );
+		self::initDummyFilePages();
 	}
 
 	/**
@@ -433,10 +434,7 @@ class GraphViz {
 	 * @author Keith Welter
 	 */
 	public static function onEditPageGetPreviewText( $editPage, &$toParse ) {
-		global $wgParser;
-		$wgParser->_unstub();
-		wfDebug( __METHOD__ . ": calling self::initDummyFilePages\n" );
-		self::initDummyFilePages( $wgParser );
+		self::initDummyFilePages();
 		return true;
 	}
 
@@ -634,12 +632,11 @@ class GraphViz {
 
 	/**
 	 * Function to record when a page with the given title is being saved.
+	 * Also, ensure initDummyFilePages() is called before parsing the page.
 	 * @author Keith Welter
 	 */
 	public static function onTitleSave( $titleText ) {
-		global $wgParser;
-		self::initDummyFilePages( $wgParser );
-
+		self::initDummyFilePages();
 		self::$titlesBeingSaved[$titleText] = '';
 		wfDebug( __METHOD__ . ": saving: $titleText\n" );
 		return true;
