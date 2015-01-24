@@ -1,7 +1,7 @@
 These are the release notes for the [MediaWiki][mediawiki] [GraphViz extension][gv_ext].
 
-## GraphViz 1.5.x ## (not released yet)
-* Fix for [bug 73073](https://bugzilla.wikimedia.org/show_bug.cgi?id=72325).
+## GraphViz 1.5.1 ## (2015-1-24)
+* Fix for [bug T75073](https://phabricator.wikimedia.org/T75073).
 
 ## GraphViz 1.5.0 ## (2014-10-28)
 * Add tag arguments preparse="dynamic" and preparse="static".
