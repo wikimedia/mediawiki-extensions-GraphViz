@@ -91,6 +91,7 @@ call_user_func( function() {
 	$GLOBALS['wgAutoloadClasses']['GraphViz'] = $dir . "GraphViz_body.php";
 	$GLOBALS['wgAutoloadClasses']['GraphRenderParms'] = $dir . "GraphRenderParms.php";
 	$GLOBALS['wgAutoloadClasses']['UploadLocalFile'] = $dir . "UploadLocalFile.php";
+	$GLOBALS['wgAutoloadClasses']['UploadFromLocalFile'] = $dir . "UploadLocalFile.php";
 	$GLOBALS['wgHooks']['ParserFirstCallInit'][] = 'GraphViz::onParserInit';
 	$GLOBALS['wgHooks']['OutputPageParserOutput'][] = 'GraphViz::onOutputPageParserOutput';
 	$GLOBALS['wgHooks']['ArticleDeleteComplete'][] = 'GraphViz::onArticleDeleteComplete';
