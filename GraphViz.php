@@ -33,7 +33,7 @@
 
 if ( !defined( 'MEDIAWIKI' ) ) die();
 
-define( 'GraphViz_VERSION', '1.5.1' );
+define( 'GraphViz_VERSION', '1.6.0' );
 
 /**
  * The GraphViz settings class.
@@ -67,23 +67,36 @@ class GraphVizSettings {
 	 * @var string $defaultImageType
 	 */
 	public $defaultImageType;
+
+	/**
+	 * Whether or not to automatically create category pages for images created by this extension.
+	 * yes|no (case insensitive). The default is no.
+	 *
+	 * @var string $createCategoryPages
+	 */
+	public $createCategoryPages;
+
+	/**
+	 * Constructor for setting configuration variable defaults.
+	 */
+	public function __construct() {
+		// Set execution path
+		if ( stristr( PHP_OS, 'WIN' ) && !stristr( PHP_OS, 'Darwin' ) ) {
+			$this->execPath = 'C:/Program Files/Graphviz/bin/';
+		} else {
+			$this->execPath = '/usr/bin/';
+		}
+
+		$this->mscgenPath = '';
+		$this->defaultImageType = 'png';
+		$this->createCategoryPages = 'no';
+	}
 };
 
 $GLOBALS['wgGraphVizSettings'] = new GraphVizSettings();
 
 //self executing anonymous function to prevent global scope assumptions
 call_user_func( function() {
-
-	// Set execution path
-	if ( stristr( PHP_OS, 'WIN' ) && !stristr( PHP_OS, 'Darwin' ) ) {
-		$GLOBALS['wgGraphVizSettings']->execPath = 'C:/Program Files/Graphviz/bin/';
-	} else {
-		$GLOBALS['wgGraphVizSettings']->execPath = '/usr/bin/';
-	}
-
-	$GLOBALS['wgGraphVizSettings']->mscgenPath = '';
-	$GLOBALS['wgGraphVizSettings']->defaultImageType = 'png';
-
 	$dir = __DIR__ . '/';
 
 	$GLOBALS['wgMessagesDirs']['GraphViz'] = $dir . 'i18n';

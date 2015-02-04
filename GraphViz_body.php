@@ -130,20 +130,6 @@ class GraphViz {
 	const ROOT_CATEGORY = "GraphViz";
 
 	/**
-	 * Subcategories of pages created by this extension.
-	 * @var array $subCategories
-	 */
-	private static $subCategories = array(
-		'mscgen',
-		'dot',
-		'neato',
-		'fdp',
-		'sfdp',
-		'circo',
-		'twopi'
-	);
-
-	/**
 	 * A list of dot attributes that are forbidden.
 	 * @see http://www.graphviz.org/content/attrs#dimagepath
 	 * @see http://www.graphviz.org/content/attrs#dshapefile
@@ -335,15 +321,18 @@ class GraphViz {
 	}
 
 	/**
-	 * Create a category page for GraphViz::ROOT_CATEGORY and subcategory pages for GraphViz::$subCategories.
+	 * Optionally create a category page for GraphViz::ROOT_CATEGORY and the given subcategory.
+	 * @param[in] string $subCategory is the same as the graph renderer.
 	 * @author Keith Welter
 	 */
-	public static function createCategoryPages() {
-		$rootCategoryName = self::ROOT_CATEGORY;
-		$rootCategoryDesc = wfMessage( 'graphviz-category-desc', "[[:Category:$rootCategoryName]]" )->text();
-		self::createCategoryPage( $rootCategoryName, $rootCategoryDesc, "" );
+	public static function optionallyCreateCategoryPage( $subCategory ) {
+		global $wgGraphVizSettings;
 
-		foreach( self::$subCategories as $subCategory ) {
+		if ( strcasecmp( $wgGraphVizSettings->createCategoryPages, 'yes' ) == 0 ) {
+			$rootCategoryName = self::ROOT_CATEGORY;
+			$rootCategoryDesc = wfMessage( 'graphviz-category-desc', "[[:Category:$rootCategoryName]]" )->text();
+			self::createCategoryPage( $rootCategoryName, $rootCategoryDesc, "" );
+
 			$subCategoryName = $rootCategoryName . ' ' . $subCategory;
 			$subCategoryDesc = wfMessage( 'graphviz-subcategory-desc', "[[:Category:$subCategoryName]]", $subCategory )->text();
 			$subCategoryDesc .= "[[Category:$rootCategoryName]]";
@@ -411,8 +400,6 @@ class GraphViz {
 	 * @return true
 	 */
 	public static function onParserInit( Parser &$parser ) {
-		self::createCategoryPages();
-
 		foreach ( self::$graphTypes as $graphType ) {
 			$parser->setHook( self::$tags[$graphType] , array( __CLASS__, self::$parserHookFunctions[$graphType] ) );
 		}
@@ -567,6 +554,8 @@ class GraphViz {
 				} else {
 					wfDebug( __METHOD__ . ": uploaded $imageFilePath\n" );
 					$uploaded++;
+
+					self::optionallyCreateCategoryPage( $renderer );
 				}
 			} else {
 				// The upload for this title has already occured in GraphViz::render
@@ -580,6 +569,8 @@ class GraphViz {
 
 				// Go ahead and count this as an upload since it has been done.
 				$uploaded++;
+
+				self::optionallyCreateCategoryPage( $renderer );
 			}
 		}
 		wfDebug( __METHOD__ . ": uploaded $uploaded files for article: $titleText\n" );
@@ -1173,7 +1164,12 @@ class GraphViz {
 			}
 
 			// prepare to upload
-			$pageText = self::getCategoryTags( $renderer );
+			$pageText = "";
+
+			// don't bother tagging dummies
+			if ( !$isDummy ) {
+				$pageText = self::getCategoryTags( $renderer );
+			}
 			$comment = wfMessage( 'graphviz-upload-comment', $titleText )->text();
 			$watch = false;
 			$removeTempFile = true;

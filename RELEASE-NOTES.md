@@ -1,5 +1,8 @@
 These are the release notes for the [MediaWiki][mediawiki] [GraphViz extension][gv_ext].
 
+## GraphViz 1.6.0 ## (not released yet )
+* Make the category pages created by this extension optional, non-empty and do not tag “dummy” images as belonging to a category.
+
 ## GraphViz 1.5.1 ## (2015-1-24)
 * Fix for [bug T75073](https://phabricator.wikimedia.org/T75073).
 
