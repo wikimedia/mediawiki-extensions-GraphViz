@@ -1496,6 +1496,15 @@ class GraphViz {
 				// remove <map> ending tag from map file contents
 				$map  = str_replace( '</map>', '', $map );
 
+				// DOT and HTML allow tooltips without URLs but ImageMap does not.
+				// We want to allow tooltips without URLs (hrefs) so add a dummy URL if it is missing.
+				// ImageMap accepts the URL "http://" so use that as the dummy href.
+
+				// detect missing hrefs and add them as needed
+				$map = preg_replace( '~id="([^"]+)"[\s\t]+title="([^"]+)"~',
+					'id="$1" href="http://" title="$2"',
+					$map );
+
 				// add enclosing square brackets to URLs that don't have them and add the title
 				$map = preg_replace( '~href="([^[][^"]+).+title="([^"]+)~',
 					'href="[$1 $2]"',
