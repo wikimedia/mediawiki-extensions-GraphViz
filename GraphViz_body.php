@@ -1110,7 +1110,8 @@ class GraphViz {
 			}
 
 			// normalize the map file contents
-			if ( !self::normalizeMapFileContents( $graphParms->getMapPath( $isPreview ), $graphParms->getRenderer(), $errorText ) ) {
+			if ( !self::normalizeMapFileContents( $graphParms->getMapPath( $isPreview ), $graphParms->getRenderer(), 
+				$titleText, $errorText ) ) {
 				wfDebug( __METHOD__ . ": $errorText\n" );
 				self::deleteFiles( $graphParms, $isPreview, false );
 				return self::errorHTML( $errorText );
@@ -1445,13 +1446,14 @@ class GraphViz {
 	 *
 	 * @param[in] string $mapPath is the map file (including path).
 	 * @param[in] string $renderer is the name of the renderer used to produce the map.
+	 * @param[in] string $pageTitle is the page title to supply for DOT tooltips that do not have URLs.
 	 * @param[out] string $errorText is populated with an error message in the event of an error.
 	 *
 	 * @return boolean true upon success, false upon failure.
 	 *
 	 * @author Keith Welter
 	 */
-	protected static function normalizeMapFileContents( $mapPath, $renderer, &$errorText ) {
+	protected static function normalizeMapFileContents( $mapPath, $renderer, $pageTitle, &$errorText ) {
 		// read the map file contents
 		$map = file_get_contents( $mapPath );
 		if ( !empty( $map ) ) {
@@ -1497,12 +1499,12 @@ class GraphViz {
 				$map  = str_replace( '</map>', '', $map );
 
 				// DOT and HTML allow tooltips without URLs but ImageMap does not.
-				// We want to allow tooltips without URLs (hrefs) so add a dummy URL if it is missing.
-				// ImageMap accepts the URL "http://" so use that as the dummy href.
+				// We want to allow tooltips without URLs (hrefs) so supply the page title if it is missing.
 
 				// detect missing hrefs and add them as needed
+				$missingHrefReplacement = 'id="$1" href="[[' . $pageTitle . ']]" title="$2"';
 				$map = preg_replace( '~id="([^"]+)"[\s\t]+title="([^"]+)"~',
-					'id="$1" href="http://" title="$2"',
+					$missingHrefReplacement,
 					$map );
 
 				// add enclosing square brackets to URLs that don't have them and add the title
