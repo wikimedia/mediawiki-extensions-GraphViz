@@ -2,10 +2,11 @@
 	"@metadata": {
 		"authors": [
 			"Shirayuki",
-			"Keith Welter"
+			"Keith Welter",
+			"Umherirrender"
 		]
 	},
-	"graphviz-desc": "{{desc|name=GraphViz|url=http://www.mediawiki.org/wiki/Extension:Graphviz}}",
+	"graphviz-desc": "{{desc|name=GraphViz|url=https://www.mediawiki.org/wiki/Extension:Graphviz}}",
 	"graphviz-reload": "Used as an informational message to inform the user to reload the wiki page.",
 	"graphviz-no-input": "Used as error message",
 	"graphviz-no-imagemap-class": "Used as error message",
