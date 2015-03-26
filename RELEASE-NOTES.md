@@ -1,6 +1,6 @@
 These are the release notes for the [MediaWiki][mediawiki] [GraphViz extension][gv_ext].
 
-## GraphViz 1.6.0 ## (not released yet )
+## GraphViz 1.6.0 ## (2015-3-26 )
 * Make the category pages created by this extension optional, non-empty and do not tag “dummy” images as belonging to a category.
 * Allow DOT tooltips without URLs.
 
