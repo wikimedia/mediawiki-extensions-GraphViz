@@ -14,5 +14,8 @@
 	"graphviz-write-map-failed": "No se pudo escribir el mapa del gráfico en el sistema de archivos.",
 	"graphviz-mkdir-failed": "No se pudo crear un directorio en el sistema de archivos.",
 	"graphviz-delete-reason": "La extensión GraphViz eliminó este archivo temporal.",
-	"graphviz-upload-comment": "generado por la [[Special:Version#Installed_extensions|extensión]] GraphViz, desde la página [[$1]]"
+	"graphviz-upload-comment": "generado por la [[Special:Version#Installed_extensions|extensión]] GraphViz, desde la página [[$1]]",
+	"graphviz-unrecognized-preparse-value": "No se reconoce el valor de preanálisis «$1».",
+	"graphviz-category-desc": "$1 contiene páginas creadas mediante la extension GraphViz.",
+	"graphviz-subcategory-desc": "$1 contiene páginas creadas mediante la orden $2."
 }
