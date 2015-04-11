@@ -391,7 +391,11 @@ class GraphViz {
 	 * @return true if the given title has multiple revisions, otherwise false.
 	 */
 	public static function titleHasMultipleRevisions( $title ) {
-		return $title->getLatestRevID() != $title->getFirstRevision()->getId();
+		$firstRev = $title->getFirstRevision();
+		if ( $firstRev ) {
+			return $title->getLatestRevID() != $firstRev->getId();
+		}
+		return false;
 	}
 
 	/**
