@@ -1,8 +1,30 @@
 {
 	"@metadata": {
 		"authors": [
-			"Toliño"
+			"Toliño",
+			"Elisardojm"
 		]
 	},
-	"graphviz-desc": "Permite a incorporación de formato [http://www.graphviz.org Graphviz] e xera imaxes en liña"
+	"graphviz-desc": "Permite a incorporación de formato [http://www.graphviz.org Graphviz] e xera imaxes en liña",
+	"graphviz-reload": "A fonte da imaxe do gráfico cambiou. Recargue a páxina para mostrar o gráfico actualizado.",
+	"graphviz-no-input": "Falta a fonte do gráfico.",
+	"graphviz-no-imagemap-class": "A extensión ImageMap non está instalada.",
+	"graphviz-dot-invalid-image": "O punto atributo $1 debe ser o nome dun ficheiro subido.",
+	"graphviz-dot-attr-forbidden": "O punto atributo $1 non se indicou.",
+	"graphviz-read-src-failed": "Non se puido ler o texto do gráfico desde o sistema de ficheiros.",
+	"graphviz-write-src-failed": "Non se puido escribir o texto do gráfico no sistema de ficheiros.",
+	"graphviz-write-map-failed": "Non se puido escribir o mapa do gráfico no sistema de ficheiros.",
+	"graphviz-mkdir-failed": "Non se puido crear un directorio no sistema de ficheiros.",
+	"graphviz-delete-reason": "A extensión GraphViz eliminou este ficheiro temporal.",
+	"graphviz-alt": "Este é un gráfico con bordos e nodos que pode conter hiperligazóns.",
+	"graphviz-uploaddisabledtext": "A creación de imaxes de gráficos non está permitida porque a subida de ficheiros está desactivada.",
+	"graphviz-upload-not-permitted": "A creación de imaxes de gráficos precisa de permisos de subida.",
+	"graphviz-user-blocked": "A creación de imaxes de gráficos non se permite a usuarios bloqueados.",
+	"graphviz-read-only": "A creación de imaxes de gráficos non está permitida porque a wiki está en modo de só lectura.",
+	"graphviz-uploaderror": "A subida da imaxe de gráfico fallou polo ficheiro: $1",
+	"graphviz-upload-comment": "xenerado pola [[Special:Version#Installed_extensions|extensión]] GraphViz, desde a páxina [[$1]]",
+	"graphviz-unrecognized-preparse-value": "Non se recoñece o valor de preanálise \"$1\".",
+	"graphviz-category-desc": "$1 conten páxinas creadas mediante a extension GraphViz.",
+	"graphviz-subcategory-desc": "$1 conten páxinas creadas mediante a orde $2.",
+	"graphviz-map-desc": "= ImageMap =\nCando inclúa esta imaxe nunha páxina wiki, use o seguinte etiquetado para activar as ligazóns:\n <nowiki>\n<imagemap>\nFile:$1\n$2</imagemap>\n</nowiki>\nVexa [https://www.mediawiki.org/wiki/Extension:ImageMap ImageMap] para máis información."
 }
