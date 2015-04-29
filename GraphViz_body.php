@@ -621,17 +621,21 @@ class GraphViz {
 	 * @author Keith Welter
 	 */
 	public static function onPageContentSave( $wikiPage, $user, $content, $summary, $isMinor, $isWatch, $section, $flags, $status ) {
-		$titleText = $wikiPage->getTitle()->getFulltext();
-		return self::onTitleSave( $titleText );
+		$title = $wikiPage->getTitle();
+		return self::onTitleSave( $title );
 	}
 
 	/**
 	 * Function to record when a page with the given title is being saved.
-	 * Also, ensure initDummyFilePages() is called before parsing the page.
+	 * Also, ensure initDummyFilePages() is called before parsing the page
+	 * (except for file pages).
 	 * @author Keith Welter
 	 */
-	public static function onTitleSave( $titleText ) {
-		self::initDummyFilePages();
+	public static function onTitleSave( $title ) {
+		$titleText = $title->getFulltext();
+		if ( !$title->inNamespace( NS_FILE ) ) {
+			self::initDummyFilePages();
+		}
 		self::$titlesBeingSaved[$titleText] = '';
 		wfDebug( __METHOD__ . ": saving: $titleText\n" );
 		return true;
@@ -642,8 +646,8 @@ class GraphViz {
 	 * @author Keith Welter
 	 */
 	public static function onArticleSave( &$article, &$user, &$text, &$summary, $minor, $watchthis, $sectionanchor, &$flags, &$status ) {
-		$titleText = $article->getTitle()->getFulltext();
-		return self::onTitleSave( $titleText );
+		$title = $article->getTitle();
+		return self::onTitleSave( $title );
 	}
 
 	/**
