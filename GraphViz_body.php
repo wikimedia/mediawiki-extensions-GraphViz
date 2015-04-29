@@ -1148,6 +1148,7 @@ class GraphViz {
 							return wfMessage( 'graphviz-reload' )->escaped();
 						} else {
 							// the dummy file page exists and has not been copied over yet... use it now!
+							GraphRenderParms::unlinkIfFileExists( $dummyFilePath );
 							wfDebug( __METHOD__ . ": copying $imageFilePath to $dummyFilePath\n" );
 							copy( $imageFilePath, $dummyFilePath );
 							$imageFilePath = $dummyFilePath;
@@ -1202,6 +1203,11 @@ class GraphViz {
 			} else {
 				wfDebug( __METHOD__ . ": uploaded $imageFilePath\n" );
 				$uploaded = true;
+				// File page content cannot be created/modified here so we leave
+				// a record to do it later using the touch below.
+				// The image file is touched here to trigger
+				// additional processing later in GraphViz::uploadImages.
+				// Specifically, see the path containing the call to doEditContent.
 				touch( $imageFilePath );
 			}
 

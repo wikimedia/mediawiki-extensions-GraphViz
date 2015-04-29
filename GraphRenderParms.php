@@ -189,7 +189,7 @@ class GraphRenderParms {
 		self::unlinkIfFileExists( $this->getMapPath( $userSpecific ) );
 	}
 
-	protected static function unlinkIfFileExists( $path ) {
+	public static function unlinkIfFileExists( $path ) {
 		// prevent directory traversal
 		if ( strpos( $path, "../" ) !== false ) {
 			throw new MWException( "directory traversal detected in $path" );
