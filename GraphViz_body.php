@@ -1750,7 +1750,7 @@ class GraphViz {
 		// create the output directory if it does not exist
 		if ( !is_dir( $uploadSubdir ) ) {
 			$mode = fileperms ( $wgUploadDirectory );
-			if ( !mkdir( $uploadSubdir, $mode ) ) {
+			if ( !mkdir( $uploadSubdir, $mode, true ) ) {
 				wfDebug( __METHOD__ . ": mkdir($uploadSubdir, $mode) failed\n" );
 				return false;
 			}
