@@ -455,9 +455,9 @@ class GraphViz {
 	 */
 	public static function uploadImagesForTitle( $title, $user ) {
 		// find any stored images for the page
-		$titleText = $title->getFulltext();
+		$graphName = self::getGraphFileBaseNameFromTitle( $title );
 		$imageDir = self::getImageDir();
-		$globPattern = $imageDir . self::makeFriendlyGraphName( $titleText ) . "*.*";
+		$globPattern = $imageDir . $graphName . "*.*";
 		$imageFilePaths = glob( $globPattern );
 		$uploaded = 0;
 
@@ -465,7 +465,7 @@ class GraphViz {
 		if ( !empty( $imageFilePaths ) ) {
 			$errorText = "";
 
-			$uploaded = self::uploadImages( $titleText, $imageFilePaths, $user, $errorText );
+			$uploaded = self::uploadImages( $title->getFulltext(), $imageFilePaths, $user, $errorText );
 
 			if ( $errorText != "" ) {
 				$errorHTML = self::multilineErrorHTML( $errorText );
@@ -595,12 +595,28 @@ class GraphViz {
 	}
 
 	/**
+	 * For a given title, get the corresponding graph file base name.
+	 * @author Keith Welter
+	 */
+	public static function getGraphFileBaseNameFromTitle( $title ) {
+		if ( $title->inNamespace( NS_FILE ) ) {
+			$baseName = $title->getText();
+			// remove the dummy file extension
+			$baseName = substr( $baseName, 0, strrpos( $baseName, '.' ) );
+		} else {
+			$baseName = $title->getFulltext();
+		}
+		$baseName = self::makeFriendlyGraphName( $baseName );
+		return $baseName;
+	}
+
+	/**
 	 * Delete all the graph files associated with the given article and path.
 	 * @author Keith Welter
 	 */
 	public static function deleteArticleFiles( $article, $path ) {
-		$globPattern = $article->getTitle()->getFulltext();
-		$globPattern = self::makeFriendlyGraphName( $globPattern );
+		$title = $article->getTitle();
+		$globPattern = self::getGraphFileBaseNameFromTitle( $title );
 		$globPattern = $path . $globPattern . "*.*";
 		wfDebug( __METHOD__ . ": deleting: $globPattern\n" );
 		array_map( 'unlink', glob( $globPattern ) );
@@ -1118,7 +1134,7 @@ class GraphViz {
 			}
 
 			// normalize the map file contents
-			if ( !self::normalizeMapFileContents( $graphParms->getMapPath( $isPreview ), $graphParms->getRenderer(), 
+			if ( !self::normalizeMapFileContents( $graphParms->getMapPath( $isPreview ), $graphParms->getRenderer(),
 				$titleText, $errorText ) ) {
 				wfDebug( __METHOD__ . ": $errorText\n" );
 				self::deleteFiles( $graphParms, $isPreview, false );
@@ -1212,7 +1228,14 @@ class GraphViz {
 				// The image file is touched here to trigger
 				// additional processing later in GraphViz::uploadImages.
 				// Specifically, see the path containing the call to doEditContent.
-				touch( $imageFilePath );
+				// If a dummy file page was used, we do not touch the image file
+				// because it was the target of a copy and the source still exists
+				// to trigger the additional processing.  We want the additional
+				// processing done on the source, not the target of the copy.  If
+				// we did touch the target, it would be a leaked file.
+				if ( !$usedDummy ) {
+					touch( $imageFilePath );
+				}
 			}
 
 			if ( !self::enableHooks() ) {
