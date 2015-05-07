@@ -1098,7 +1098,6 @@ class GraphViz {
 			// execute the image creation command
 			if ( !self::executeCommand( $graphParms->getImageCommand( $isPreview ), $errorText ) )
 			{
-				wfDebug( __METHOD__ . ": $errorText\n" );
 				self::deleteFiles( $graphParms, $isPreview, false );
 
 				// remove path info from the errorText
@@ -1124,7 +1123,6 @@ class GraphViz {
 			// execute the map creation command
 			if ( !self::executeCommand( $graphParms->getMapCommand( $isPreview ), $errorText ) )
 			{
-				wfDebug( __METHOD__ . ": $errorText\n" );
 				self::deleteFiles( $graphParms, $isPreview, false );
 
 				// remove path info from the errorText (file base names are allowed to pass)
@@ -1461,7 +1459,8 @@ class GraphViz {
 		}
 		$output = wfShellExec( $command, $ret );
 
-		if ( $ret != 0 ) {
+		if ( $ret != 0 || $output ) {
+			wfDebug( __METHOD__ . ": command: $command ret: $ret output: $output\n" );
 			return false;
 		}
 
