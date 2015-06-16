@@ -33,7 +33,7 @@
 
 if ( !defined( 'MEDIAWIKI' ) ) die();
 
-define( 'GraphViz_VERSION', '1.6.0' );
+define( 'GraphViz_VERSION', '1.6.1' );
 
 /**
  * The GraphViz settings class.
