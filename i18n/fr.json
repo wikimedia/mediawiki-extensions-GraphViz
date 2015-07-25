@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Gomoko",
-			"0x010C"
+			"0x010C",
+			"Wladek92"
 		]
 	},
 	"graphviz-desc": "Permet un balisage [http://www.graphviz.org Graphviz] embarqué et génère les images en ligne",
@@ -23,6 +24,7 @@
 	"graphviz-read-only": "La création d’image de graphique n’est pas autorisée car le wiki est en mode lecture seule.",
 	"graphviz-uploaderror": "Le téléchargement d’image de graphique a échoué pour le fichier : $1",
 	"graphviz-upload-comment": "généré par l’[[Special:Version#Installed_extensions|extension]] GraphViz depuis la page [[$1]]",
+	"graphviz-unrecognized-preparse-value": "La valeur à analyser \"$1\" n'est pas reconnue.",
 	"graphviz-category-desc": "$1 contient des pages créées par l'extension GraphViz.",
 	"graphviz-subcategory-desc": "$1 contient des pages créées à l'aide de la commande $2.",
 	"graphviz-map-desc": "= ImageMap =\nEn incluant cette image dans une page wiki, utilisez le marquage suivant pour activer les liens :\n <nowiki>\n<imagemap>\nFile:$1\n$2</imagemap>\n</nowiki>\nVoyez [https://www.mediawiki.org/wiki/Extension:ImageMap ImageMap] pour plus d’information."
