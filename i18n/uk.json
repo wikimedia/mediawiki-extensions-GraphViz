@@ -22,6 +22,7 @@
 	"graphviz-read-only": "Створення графічного зображення заборонене, оскільки вікі перебуває у режимі «тільки читання».",
 	"graphviz-uploaderror": "Завантаження графічного зображення не вдалося для файла: $1",
 	"graphviz-upload-comment": "згенероване [[Special:Version#Installed_extensions|розширенням]] GraphViz зі сторінки [[$1]]",
+	"graphviz-unrecognized-preparse-value": "Значення попереднього аналізу «$1» не розпізнано.",
 	"graphviz-category-desc": "$1 містить сторінки, створені розширенням GraphViz.",
 	"graphviz-subcategory-desc": "$1 містить сторінки, створені командою $2.",
 	"graphviz-map-desc": "= ImageMap =\nПри включенні цього зображення у вікі-сторінку використовуйте наступну розмітку для ввімкнення посилань:\n <nowiki>\n<imagemap>\nFile:$1\n$2</imagemap>\n</nowiki>\nДив. [https://www.mediawiki.org/wiki/Extension:ImageMap ImageMap] для додаткової інформації."
