@@ -24,7 +24,7 @@
 	"graphviz-user-blocked": "不允许封禁用户创建图形图像。",
 	"graphviz-read-only": "当前wiki处于只读模式，因此不允许创建图形图像。",
 	"graphviz-uploaderror": "为文件上传图表图片失败：$1",
-	"graphviz-upload-comment": "由GraphViz[[Special:Version#Installed_extensions|拓展]]从页面[[$1]]生成",
+	"graphviz-upload-comment": "由GraphViz[[Special:Version#Installed_extensions|扩展]]从页面[[$1]]生成",
 	"graphviz-unrecognized-preparse-value": "预解析的值“$1”不被认可。",
 	"graphviz-category-desc": "$1包含用GraphViz扩展创建的页面。",
 	"graphviz-subcategory-desc": "$1包含用$2命令创建的页面。",
