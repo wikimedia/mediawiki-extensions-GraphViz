@@ -4,5 +4,26 @@
 			"Xuacu"
 		]
 	},
-	"graphviz-desc": "Permite incorporar llinguax de marques de [http://www.graphviz.org Graphviz] y xenera imaxes en llinia"
+	"graphviz-desc": "Permite incorporar llinguax de marques de [http://www.graphviz.org Graphviz] y xenera imaxes en llinia",
+	"graphviz-reload": "La fonte d'imaxe de la gráfica camudó. Recarga la páxina p'amosar la gráfica actualizáu.",
+	"graphviz-no-input": "Falta la fonte de la gráfica.",
+	"graphviz-no-imagemap-class": "La estensión ImageMap nun ta instalada.",
+	"graphviz-dot-invalid-image": "L'atributu $1 del puntu tien de ser el nome d'un ficheru xubíu.",
+	"graphviz-dot-attr-forbidden": "L'atributu $1 del puntu ta torgáu.",
+	"graphviz-read-src-failed": "Nun pudo lleese'l testu de la gráfica dende'l sistema de ficheros.",
+	"graphviz-write-src-failed": "Nun pudo escribise'l testu de la gráfica al sistema de ficheros.",
+	"graphviz-write-map-failed": "Nun pudo escribise'l mapa de la gráfica al sistema de ficheros.",
+	"graphviz-mkdir-failed": "Nun pudo crease un direutoriu nel sistema de ficheros.",
+	"graphviz-delete-reason": "La estensión GraphViz desanició esti ficheru temporal.",
+	"graphviz-alt": "Esta ye una gráfica con bordes y nuedos que pue contener hiperenllaces.",
+	"graphviz-uploaddisabledtext": "Nun se permite la creación d'una imaxe de la gráfica porque ta desactivada la carga d'imáxenes.",
+	"graphviz-upload-not-permitted": "La creación d'una imaxe de la gráfica necesita permisu de carga de ficheros.",
+	"graphviz-user-blocked": "Nun se permite la creación d'una imaxe de la gráfica a los usuarios bloquiaos.",
+	"graphviz-read-only": "Nun se permite la creación d'una imaxe de la gráfica porque la wiki ta en mou de sólo llectura.",
+	"graphviz-uploaderror": "La carga de la imaxe de la gráfica falló pal ficheru: $1",
+	"graphviz-upload-comment": "xeneráu pola [[Special:Version#Installed_extensions|estensión]] GraphViz, dende la páxina [[$1]]",
+	"graphviz-unrecognized-preparse-value": "Nun se reconoz el valor de preanálisis «$1».",
+	"graphviz-category-desc": "$1 contien páxines creaes pola estensión GraphViz.",
+	"graphviz-subcategory-desc": "$1 contien páxines creaes pol comandu $2.",
+	"graphviz-map-desc": "= ImageMap =\nCando incluyas esta imaxe nuna páxina wiki, usa les marques siguientes p'activar los enllaces:\n <nowiki>\n<imagemap>\nFile:$1\n$2</imagemap>\n</nowiki>\nVisita [https://www.mediawiki.org/wiki/Extension:ImageMap ImageMap] pa más información."
 }
