@@ -134,6 +134,7 @@ call_user_func( function() {
 			'[mailto://welterk@gmail.com Keith Welter]'
 			),
 		'url' => 'https://www.mediawiki.org/wiki/Extension:GraphViz',
-		'descriptionmsg' => 'graphviz-desc'
+		'descriptionmsg' => 'graphviz-desc',
+		'license-name' => 'GPL-2.0+'
 		);
 } );
