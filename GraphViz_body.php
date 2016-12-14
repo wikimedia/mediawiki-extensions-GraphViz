@@ -107,6 +107,13 @@ class GraphViz {
 	const IMAGE_DUMMY = "File_graph_GraphVizExtensionDummy_dot";
 
 	/**
+	 * The filename of default image to use as replacement for missing image files.
+	 *
+	 * @var string IMAGE_DEFAULT
+	 */
+	const IMAGE_DEFAULT = "icon-question-mark.png";
+
+	/**
 	 * Used as an array key in GraphViz::$graphTypes and other arrays.
 	 * It must be a unique value in GraphViz::$graphTypes.
 	 *
@@ -1381,6 +1388,14 @@ class GraphViz {
 			wfDebug( __METHOD__ . ": replacing: $imageName with: $imagePath\n" );
 			return $result;
 		} else {
+			$alt_imageName = self::IMAGE_DEFAULT;
+			$alt_imageFile = UploadLocalFile::getUploadedFile( $alt_imageName );
+			if ( $alt_imageFile ) {
+				$alt_imagePath = $alt_imageFile->getLocalRefPath();
+				$result = $matches[1] . 'src="' . $alt_imagePath . '"';
+				wfDebug( __METHOD__ . ": replacing invalid image: $imageName with default: $alt_imagePath\n" );
+				return $result;
+			} 
 			wfDebug( __METHOD__ . ": removing invalid imageName: $imageName\n" );
 			return $matches[1] . 'src=""';
 		}
