@@ -420,16 +420,6 @@ class GraphViz {
 	}
 
 	/**
-	 * Backwards-compatible (< MW 1.21) hook function front-end to GraphViz::initDummyFilePages for edit preview.
-	 * initDummyFilePages() must be called before parsing for edit previews.
-	 * @author Keith Welter
-	 */
-	public static function onEditPageGetPreviewText( $editPage, &$toParse ) {
-		self::initDummyFilePages();
-		return true;
-	}
-
-	/**
 	 * When parsing is complete for a page, check for any graph image files associated with the page and
 	 * upload them.  The uploading must be deferred until this point because the upload code path
 	 * invokes parsing logic which throws an exception if called from a parser hook function.
@@ -658,15 +648,6 @@ class GraphViz {
 	}
 
 	/**
-	 * Backwards-compatible (< MW 1.21) hook function front-end to GraphViz::onTitleSave.
-	 * @author Keith Welter
-	 */
-	public static function onArticleSave( &$article, &$user, &$text, &$summary, $minor, $watchthis, $sectionanchor, &$flags, &$status ) {
-		$title = $article->getTitle();
-		return self::onTitleSave( $title );
-	}
-
-	/**
 	 * Check if the given title text corresponds to a page that is being saved.
 	 * @author Keith Welter
 	 */
@@ -701,15 +682,6 @@ class GraphViz {
 		wfDebug( __METHOD__ . ": done saving: $titleText\n" );
 		unset( self::$titlesBeingSaved[$titleText] );
 		return true;
-	}
-
-	/**
-	 * Backwards-compatible (< MW 1.21) hook function front-end to GraphViz::onTitleSaveComplete.
-	 * @author Keith Welter
-	 */
-	public static function onArticleSaveComplete( &$article, &$user, $text, $summary, $minoredit, $watchthis, $sectionanchor, &$flags, $revision, &$status, $baseRevId ) {
-		$title = $article->getTitle();
-		return self::onTitleSaveComplete( $title );
 	}
 
 	/**

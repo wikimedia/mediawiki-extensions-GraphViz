@@ -109,20 +109,9 @@ call_user_func( function() {
 	$GLOBALS['wgHooks']['OutputPageParserOutput'][] = 'GraphViz::onOutputPageParserOutput';
 	$GLOBALS['wgHooks']['ArticleDeleteComplete'][] = 'GraphViz::onArticleDeleteComplete';
 	$GLOBALS['wgHooks']['UnitTestsList'][] = 'GraphViz::onUnitTestsList';
-
-	$oldVersion = version_compare( $GLOBALS['wgVersion'], '1.21', '<' );
-	if ( $oldVersion ) {
-		# Do stuff for MediaWiki 1.20 and older
-		$GLOBALS['wgHooks']['ArticleSave'][] = 'GraphViz::onArticleSave';
-		$GLOBALS['wgHooks']['ArticleSaveComplete'][] = 'GraphViz::onArticleSaveComplete';
-		$GLOBALS['wgHooks']['EditPageGetPreviewText'][] = 'GraphViz::onEditPageGetPreviewText';
-	} else {
-		# Do stuff for MediaWiki 1.21 and newer
-		$GLOBALS['wgHooks']['PageContentSave'][] = 'GraphViz::onPageContentSave';
-		$GLOBALS['wgHooks']['PageContentSaveComplete'][] = 'GraphViz::onPageContentSaveComplete';
-		$GLOBALS['wgHooks']['EditPageGetPreviewContent'][] = 'GraphViz::onEditPageGetPreviewContent';
-	}
-
+	$GLOBALS['wgHooks']['PageContentSave'][] = 'GraphViz::onPageContentSave';
+	$GLOBALS['wgHooks']['PageContentSaveComplete'][] = 'GraphViz::onPageContentSaveComplete';
+	$GLOBALS['wgHooks']['EditPageGetPreviewContent'][] = 'GraphViz::onEditPageGetPreviewContent';
 	$GLOBALS['wgExtensionCredits']['parserhook'][] = array(
 		'name' => 'Graphviz',
 		'path' => __FILE__,
