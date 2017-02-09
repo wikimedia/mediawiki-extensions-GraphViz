@@ -1520,6 +1520,16 @@ class GraphViz {
 					'href="[$1 $2]"',
 					$map );
 
+				// Decode character references in URLs because the map file output by GraphViz
+				// has already encoded them and we want to pass them to ImageMap::render
+				// unencoded.
+				$hrefPattern = '~href="([^"]+)"~';
+				preg_match( $hrefPattern, $map, $matches );
+				if ( isset( $matches[1] ) ) {
+					$decodedHref = Sanitizer::decodeCharReferences( $matches[1] );
+					$map = preg_replace( $hrefPattern, "href=\"$decodedHref\"", $map );
+				}
+
 				// reorder map lines to the pattern shape name, coordinates, URL
 				$map = preg_replace( '~.+shape="([^"]+).+href="([^"]+).+coords="([^"]+).+~',
 					'$1 $3 $2',
