@@ -32,7 +32,7 @@
  * @ingroup Upload
  * @author Keith Welter
  */
-class UploadLocalFile {
+class UploadLocalFile extends LocalFile {
 	/**
 	 * Check if uploading is allowed for the given user.
 	 * Based on SpecialUpload::execute.
@@ -78,6 +78,7 @@ class UploadLocalFile {
 	 * Check if the upload is allowed for the given user and destination name.
 	 * Based on SpecialUpload::processUpload.
 	 *
+	 * @param[in] UploadFromLocalFile $upload
 	 * @param[in] User $user is the user to check.
 	 * @param[in] string $desiredDestName the desired destination name of the file to be uploaded.
 	 * @param[in] string $localPath the local path of the file to be uploaded.
@@ -86,10 +87,9 @@ class UploadLocalFile {
 	 * @param[out] string $errorText is populated with an error message if the user is not allowed to upload.
 	 * @return boolean true if the user is allowed to upload, false if not.
 	 */
-	static function isUploadAllowedForTitle( $user, $desiredDestName, $localPath, $removeLocalFile, $language, &$errorText ) {
+	static function isUploadAllowedForTitle( $upload, $user, $desiredDestName, $localPath, $removeLocalFile, $language, &$errorText ) {
 		// Initialize path info
 		$fileSize = filesize( $localPath );
-		$upload = new UploadFromLocalFile;
 		$upload->initializePathInfo( $desiredDestName, $localPath, $fileSize, $removeLocalFile );
 
 		// Upload verification
@@ -214,33 +214,252 @@ class UploadLocalFile {
 	}
 
 	/**
+	 * Create a LocalFile from a title
+	 *
+	 * @param Title $title
+	 * @param FileRepo $repo
+	 *
+	 * @return UploadLocalFile
+	 */
+	static function newFromTitle( $title, $repo, $unused = NULL ) {
+		return new self( $title, $repo );
+	}
+
+	/**
 	 * Upload a file from the given local path to the given destination name.
 	 * Based on SpecialUpload::processUpload
 	 *
+     * @param[in] UploadFromLocalFile $upload
 	 * @param[in] string $desiredDestName the desired destination name of the file to be uploaded.
 	 * @param[in] string $localPath the local path of the file to be uploaded.
-	 * @param[in] User $user is the user performing the upload.
-	 * @param[in] string $comment is the upload description.
-	 * @param[in] string|null $pageText text to use for the description page or null to keep the text of an existing page.
-	 * @param[in] bool $watch indicates whether or not to make the user watch the new page.
 	 * @param[in] bool $removeLocalFile remove the local file?
 	 *
 	 * @return bool true if the upload succeeds, false if it fails.
 	 */
-	static function upload( $desiredDestName, $localPath, $user, $comment, $pageText, $watch, $removeLocalFile ) {
+	static function uploadWithoutFilePage( $upload, $desiredDestName, $localPath, $removeLocalFile ) {
 		// Initialize path info
 		$fileSize = filesize( $localPath );
-		$upload = new UploadFromLocalFile;
 		$upload->initializePathInfo( $desiredDestName, $localPath, $fileSize, $removeLocalFile );
 
 		$title = $upload->getTitle();
+		$comment = '';
 
-		$status = $upload->performUpload( $comment, $pageText, $watch, $user );
+		$status = $upload->performUpload2( $comment );
 		if ( !$status->isGood() ) {
 			return false;
 		}
 
 		RepoGroup::singleton()->clearCache( $title );
+
+		return true;
+	}
+
+	/**
+	 * Upload a file and record it in the DB
+	 * @param string|FSFile $src Source storage path, virtual URL, or filesystem path
+	 * @param string $comment Upload description
+	 * @param array|bool $props File properties, if known. This can be used to
+	 *   reduce the upload time when uploading virtual URLs for which the file
+	 *   info is already known
+	 * @param int|bool $flags Flags for publish()
+	 * @return Status On success, the value member contains the
+	 *     archive name, or an empty string if it was a new file.
+	 */
+	function upload2( $src, $comment, $props, $flags ) {
+		global $wgContLang;
+
+		if ( $this->getRepo()->getReadOnlyReason() !== false ) {
+			return $this->readOnlyFatalStatus();
+		}
+
+		$srcPath = ( $src instanceof FSFile ) ? $src->getPath() : $src;
+
+		$options = [];
+		$handler = MediaHandler::getHandler( $props['mime'] );
+		if ( $handler ) {
+			$options['headers'] = $handler->getStreamHeaders( $props['metadata'] );
+		} else {
+			$options['headers'] = [];
+		}
+
+		$this->lock(); // begin
+		$status = $this->publish( $src, $flags, $options );
+
+		if ( $status->successCount >= 2 ) {
+			// There will be a copy+(one of move,copy,store).
+			// The first succeeding does not commit us to updating the DB
+			// since it simply copied the current version to a timestamped file name.
+			// It is only *preferable* to avoid leaving such files orphaned.
+			// Once the second operation goes through, then the current version was
+			// updated and we must therefore update the DB too.
+			$oldver = $status->value;
+			if ( !$this->recordUpload3( $oldver, $comment, $props ) ) {
+				$status->fatal( 'filenotfound', $srcPath );
+			}
+		}
+
+		$this->unlock(); // done
+
+		return $status;
+	}
+
+
+	/**
+	 * Record a file upload in the image table only
+	 * @param string $oldver
+	 * @param string $comment
+	 * @param bool|array $props
+	 * @return bool
+	 */
+	function recordUpload3( $oldver, $comment, $props )
+	{
+		global $wgUser;
+		$user = $wgUser;
+
+		$dbw = $this->repo->getMasterDB();
+
+		$timestamp = $dbw->timestamp();
+		$allowTimeKludge = true;
+
+		$props['description'] = $comment;
+		$props['user'] = $user->getId();
+		$props['user_text'] = $user->getName();
+		$props['timestamp'] = wfTimestamp( TS_MW, $timestamp ); // DB -> TS_MW
+		$this->setProps( $props );
+
+		# major_mime and minor_mime are private in the parent so use local variables instead
+		list( $major_mime, $minor_mime ) = self::splitMime( $this->mime );
+
+		# Fail now if the file isn't there
+		if ( !$this->fileExists ) {
+			wfDebug( __METHOD__ . ": File " . $this->getRel() . " went missing!\n" );
+			$dbw->rollback( __METHOD__ );
+
+			return false;
+		}
+
+		$reupload = false;
+
+		$dbw->startAtomic( __METHOD__ );
+
+		# Test to see if the row exists using INSERT IGNORE
+		# This avoids race conditions by locking the row until the commit, and also
+		# doesn't deadlock. SELECT FOR UPDATE causes a deadlock for every race condition.
+		$dbw->insert( 'image',
+			array(
+				'img_name' => $this->getName(),
+				'img_size' => $this->size,
+				'img_width' => intval( $this->width ),
+				'img_height' => intval( $this->height ),
+				'img_bits' => $this->bits,
+				'img_media_type' => $this->media_type,
+				'img_major_mime' => $major_mime,
+				'img_minor_mime' => $minor_mime,
+				'img_timestamp' => $timestamp,
+				'img_description' => $comment,
+				'img_user' => $user->getId(),
+				'img_user_text' => $user->getName(),
+				'img_metadata' => $dbw->encodeBlob( $this->metadata ),
+				'img_sha1' => $this->sha1
+			),
+			__METHOD__,
+			'IGNORE'
+		);
+		if ( $dbw->affectedRows() == 0 ) {
+			if ( $allowTimeKludge ) {
+				# Use LOCK IN SHARE MODE to ignore any transaction snapshotting
+				$ltimestamp = $dbw->selectField( 'image', 'img_timestamp',
+					array( 'img_name' => $this->getName() ),
+					__METHOD__,
+					array( 'LOCK IN SHARE MODE' ) );
+				$lUnixtime = $ltimestamp ? wfTimestamp( TS_UNIX, $ltimestamp ) : false;
+				# Avoid a timestamp that is not newer than the last version
+				# TODO: the image/oldimage tables should be like page/revision with an ID field
+				if ( $lUnixtime && wfTimestamp( TS_UNIX, $timestamp ) <= $lUnixtime ) {
+					sleep( 1 ); // fast enough re-uploads would go far in the future otherwise
+					$timestamp = $dbw->timestamp( $lUnixtime + 1 );
+					$props['timestamp'] = wfTimestamp( TS_MW, $timestamp ); // DB -> TS_MW
+					#timestamp is private in the parent so use setProps to update it
+					$this->setProps( $props );
+				}
+			}
+
+			# (bug 34993) Note: $oldver can be empty here, if the previous
+			# version of the file was broken. Allow registration of the new
+			# version to continue anyway, because that's better than having
+			# an image that's not fixable by user operations.
+
+			$reupload = true;
+			# Collision, this is an update of a file
+			# Insert previous contents into oldimage
+			$dbw->insertSelect( 'oldimage', 'image',
+				array(
+					'oi_name' => 'img_name',
+					'oi_archive_name' => $dbw->addQuotes( $oldver ),
+					'oi_size' => 'img_size',
+					'oi_width' => 'img_width',
+					'oi_height' => 'img_height',
+					'oi_bits' => 'img_bits',
+					'oi_timestamp' => 'img_timestamp',
+					'oi_description' => 'img_description',
+					'oi_user' => 'img_user',
+					'oi_user_text' => 'img_user_text',
+					'oi_metadata' => 'img_metadata',
+					'oi_media_type' => 'img_media_type',
+					'oi_major_mime' => 'img_major_mime',
+					'oi_minor_mime' => 'img_minor_mime',
+					'oi_sha1' => 'img_sha1'
+				),
+				array( 'img_name' => $this->getName() ),
+				__METHOD__
+			);
+
+			# Update the current image row
+			$dbw->update( 'image',
+				array( /* SET */
+					'img_size' => $this->size,
+					'img_width' => intval( $this->width ),
+					'img_height' => intval( $this->height ),
+					'img_bits' => $this->bits,
+					'img_media_type' => $this->media_type,
+					'img_major_mime' => $major_mime,
+					'img_minor_mime' => $minor_mime,
+					'img_timestamp' => $timestamp,
+					'img_description' => $comment,
+					'img_user' => $user->getId(),
+					'img_user_text' => $user->getName(),
+					'img_metadata' => $dbw->encodeBlob( $this->metadata ),
+					'img_sha1' => $this->sha1
+				),
+				array( 'img_name' => $this->getName() ),
+				__METHOD__
+			);
+		} else {
+			# This is a new file, so update the image count
+			DeferredUpdates::addUpdate( SiteStatsUpdate::factory( array( 'images' => 1 ) ) );
+		}
+
+		# Defer purges, page creation, and link updates in case they error out.
+		# The most important thing is that files and the DB registry stay synced.
+		$dbw->endAtomic( __METHOD__ );
+
+		# Update memcache after the commit
+		$this->invalidateCache();
+
+		if ( $reupload ) {
+			# Delete old thumbnails
+			$this->purgeThumbnails();
+
+			# Remove the old file from the squid cache
+			SquidUpdate::purge( array( $this->getURL() ) );
+		}
+
+		# Invalidate cache for all pages using this file
+		$update = new HTMLCacheUpdate( $this->getTitle(), 'imagelinks' );
+		$update->doUpdate();
+		if ( !$reupload ) {
+			LinksUpdate::queueRecursiveJobsForTable( $this->getTitle(), 'imagelinks' );
+		}
 
 		return true;
 	}
@@ -266,5 +485,49 @@ class UploadFromLocalFile extends UploadBase {
 	 */
 	public function getSourceType() {
 		return 'file';
+	}
+
+	/**
+	 * Return the local file and initializes if necessary.
+	 *
+	 * @return UploadLocalFile|null
+	 */
+	public function getLocalFile() {
+		if ( is_null( $this->mLocalFile ) ) {
+			$nt = $this->getTitle();
+			$repo = RepoGroup::singleton()->getLocalRepo();
+			$this->mLocalFile = is_null( $nt ) ? null : UploadLocalFile::newFromTitle( $nt, $repo );
+		}
+
+		return $this->mLocalFile;
+	}
+
+	/**
+	 * Really perform the upload.
+	 *
+	 * @param string $comment
+	 * @return Status Indicating the whether the upload succeeded.
+	 */
+	public function performUpload2( $comment ) {
+		global $wgUser;
+		$user = $wgUser;
+
+		$this->getLocalFile()->load( File::READ_LATEST );
+		$props = $this->mFileProps;
+
+		$pageText = '';
+
+		$status = $this->getLocalFile()->upload2(
+			$this->mTempPath,
+			$comment,
+			$props,
+			File::DELETE_SOURCE
+		);
+
+		if ( $status->isGood() ) {
+			$this->postProcessUpload();
+		}
+
+		return $status;
 	}
 }

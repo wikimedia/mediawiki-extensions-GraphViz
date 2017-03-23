@@ -33,7 +33,7 @@
 
 if ( !defined( 'MEDIAWIKI' ) ) die();
 
-define( 'GraphViz_VERSION', '1.6.1' );
+define( 'GraphViz_VERSION', '2.0.0' );
 
 /**
  * The GraphViz settings class.
@@ -106,12 +106,10 @@ call_user_func( function() {
 	$GLOBALS['wgAutoloadClasses']['UploadLocalFile'] = $dir . "UploadLocalFile.php";
 	$GLOBALS['wgAutoloadClasses']['UploadFromLocalFile'] = $dir . "UploadLocalFile.php";
 	$GLOBALS['wgHooks']['ParserFirstCallInit'][] = 'GraphViz::onParserInit';
-	$GLOBALS['wgHooks']['OutputPageParserOutput'][] = 'GraphViz::onOutputPageParserOutput';
 	$GLOBALS['wgHooks']['ArticleDeleteComplete'][] = 'GraphViz::onArticleDeleteComplete';
 	$GLOBALS['wgHooks']['UnitTestsList'][] = 'GraphViz::onUnitTestsList';
 	$GLOBALS['wgHooks']['PageContentSave'][] = 'GraphViz::onPageContentSave';
-	$GLOBALS['wgHooks']['PageContentSaveComplete'][] = 'GraphViz::onPageContentSaveComplete';
-	$GLOBALS['wgHooks']['EditPageGetPreviewContent'][] = 'GraphViz::onEditPageGetPreviewContent';
+	$GLOBALS['wgHooks']['RejectParserCacheValue'][] = 'GraphViz::onRejectParserCacheValue';
 	$GLOBALS['wgExtensionCredits']['parserhook'][] = array(
 		'name' => 'Graphviz',
 		'path' => __FILE__,

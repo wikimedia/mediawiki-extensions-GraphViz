@@ -1,5 +1,10 @@
 These are the release notes for the [MediaWiki][mediawiki] [GraphViz extension][gv_ext].
 
+## GraphViz 2.0.0 ## (2017-3-23)
+* Redesign to eliminate creation of file pages for uploaded graph images.
+* Fix for [bug T100795](https://phabricator.wikimedia.org/T100795).
+* Fix for [bug T151294](https://phabricator.wikimedia.org/T151294).
+
 ## GraphViz 1.6.1 ## (2015-6-16)
 * Fix for [bug T89325](https://phabricator.wikimedia.org/T89325).
 * Fix for [bug T97596](https://phabricator.wikimedia.org/T97596).
