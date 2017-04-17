@@ -980,11 +980,16 @@ class GraphViz {
 				// has already encoded them and we want to pass them to ImageMap::render
 				// unencoded.
 				$hrefPattern = '~href="([^"]+)"~';
-				preg_match( $hrefPattern, $map, $matches );
-				if ( isset( $matches[1] ) ) {
-					$decodedHref = Sanitizer::decodeCharReferences( $matches[1] );
-					$map = preg_replace( $hrefPattern, "href=\"$decodedHref\"", $map );
-				}
+				$map = preg_replace_callback(
+					$hrefPattern,
+					function ( $matches ) {
+						if ( $matches[1] !== '' ) {
+							$decoded = Sanitizer::decodeCharReferences( $matches[1] );
+							return 'href="' . $decoded . '"';
+						}
+						return $matches[0];
+					},
+					$map );
 
 				// reorder map lines to the pattern shape name, coordinates, URL
 				$map = preg_replace( '~.+shape="([^"]+).+href="([^"]+).+coords="([^"]+).+~',
@@ -994,6 +999,8 @@ class GraphViz {
 
 			// eliminate blank lines (platform independent)
 			$map = preg_replace("/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/", '', $map);
+
+			wfDebug( __METHOD__ . ": map($map)\n" ); //KJW
 
 			// write the normalized map contents back to the file
 			if ( file_put_contents( $mapPath, $map ) === false ) {
