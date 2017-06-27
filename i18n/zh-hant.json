@@ -1,4 +1,29 @@
 {
-	"@metadata": [],
-	"graphviz-desc": "允許內置 [http://www.graphviz.org Graphviz] 標記，並生成內嵌式圖像"
+	"@metadata": {
+		"authors": [
+			"Cwlin0416"
+		]
+	},
+	"graphviz-desc": "允許內置 [http://www.graphviz.org Graphviz] 標記，並生成內嵌式圖像",
+	"graphviz-reload": "圖表圖片來源已改變，請重新載入頁面來顯示更新後的圖表圖片。",
+	"graphviz-no-input": "圖表來源遺失。",
+	"graphviz-no-imagemap-class": "尚未安裝 ImageMap 擴充套件。",
+	"graphviz-dot-invalid-image": "dot 的 $1 屬性必須為上傳檔案的名稱。",
+	"graphviz-dot-attr-forbidden": "禁止使用 dot $1 屬性。",
+	"graphviz-read-src-failed": "無法自檔案系統讀取圖表文字。",
+	"graphviz-write-src-failed": "無法寫入圖表文字到檔案系統。",
+	"graphviz-write-map-failed": "無法寫入圖表地圖到檔案系統。",
+	"graphviz-mkdir-failed": "無法在檔案系統建立目錄。",
+	"graphviz-delete-reason": "此暫存檔已被 GraphViz 擴充套件刪除。",
+	"graphviz-alt": "此為有邊框的圖表且節點可能含有超連結。",
+	"graphviz-uploaddisabledtext": "檔案上傳功能已關閉，不允許建立圖表圖片。",
+	"graphviz-upload-not-permitted": "圖表圖片建立需要上傳權限。",
+	"graphviz-user-blocked": "不允許已被封鎖的使用者建立圖表圖片。",
+	"graphviz-read-only": "此 wiki 處於唯讀模式，不允許建立圖表圖片。",
+	"graphviz-uploaderror": "圖表圖片上傳失敗：$1",
+	"graphviz-upload-comment": "由 GraphViz [[Special:Version#Installed_extensions|擴充套件]] 於 [[$1]] 頁面產生。",
+	"graphviz-unrecognized-preparse-value": "無法辨識預先解析的值 \"$1\"。",
+	"graphviz-category-desc": "$1 含有由 GraphViz 擴充套件建立的頁面。",
+	"graphviz-subcategory-desc": "$1 含有使用 $2 指令建立的頁面。",
+	"graphviz-map-desc": "= ImageMap =\n當在一頁 wiki 頁面引用此圖片時，可使用以下標籤來開啟連結功能：\n <nowiki>\n<imagemap>\nFile:$1\n$2</imagemap>\n</nowiki>\n請參考 [https://www.mediawiki.org/wiki/Extension:ImageMap ImageMap] 來取得更多資訊。"
 }
