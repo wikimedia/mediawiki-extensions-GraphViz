@@ -39,7 +39,7 @@ class UploadLocalFile extends LocalFile {
 	 *
 	 * @param[in] User $user is the user to check.
 	 * @param[out] string $errorText is populated with an error message if the user is not allowed to upload.
-	 * @return boolean true if the user is allowed to upload, false if not.
+	 * @return bool true if the user is allowed to upload, false if not.
 	 */
 	static function isUploadAllowedForUser( $user, &$errorText ) {
 		// Check uploading enabled
@@ -85,7 +85,7 @@ class UploadLocalFile extends LocalFile {
 	 * @param[in] bool $removeLocalFile remove the local file?
 	 * @param[in] Language $langauge to use for
 	 * @param[out] string $errorText is populated with an error message if the user is not allowed to upload.
-	 * @return boolean true if the user is allowed to upload, false if not.
+	 * @return bool true if the user is allowed to upload, false if not.
 	 */
 	static function isUploadAllowedForTitle( $upload, $user, $desiredDestName, $localPath, $removeLocalFile, $language, &$errorText ) {
 		// Initialize path info
@@ -125,7 +125,7 @@ class UploadLocalFile extends LocalFile {
 	static function processVerificationError( $details, $language, $filename ) {
 		global $wgFileExtensions;
 
-		switch( $details['status'] ) {
+		switch ( $details['status'] ) {
 			case UploadBase::ILLEGAL_FILENAME:
 				return self::getUploadErrorMessage( wfMessage( 'illegalfilename', $details['filtered'] )->parse(), $filename );
 			case UploadBase::FILENAME_TOO_LONG:
@@ -221,7 +221,7 @@ class UploadLocalFile extends LocalFile {
 	 *
 	 * @return UploadLocalFile
 	 */
-	static function newFromTitle( $title, $repo, $unused = NULL ) {
+	static function newFromTitle( $title, $repo, $unused = null ) {
 		return new self( $title, $repo );
 	}
 
@@ -229,7 +229,7 @@ class UploadLocalFile extends LocalFile {
 	 * Upload a file from the given local path to the given destination name.
 	 * Based on SpecialUpload::processUpload
 	 *
-     * @param[in] UploadFromLocalFile $upload
+	 * @param[in] UploadFromLocalFile $upload
 	 * @param[in] string $desiredDestName the desired destination name of the file to be uploaded.
 	 * @param[in] string $localPath the local path of the file to be uploaded.
 	 * @param[in] bool $removeLocalFile remove the local file?
@@ -266,8 +266,6 @@ class UploadLocalFile extends LocalFile {
 	 *     archive name, or an empty string if it was a new file.
 	 */
 	function upload2( $src, $comment, $props, $flags ) {
-		global $wgContLang;
-
 		if ( $this->getRepo()->getReadOnlyReason() !== false ) {
 			return $this->readOnlyFatalStatus();
 		}
@@ -303,7 +301,6 @@ class UploadLocalFile extends LocalFile {
 		return $status;
 	}
 
-
 	/**
 	 * Record a file upload in the image table only
 	 * @param string $oldver
@@ -311,8 +308,7 @@ class UploadLocalFile extends LocalFile {
 	 * @param bool|array $props
 	 * @return bool
 	 */
-	function recordUpload3( $oldver, $comment, $props )
-	{
+	function recordUpload3( $oldver, $comment, $props ) {
 		global $wgUser;
 		$user = $wgUser;
 
@@ -346,7 +342,7 @@ class UploadLocalFile extends LocalFile {
 		# This avoids race conditions by locking the row until the commit, and also
 		# doesn't deadlock. SELECT FOR UPDATE causes a deadlock for every race condition.
 		$dbw->insert( 'image',
-			array(
+			[
 				'img_name' => $this->getName(),
 				'img_size' => $this->size,
 				'img_width' => intval( $this->width ),
@@ -361,7 +357,7 @@ class UploadLocalFile extends LocalFile {
 				'img_user_text' => $user->getName(),
 				'img_metadata' => $dbw->encodeBlob( $this->metadata ),
 				'img_sha1' => $this->sha1
-			),
+			],
 			__METHOD__,
 			'IGNORE'
 		);
@@ -369,9 +365,9 @@ class UploadLocalFile extends LocalFile {
 			if ( $allowTimeKludge ) {
 				# Use LOCK IN SHARE MODE to ignore any transaction snapshotting
 				$ltimestamp = $dbw->selectField( 'image', 'img_timestamp',
-					array( 'img_name' => $this->getName() ),
+					[ 'img_name' => $this->getName() ],
 					__METHOD__,
-					array( 'LOCK IN SHARE MODE' ) );
+					[ 'LOCK IN SHARE MODE' ] );
 				$lUnixtime = $ltimestamp ? wfTimestamp( TS_UNIX, $ltimestamp ) : false;
 				# Avoid a timestamp that is not newer than the last version
 				# TODO: the image/oldimage tables should be like page/revision with an ID field
@@ -379,7 +375,7 @@ class UploadLocalFile extends LocalFile {
 					sleep( 1 ); // fast enough re-uploads would go far in the future otherwise
 					$timestamp = $dbw->timestamp( $lUnixtime + 1 );
 					$props['timestamp'] = wfTimestamp( TS_MW, $timestamp ); // DB -> TS_MW
-					#timestamp is private in the parent so use setProps to update it
+					# timestamp is private in the parent so use setProps to update it
 					$this->setProps( $props );
 				}
 			}
@@ -393,7 +389,7 @@ class UploadLocalFile extends LocalFile {
 			# Collision, this is an update of a file
 			# Insert previous contents into oldimage
 			$dbw->insertSelect( 'oldimage', 'image',
-				array(
+				[
 					'oi_name' => 'img_name',
 					'oi_archive_name' => $dbw->addQuotes( $oldver ),
 					'oi_size' => 'img_size',
@@ -409,14 +405,14 @@ class UploadLocalFile extends LocalFile {
 					'oi_major_mime' => 'img_major_mime',
 					'oi_minor_mime' => 'img_minor_mime',
 					'oi_sha1' => 'img_sha1'
-				),
-				array( 'img_name' => $this->getName() ),
+				],
+				[ 'img_name' => $this->getName() ],
 				__METHOD__
 			);
 
 			# Update the current image row
 			$dbw->update( 'image',
-				array( /* SET */
+				[ /* SET */
 					'img_size' => $this->size,
 					'img_width' => intval( $this->width ),
 					'img_height' => intval( $this->height ),
@@ -430,13 +426,13 @@ class UploadLocalFile extends LocalFile {
 					'img_user_text' => $user->getName(),
 					'img_metadata' => $dbw->encodeBlob( $this->metadata ),
 					'img_sha1' => $this->sha1
-				),
-				array( 'img_name' => $this->getName() ),
+				],
+				[ 'img_name' => $this->getName() ],
 				__METHOD__
 			);
 		} else {
 			# This is a new file, so update the image count
-			DeferredUpdates::addUpdate( SiteStatsUpdate::factory( array( 'images' => 1 ) ) );
+			DeferredUpdates::addUpdate( SiteStatsUpdate::factory( [ 'images' => 1 ] ) );
 		}
 
 		# Defer purges, page creation, and link updates in case they error out.
@@ -451,7 +447,7 @@ class UploadLocalFile extends LocalFile {
 			$this->purgeThumbnails();
 
 			# Remove the old file from the squid cache
-			SquidUpdate::purge( array( $this->getURL() ) );
+			SquidUpdate::purge( [ $this->getURL() ] );
 		}
 
 		# Invalidate cache for all pages using this file

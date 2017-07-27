@@ -46,23 +46,23 @@ class GraphRenderParms {
 	 * @see http://www.graphviz.org/doc/info/output.html
 	 * @var array $supportedDotImageTypes
 	 */
-	public static $supportedDotImageTypes = array(
+	public static $supportedDotImageTypes = [
 		'gif',
 		'jpg',
 		'jpeg',
 		'png',
 		'svg'
-	);
+	];
 
 	/**
 	 * A subset of the mscgen supported image types that are supported by the GraphViz extension.
 	 * @see http://www.mcternan.me.uk/mscgen/
 	 * @var array $supportedMscgenImageTypes
 	 */
-	private static $supportedMscgenImageTypes = array(
+	private static $supportedMscgenImageTypes = [
 		'png',
 		'svg'
-	);
+	];
 
 	private $mapType = '';
 	private $execPath = '';
@@ -86,7 +86,7 @@ class GraphRenderParms {
 		wfDebug( __METHOD__ . ": sourceAndMapDir: $sourceAndMapDir imageDir: $imageDir\n" );
 		wfDebug( __METHOD__ . ": renderer: $renderer imageType: $imageType\n" );
 
-		switch( $renderer ) {
+		switch ( $renderer ) {
 			case 'circo':
 			case 'dot':
 			case 'fdp':
@@ -151,7 +151,9 @@ class GraphRenderParms {
 	}
 
 	public function getGraphName( $userSpecific ) {
-		if ( $userSpecific ) { return $this->graphName . '_' . $this->userName; }
+		if ( $userSpecific ) {
+			return $this->graphName . '_' . $this->userName;
+		}
 		return $this->graphName;
 	}
 
@@ -206,6 +208,3 @@ class GraphRenderParms {
 		return true;
 	}
 }
-
-/**#@-*/
-

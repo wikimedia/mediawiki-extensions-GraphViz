@@ -121,47 +121,47 @@ class GraphViz {
 	 * @see http://www.graphviz.org/content/attrs#dfontpath
 	 * @var array $forbiddenDotAttributes
 	 */
-	private static $forbiddenDotAttributes = array(
+	private static $forbiddenDotAttributes = [
 		'imagepath',
 		'shapefile',
 		'fontpath'
-	);
+	];
 
 	/**
 	 * A list of the graph types that this extension supports.
 	 * @var array $graphTypes
 	 */
-	private static $graphTypes = array(
+	private static $graphTypes = [
 		self::GRAPHVIZ,
 		self::MSCGEN
-	);
+	];
 
 	/**
 	 * A list of the tags that this extension supports.
 	 * @var array $tags
 	 */
-	private static $tags = array(
+	private static $tags = [
 		self::GRAPHVIZ => 'graphviz',
 		self::MSCGEN   => 'mscgen',
-	);
+	];
 
 	/**
 	 * A mapping from graph types to graph languages.
 	 * @var array $graphLanguages
 	 */
-	private static $graphLanguages = array(
+	private static $graphLanguages = [
 		self::GRAPHVIZ => 'dot',
 		self::MSCGEN   => 'mscgen',
-	);
+	];
 
 	/**
 	 * A mapping from graph types to parser hook functions.
 	 * @var array $parserHookFunctions
 	 */
-	private static $parserHookFunctions = array(
+	private static $parserHookFunctions = [
 		self::GRAPHVIZ => 'graphvizParserHook',
 		self::MSCGEN   => 'mscgenParserHook',
-	);
+	];
 
 	/**
 	 * @return string regular expression for matching an image attribute in the DOT language.
@@ -206,7 +206,7 @@ class GraphViz {
 	 */
 	public static function onParserInit( Parser &$parser ) {
 		foreach ( self::$graphTypes as $graphType ) {
-			$parser->setHook( self::$tags[$graphType] , array( __CLASS__, self::$parserHookFunctions[$graphType] ) );
+			$parser->setHook( self::$tags[$graphType], [ __CLASS__, self::$parserHookFunctions[$graphType] ] );
 		}
 		return true;
 	}
@@ -253,8 +253,7 @@ class GraphViz {
 		$globPattern = $path . $globPattern . "*.*";
 		if ( empty ( glob( $globPattern ) ) ) {
 			$result = false;
-		}
-		else {
+		} else {
 			$result = true;
 		}
 		wfDebug( __METHOD__ . ": result: $result\n" );
@@ -317,7 +316,6 @@ class GraphViz {
 	 * @author Keith Welter
 	 */
 	public static function onPageContentSave( $wikiPage, $user, $content, $summary, $isMinor, $isWatch, $section, $flags, $status ) {
-		global $wgParser;
 		wfDebug( __METHOD__ . ": entering\n" );
 
 		$title = $wikiPage->getTitle();
@@ -334,7 +332,7 @@ class GraphViz {
 	 * @author Keith Welter
 	 */
 	protected static function makeFriendlyGraphName( $graphName ) {
-		return preg_replace ( '~[^\w\d]~', '_' , $graphName );
+		return preg_replace( '~[^\w\d]~', '_', $graphName );
 	}
 
 	/**
@@ -344,8 +342,7 @@ class GraphViz {
 	 * @see http://www.mcternan.me.uk/mscgen/
 	 * @author Matthew Pearson
 	 */
-	public static function mscgenParserHook( $input, $args, $parser, $frame )
-	{
+	public static function mscgenParserHook( $input, $args, $parser, $frame ) {
 		$args['renderer'] = self::$graphLanguages[self::MSCGEN];
 		return self::render( $input, $args, $parser, $frame );
 	}
@@ -357,10 +354,9 @@ class GraphViz {
 	 * @see http://www.graphviz.org/content/dot-language
 	 * @author Thomas Hummel
 	 */
-	public static function graphvizParserHook( $input, $args, $parser, $frame )
-	{
+	public static function graphvizParserHook( $input, $args, $parser, $frame ) {
 		if ( isset( $args['renderer'] ) ) {
-			switch( $args['renderer'] ) {
+			switch ( $args['renderer'] ) {
 				case 'circo':
 				case 'dot':
 				case 'fdp':
@@ -483,8 +479,7 @@ class GraphViz {
 	 *
 	 * @author Keith Welter et al.
 	 */
-	protected static function render( $input, $args, $parser, $frame )
-	{
+	protected static function render( $input, $args, $parser, $frame ) {
 		global
 		$wgUser,
 		$wgGraphVizSettings;
@@ -618,10 +613,10 @@ class GraphViz {
 		// generate image and map files only if the graph source changed or the image or map files do not exist
 		if ( $sourceChanged || !$imageExists || !$mapExists ) {
 			// first, check if the user is allowed to upload the image
-		    if ( !UploadLocalFile::isUploadAllowedForUser( $user, $errorText ) ) {
+			if ( !UploadLocalFile::isUploadAllowedForUser( $user, $errorText ) ) {
 				wfDebug( __METHOD__ . ": $errorText\n" );
 				return self::errorHTML( $errorText );
-		    }
+			}
 
 			// if the source changed, update it on disk
 			if ( $sourceChanged ) {
@@ -633,8 +628,7 @@ class GraphViz {
 			}
 
 			// execute the image creation command
-			if ( !self::executeCommand( $graphParms->getImageCommand( $userSpecific ), $errorText ) )
-			{
+			if ( !self::executeCommand( $graphParms->getImageCommand( $userSpecific ), $errorText ) ) {
 				self::deleteFiles( $graphParms, $userSpecific, false );
 
 				// remove path info from the errorText
@@ -645,24 +639,23 @@ class GraphViz {
 
 			$upload = new UploadFromLocalFile;
 
-	        // check if the upload is allowed for the intended title (the image file must exist prior to this check)
-	        if ( !UploadLocalFile::isUploadAllowedForTitle(
+			// check if the upload is allowed for the intended title (the image file must exist prior to this check)
+			if ( !UploadLocalFile::isUploadAllowedForTitle(
 				$upload,
 				$user,
 				$imageFileName,
 				$imageFilePath,
 				false,
 				wfGetLangObj(),
-				$errorText ) )
-	        {
-		        wfDebug( __METHOD__ . ": $errorText\n" );
-		        self::deleteFiles( $graphParms, $userSpecific, false );
-		        return self::errorHTML( $errorText );
+				$errorText )
+			) {
+				wfDebug( __METHOD__ . ": $errorText\n" );
+				self::deleteFiles( $graphParms, $userSpecific, false );
+				return self::errorHTML( $errorText );
 			}
 
 			// execute the map creation command
-			if ( !self::executeCommand( $graphParms->getMapCommand( $userSpecific ), $errorText ) )
-			{
+			if ( !self::executeCommand( $graphParms->getMapCommand( $userSpecific ), $errorText ) ) {
 				self::deleteFiles( $graphParms, $userSpecific, false );
 
 				// remove path info from the errorText (file base names are allowed to pass)
@@ -720,7 +713,7 @@ class GraphViz {
 		}
 
 		// Mark the page as using the GraphViz extension.
-		$parser->getOutput()->setProperty( 'graphviz' , true );
+		$parser->getOutput()->setProperty( 'graphviz', true );
 
 		// return the rendered HTML
 		return $imageMapOutput;
@@ -742,7 +735,6 @@ class GraphViz {
 	 * @see http://www.graphviz.org/content/attrs#afontpath
 	 */
 	protected static function sanitizeDotInput( &$input, &$errorText ) {
-
 		// reject forbidden attributes from the input
 		foreach ( self::$forbiddenDotAttributes as $forbiddenAttribute ) {
 			if ( stripos( $input, $forbiddenAttribute ) !== false ) {
@@ -755,7 +747,7 @@ class GraphViz {
 
 		$limit = -1; // no limit on the number of replacements
 		$count = 0; // count of replacements done (output)
-		$pattern = self::getDotImagePattern(); //pattern to match
+		$pattern = self::getDotImagePattern(); // pattern to match
 		$input = preg_replace_callback( $pattern, "self::fixImageName", $input, $limit, $count );
 
 		if ( $count > 0 && stripos( $input, 'image=""' ) !== false ) {
@@ -844,7 +836,8 @@ class GraphViz {
 	protected static function getMapContents( $mapPath ) {
 		$mapContents = "";
 		if ( file_exists( $mapPath ) ) {
-			if ( false == ( $mapContents = file_get_contents( $mapPath ) ) ) {
+			$mapContents = file_get_contents( $mapPath );
+			if ( false == $mapContents ) {
 				wfDebug( __METHOD__ . ": map file: $mapPath is empty.\n" );
 			}
 		} else {
@@ -877,7 +870,7 @@ class GraphViz {
 	/**
 	 * @param[in] string $command is the command line to execute.
 	 * @param[out] string $output is the output of the command.
-	 * @return boolean true upon success, false upon failure.
+	 * @return bool true upon success, false upon failure.
 	 * @author Keith Welter et al.
 	 */
 	protected static function executeCommand( $command, &$output ) {
@@ -913,7 +906,7 @@ class GraphViz {
 	 * @param[in] string $pageTitle is the page title to supply for DOT tooltips that do not have URLs.
 	 * @param[out] string $errorText is populated with an error message in the event of an error.
 	 *
-	 * @return boolean true upon success, false upon failure.
+	 * @return bool true upon success, false upon failure.
 	 *
 	 * @author Keith Welter
 	 */
@@ -957,10 +950,10 @@ class GraphViz {
 				$map = $newMap;
 			} else {
 				// remove <map> beginning tag from map file contents
-				$map  = preg_replace( '#<map(.*)>#', '', $map );
+				$map = preg_replace( '#<map(.*)>#', '', $map );
 
 				// remove <map> ending tag from map file contents
-				$map  = str_replace( '</map>', '', $map );
+				$map = str_replace( '</map>', '', $map );
 
 				// DOT and HTML allow tooltips without URLs but ImageMap does not.
 				// We want to allow tooltips without URLs (hrefs) so supply the page title if it is missing.
@@ -998,9 +991,9 @@ class GraphViz {
 			}
 
 			// eliminate blank lines (platform independent)
-			$map = preg_replace("/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/", '', $map);
+			$map = preg_replace( "/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/", '', $map );
 
-			wfDebug( __METHOD__ . ": map($map)\n" ); //KJW
+			wfDebug( __METHOD__ . ": map($map)\n" ); // KJW
 
 			// write the normalized map contents back to the file
 			if ( file_put_contents( $mapPath, $map ) === false ) {
@@ -1044,13 +1037,12 @@ class GraphViz {
 		$imageMapInput = "";
 		$imageLine = "Image:" . $imageFileName;
 
-		$modifiers = array( "type", "border", "location", "alignment", "size", "link", "alt", "caption" );
+		$modifiers = [ "type", "border", "location", "alignment", "size", "link", "alt", "caption" ];
 		foreach ( $modifiers as $modifier ) {
 			if ( isset( $args[$modifier] ) ) {
 				if ( $modifier == "link" || $modifier == "alt" ) {
 					$imageLine .= "|" . $modifier . "=" . $args[$modifier];
-				}
-				else {
+				} else {
 					$imageLine .= "|" . $args[$modifier];
 				}
 			}
@@ -1086,7 +1078,7 @@ class GraphViz {
 	 * @param[in] string $source is the text to save in $sourceFilePath.
 	 * @param[out] string $errorText is populated with an error message in case of error.
 	 *
-	 * @return boolean true upon success, false upon failure.
+	 * @return bool true upon success, false upon failure.
 	 *
 	 * @author Keith Welter
 	 */
@@ -1111,7 +1103,7 @@ class GraphViz {
 	 * (otherwise it is set to false).
 	 * @param[out] string $errorText is populated with an error message in case of error.
 	 *
-	 * @return boolean true upon success, false upon failure.
+	 * @return bool true upon success, false upon failure.
 	 *
 	 * @author Keith Welter
 	 */
@@ -1123,7 +1115,7 @@ class GraphViz {
 				$errorText = wfMessage( 'graphviz-read-src-failed' )->text();
 				return false;
 			}
-			if ( strcmp ( $source , $contents ) == 0 ) {
+			if ( strcmp( $source, $contents ) == 0 ) {
 				wfDebug( __METHOD__ . ": $sourceFilePath matches wiki text\n" );
 				$sourceChanged = false;
 				return true;
@@ -1159,7 +1151,7 @@ class GraphViz {
 	 * @author Keith Welter
 	 */
 	static function errorHTML( $text ) {
-		return Html::element( 'p', array( 'class' => 'error' ), $text );
+		return Html::element( 'p', [ 'class' => 'error' ], $text );
 	}
 
 	/**
@@ -1184,7 +1176,7 @@ class GraphViz {
 	 * @author Keith Welter
 	 */
 	static function escapeHTML( $text ) {
-	 	return htmlspecialchars( $text, ENT_QUOTES );
+		return htmlspecialchars( $text, ENT_QUOTES );
 	}
 
 	/**
@@ -1226,7 +1218,7 @@ class GraphViz {
 
 		// create the output directory if it does not exist
 		if ( !is_dir( $uploadSubdir ) ) {
-			$mode = fileperms ( $wgUploadDirectory );
+			$mode = fileperms( $wgUploadDirectory );
 			if ( !mkdir( $uploadSubdir, $mode, true ) ) {
 				wfDebug( __METHOD__ . ": mkdir($uploadSubdir, $mode) failed\n" );
 				return false;

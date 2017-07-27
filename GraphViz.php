@@ -31,8 +31,6 @@
  * @ingroup Extensions
  */
 
-if ( !defined( 'MEDIAWIKI' ) ) die();
-
 define( 'GraphViz_VERSION', '2.0.1' );
 
 /**
@@ -93,35 +91,37 @@ class GraphVizSettings {
 	}
 };
 
-$GLOBALS['wgGraphVizSettings'] = new GraphVizSettings();
+if ( defined( 'MEDIAWIKI' ) ) {
+	$GLOBALS['wgGraphVizSettings'] = new GraphVizSettings();
 
-//self executing anonymous function to prevent global scope assumptions
-call_user_func( function() {
-	$dir = __DIR__ . '/';
+	// self executing anonymous function to prevent global scope assumptions
+	call_user_func( function () {
+		$dir = __DIR__ . '/';
 
-	$GLOBALS['wgMessagesDirs']['GraphViz'] = $dir . 'i18n';
-	$GLOBALS['wgExtensionMessagesFiles']['GraphViz'] = $dir . 'GraphViz.i18n.php';
-	$GLOBALS['wgAutoloadClasses']['GraphViz'] = $dir . "GraphViz_body.php";
-	$GLOBALS['wgAutoloadClasses']['GraphRenderParms'] = $dir . "GraphRenderParms.php";
-	$GLOBALS['wgAutoloadClasses']['UploadLocalFile'] = $dir . "UploadLocalFile.php";
-	$GLOBALS['wgAutoloadClasses']['UploadFromLocalFile'] = $dir . "UploadLocalFile.php";
-	$GLOBALS['wgHooks']['ParserFirstCallInit'][] = 'GraphViz::onParserInit';
-	$GLOBALS['wgHooks']['ArticleDeleteComplete'][] = 'GraphViz::onArticleDeleteComplete';
-	$GLOBALS['wgHooks']['UnitTestsList'][] = 'GraphViz::onUnitTestsList';
-	$GLOBALS['wgHooks']['PageContentSave'][] = 'GraphViz::onPageContentSave';
-	$GLOBALS['wgHooks']['RejectParserCacheValue'][] = 'GraphViz::onRejectParserCacheValue';
-	$GLOBALS['wgExtensionCredits']['parserhook'][] = array(
-		'name' => 'Graphviz',
-		'path' => __FILE__,
-		'version' => GraphViz_VERSION,
-		'author' => array(
-			'[http://wickle.com CoffMan]',
-			'[mailto://arno.venner@gmail.com MasterOfDesaster]',
-			'[http://hummel-universe.net Thomas Hummel]',
-			'[mailto://welterk@gmail.com Keith Welter]'
-			),
-		'url' => 'https://www.mediawiki.org/wiki/Extension:GraphViz',
-		'descriptionmsg' => 'graphviz-desc',
-		'license-name' => 'GPL-2.0+'
-		);
-} );
+		$GLOBALS['wgMessagesDirs']['GraphViz'] = $dir . 'i18n';
+		$GLOBALS['wgExtensionMessagesFiles']['GraphViz'] = $dir . 'GraphViz.i18n.php';
+		$GLOBALS['wgAutoloadClasses']['GraphViz'] = $dir . "GraphViz_body.php";
+		$GLOBALS['wgAutoloadClasses']['GraphRenderParms'] = $dir . "GraphRenderParms.php";
+		$GLOBALS['wgAutoloadClasses']['UploadLocalFile'] = $dir . "UploadLocalFile.php";
+		$GLOBALS['wgAutoloadClasses']['UploadFromLocalFile'] = $dir . "UploadLocalFile.php";
+		$GLOBALS['wgHooks']['ParserFirstCallInit'][] = 'GraphViz::onParserInit';
+		$GLOBALS['wgHooks']['ArticleDeleteComplete'][] = 'GraphViz::onArticleDeleteComplete';
+		$GLOBALS['wgHooks']['UnitTestsList'][] = 'GraphViz::onUnitTestsList';
+		$GLOBALS['wgHooks']['PageContentSave'][] = 'GraphViz::onPageContentSave';
+		$GLOBALS['wgHooks']['RejectParserCacheValue'][] = 'GraphViz::onRejectParserCacheValue';
+		$GLOBALS['wgExtensionCredits']['parserhook'][] = [
+			'name' => 'Graphviz',
+			'path' => __FILE__,
+			'version' => GraphViz_VERSION,
+			'author' => [
+				'[http://wickle.com CoffMan]',
+				'[mailto://arno.venner@gmail.com MasterOfDesaster]',
+				'[http://hummel-universe.net Thomas Hummel]',
+				'[mailto://welterk@gmail.com Keith Welter]'
+			],
+			'url' => 'https://www.mediawiki.org/wiki/Extension:GraphViz',
+			'descriptionmsg' => 'graphviz-desc',
+			'license-name' => 'GPL-2.0+'
+		];
+	} );
+}
