@@ -31,7 +31,7 @@
  * @ingroup Extensions
  */
 
-define( 'GraphViz_VERSION', '2.0.1' );
+define( 'GraphViz_VERSION', '2.1.0' );
 
 /**
  * The GraphViz settings class.
@@ -99,7 +99,6 @@ if ( defined( 'MEDIAWIKI' ) ) {
 		$dir = __DIR__ . '/';
 
 		$GLOBALS['wgMessagesDirs']['GraphViz'] = $dir . 'i18n';
-		$GLOBALS['wgExtensionMessagesFiles']['GraphViz'] = $dir . 'GraphViz.i18n.php';
 		$GLOBALS['wgAutoloadClasses']['GraphViz'] = $dir . "GraphViz_body.php";
 		$GLOBALS['wgAutoloadClasses']['GraphRenderParms'] = $dir . "GraphRenderParms.php";
 		$GLOBALS['wgAutoloadClasses']['UploadLocalFile'] = $dir . "UploadLocalFile.php";

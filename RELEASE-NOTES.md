@@ -1,24 +1,30 @@
 These are the release notes for the [MediaWiki][mediawiki] [GraphViz extension][gv_ext].
 
-## GraphViz 2.0.0 ## (2017-4-18)
+## GraphViz 2.1.0 ## (2017-08-02)
+* Remove compat with PHP 5.3 and earlier
+* Remove compat with MW 1.22 and earlier
+* Remove I18n php shim [bug T168353](https://phabricator.wikimedia.org/T168353)
+* Fix for dying on phpcs run [bug T168738](https://phabricator.wikimedia.org/T168738)
+
+## GraphViz 2.0.1 ## (2017-04-18)
 * Fix for [bug T163103](https://phabricator.wikimedia.org/T163103).
 
-## GraphViz 2.0.0 ## (2017-3-23)
+## GraphViz 2.0.0 ## (2017-03-23)
 * Redesign to eliminate creation of file pages for uploaded graph images.
 * Fix for [bug T100795](https://phabricator.wikimedia.org/T100795).
 * Fix for [bug T151294](https://phabricator.wikimedia.org/T151294).
 
-## GraphViz 1.6.1 ## (2015-6-16)
+## GraphViz 1.6.1 ## (2015-06-16)
 * Fix for [bug T89325](https://phabricator.wikimedia.org/T89325).
 * Fix for [bug T97596](https://phabricator.wikimedia.org/T97596).
 * Fix for [bug T97603](https://phabricator.wikimedia.org/T97603).
 * Fix for [bug T98500](https://phabricator.wikimedia.org/T98500).
 
-## GraphViz 1.6.0 ## (2015-3-26)
+## GraphViz 1.6.0 ## (2015-03-26)
 * Make the category pages created by this extension optional, non-empty and do not tag “dummy” images as belonging to a category.
 * Allow DOT tooltips without URLs.
 
-## GraphViz 1.5.1 ## (2015-1-24)
+## GraphViz 1.5.1 ## (2015-01-24)
 * Fix for [bug T75073](https://phabricator.wikimedia.org/T75073).
 
 ## GraphViz 1.5.0 ## (2014-10-28)

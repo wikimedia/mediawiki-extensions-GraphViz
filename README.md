@@ -6,8 +6,8 @@ The [MediaWiki][mediawiki] [GraphViz extension][gv_ext] lets users collaborate t
 
 ## Requirements
 
-- PHP 5.3 or later
-- MediaWiki 1.19 or later
+- PHP 5.4 or later
+- MediaWiki 1.23 or later
 
 ## Installation
 
