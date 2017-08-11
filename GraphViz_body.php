@@ -251,7 +251,7 @@ class GraphViz {
 	public static function titleHasGraphFiles( $title, $path ) {
 		$globPattern = self::getGraphFileBaseNameFromTitle( $title );
 		$globPattern = $path . $globPattern . "*.*";
-		if ( empty ( glob( $globPattern ) ) ) {
+		if ( empty( glob( $globPattern ) ) ) {
 			$result = false;
 		} else {
 			$result = true;
