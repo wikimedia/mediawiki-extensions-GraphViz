@@ -203,7 +203,7 @@ class UploadLocalFile extends LocalFile {
 	 * Check if the given file has been uploaded to the wiki.
 	 *
 	 * @param[in] string $filename is the name of the file to check.
-	 * @return File: file, or null on failure
+	 * @return File file, or null on failure
 	 */
 	static function getUploadedFile( $fileName ) {
 		$upload = new UploadFromLocalFile;
