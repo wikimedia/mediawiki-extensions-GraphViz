@@ -24,13 +24,13 @@
  */
 
  /**
-  *  This is the principal class of the GraphViz extension, responsible
-  *  for graph file management and rendering graph images and maps as HTML.
-  *  Graph source, image and map files are saved in the file system in order to avoid
-  *  regenerating them every time a page containing a graph is rendered.
-  *  The ImageMap extension is used for the rendering of graph images and maps as HTML.
+  * This is the principal class of the GraphViz extension, responsible
+  * for graph file management and rendering graph images and maps as HTML.
+  * Graph source, image and map files are saved in the file system in order to avoid
+  * regenerating them every time a page containing a graph is rendered.
+  * The ImageMap extension is used for the rendering of graph images and maps as HTML.
   *
-  *  @ingroup Extensions
+  * @ingroup Extensions
   */
 class GraphViz {
 	/**
@@ -102,7 +102,7 @@ class GraphViz {
 	 * Used as an array key in GraphViz::$graphTypes and other arrays.
 	 * It must be a unique value in GraphViz::$graphTypes.
 	 *
-	 * @var integer GRAPHVIZ
+	 * @var int GRAPHVIZ
 	 */
 	const GRAPHVIZ = 0;
 
@@ -110,7 +110,7 @@ class GraphViz {
 	 * Used as an array key in GraphViz::$graphTypes and other arrays.
 	 * It must be a unique value in GraphViz::$graphTypes.
 	 *
-	 * @var integer MSCGEN
+	 * @var int MSCGEN
 	 */
 	const MSCGEN = 1;
 
@@ -769,12 +769,12 @@ class GraphViz {
 	}
 
 	/**
-	 *  Ensure a dot image attribute value corresponds to the name of an uploaded file.
-	 *  @return string image attribute name-value pair with the value set to a validated uploaded file name or
-	 *  'image=""' to indicate an invalid image attribute value.
-	 *  @param[in] array $matches corresponds to the pattern returned by GraphViz::getDotImagePattern().
-	 *  @author Keith Welter
-	 *  @see GraphViz::sanitizeDotInput
+	 * Ensure a dot image attribute value corresponds to the name of an uploaded file.
+	 * @return string image attribute name-value pair with the value set to a validated uploaded
+	 *   file name or 'image=""' to indicate an invalid image attribute value.
+	 * @param[in] array $matches corresponds to the pattern returned by GraphViz::getDotImagePattern().
+	 * @author Keith Welter
+	 * @see GraphViz::sanitizeDotInput
 	 */
 	protected static function fixImageName( array $matches ) {
 		$imageName = $matches[1];
@@ -806,12 +806,12 @@ class GraphViz {
 	}
 
 	/**
-	 *  Ensure a dot IMG SRC attribute value corresponds to the name of an uploaded file.
-	 *  @return string IMG SRC attribute name-value pair with the value set to a validated uploaded file name or
-	 *  'src=""' to indicate an invalid image attribute value.
-	 *  @param[in] array $matches corresponds to GraphViz::DOT_IMG_PATTERN.
-	 *  @author Keith Welter
-	 *  @see GraphViz::sanitizeDotInput
+	 * Ensure a dot IMG SRC attribute value corresponds to the name of an uploaded file.
+	 * @return string IMG SRC attribute name-value pair with the value set to a validated uploaded
+	 *   file name or 'src=""' to indicate an invalid image attribute value.
+	 * @param[in] array $matches corresponds to GraphViz::DOT_IMG_PATTERN.
+	 * @author Keith Welter
+	 * @see GraphViz::sanitizeDotInput
 	 */
 	protected static function fixImgSrc( array $matches ) {
 		$imageName = $matches[4];
