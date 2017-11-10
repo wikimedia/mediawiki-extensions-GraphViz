@@ -447,7 +447,7 @@ class UploadLocalFile extends LocalFile {
 			$this->purgeThumbnails();
 
 			# Remove the old file from the squid cache
-			SquidUpdate::purge( [ $this->getURL() ] );
+			CdnCacheUpdate::purge( [ $this->getURL() ] );
 		}
 
 		# Invalidate cache for all pages using this file
