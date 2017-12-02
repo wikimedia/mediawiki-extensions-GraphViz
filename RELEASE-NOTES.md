@@ -1,10 +1,15 @@
 These are the release notes for the [MediaWiki][mediawiki] [GraphViz extension][gv_ext].
 
+## GraphViz 3.0.0
+* Add support for MediaWiki 1.29 [bug T173209](https://phabricator.wikimedia.org/T173209)
+* Drop support for MediaWiki 1.28 and earlier.
+* Add extension registration and move classes to their own namespace.
+
 ## GraphViz 2.1.0 ## (2017-08-02)
-* Remove compat with PHP 5.3 and earlier
-* Remove compat with MW 1.22 and earlier
-* Remove I18n php shim [bug T168353](https://phabricator.wikimedia.org/T168353)
-* Fix for dying on phpcs run [bug T168738](https://phabricator.wikimedia.org/T168738)
+* Remove compatibilty with PHP 5.3 and earlier.
+* Remove compatiblity with MW 1.22 and earlier.
+* Remove I18n php shim [bug T168353](https://phabricator.wikimedia.org/T168353).
+* Fix for dying on phpcs run [bug T168738](https://phabricator.wikimedia.org/T168738).
 
 ## GraphViz 2.0.1 ## (2017-04-18)
 * Fix for [bug T163103](https://phabricator.wikimedia.org/T163103).

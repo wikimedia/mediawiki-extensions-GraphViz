@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Extension to allow Graphviz to work inside MediaWiki.
  * See mediawiki.org/wiki/Extension:GraphViz for more information
@@ -24,6 +25,24 @@
  * @ingroup Upload
  * @author Keith Welter
  */
+
+namespace MediaWiki\Extension\GraphViz;
+
+use CdnCacheUpdate;
+use DeferredUpdates;
+use File;
+use FileRepo;
+use FSFile;
+use HTMLCacheUpdate;
+use LinksUpdate;
+use LocalFile;
+use MediaHandler;
+use MWException;
+use RepoGroup;
+use SiteStatsUpdate;
+use Status;
+use Title;
+use UploadBase;
 
 /**
  * Implements local file uploads in the absence of a WebRequest in conjunction with UploadFromLocalFile.
@@ -458,72 +477,5 @@ class UploadLocalFile extends LocalFile {
 		}
 
 		return true;
-	}
-}
-
-/**
- * Supports local file uploads in the absence of a WebRequest.
- * Simplified from UploadFromFile.
- *
- * @ingroup Upload
- * @author Keith Welter
- */
-class UploadFromLocalFile extends UploadBase {
-	/**
-	 * This function is a no-op because a WebRequest is not used.
-	 * It exists here because it is abstract in UploadBase.
-	 */
-	function initializeFromRequest( &$request ) {
-	}
-
-	/**
-	 * @return string 'file'
-	 */
-	public function getSourceType() {
-		return 'file';
-	}
-
-	/**
-	 * Return the local file and initializes if necessary.
-	 *
-	 * @return UploadLocalFile|null
-	 */
-	public function getLocalFile() {
-		if ( is_null( $this->mLocalFile ) ) {
-			$nt = $this->getTitle();
-			$repo = RepoGroup::singleton()->getLocalRepo();
-			$this->mLocalFile = is_null( $nt ) ? null : UploadLocalFile::newFromTitle( $nt, $repo );
-		}
-
-		return $this->mLocalFile;
-	}
-
-	/**
-	 * Really perform the upload.
-	 *
-	 * @param string $comment
-	 * @return Status Indicating the whether the upload succeeded.
-	 */
-	public function performUpload2( $comment ) {
-		global $wgUser;
-		$user = $wgUser;
-
-		$this->getLocalFile()->load( File::READ_LATEST );
-		$props = $this->mFileProps;
-
-		$pageText = '';
-
-		$status = $this->getLocalFile()->upload2(
-			$this->mTempPath,
-			$comment,
-			$props,
-			File::DELETE_SOURCE
-		);
-
-		if ( $status->isGood() ) {
-			$this->postProcessUpload();
-		}
-
-		return $status;
 	}
 }

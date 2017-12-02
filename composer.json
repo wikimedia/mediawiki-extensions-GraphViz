@@ -19,14 +19,9 @@
 		"mediawiki/image-map": "The ImageMap extension is required and is bundled with MediaWiki.  See https://www.mediawiki.org/wiki/Extension:ImageMap"
 	},
 	"autoload": {
-		"files": [
-			"GraphViz.php"
-		],
-		"classmap": [
-			"GraphRenderParms.php",
-			"GraphViz_body.php",
-			"UploadLocalFile.php"
-		]
+		"psr-4": {
+			"MediaWiki\\Extension\\GraphViz\\": "includes/"
+		}
 	},
 	"require-dev": {
 		"jakub-onderka/php-parallel-lint": "0.9.2",

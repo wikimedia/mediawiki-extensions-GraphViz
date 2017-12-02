@@ -24,6 +24,8 @@
  * @ingroup Extensions
  */
 
+namespace MediaWiki\Extension\GraphViz;
+
 /**
  * A convenience class for holding the parameters pertaining to graph rendering using dot or mscgen.
  * @author Keith Welter
@@ -73,14 +75,13 @@ class GraphRenderParms {
 	private $imageDir = '';
 
 	public function __construct( $renderer, $graphName, $userName, $imageType, $sourceAndMapDir, $imageDir ) {
-		global $wgGraphVizSettings;
-
 		$this->graphName = $graphName;
 		$this->userName = $userName;
 		$this->renderer = $renderer;
 		$this->sourceAndMapDir = $sourceAndMapDir;
 		$this->imageDir = $imageDir;
-		$this->execPath = $wgGraphVizSettings->execPath;
+		$settings = new Settings();
+		$this->execPath = $settings->execPath;
 
 		wfDebug( __METHOD__ . ": userName: $userName graphName: $graphName\n" );
 		wfDebug( __METHOD__ . ": sourceAndMapDir: $sourceAndMapDir imageDir: $imageDir\n" );
@@ -97,7 +98,7 @@ class GraphRenderParms {
 				break;
 			case 'mscgen':
 				$this->mapType = 'ismap';
-				$this->execPath = $wgGraphVizSettings->mscgenPath;
+				$this->execPath = $settings->mscgenPath;
 				break;
 			default:
 				$this->renderer = 'dot';

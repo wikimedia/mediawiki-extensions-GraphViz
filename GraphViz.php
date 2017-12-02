@@ -30,97 +30,14 @@
  * @file
  * @ingroup Extensions
  */
-
-define( 'GraphViz_VERSION', '2.1.0' );
-
-/**
- * The GraphViz settings class.
- */
-class GraphVizSettings {
-	/**
-	 * dot executable path
-	 * Windows Default: C:/Programme/ATT/Graphviz/bin/
-	 * Other Platform : /usr/local/bin/dot
-	 *
-	 * '/' will be converted to '\\' later on, so feel free how to write your path C:/ or C:\\
-	 *
-	 * @var string $execPath
-	 */
-	public $execPath;
-
-	/**
-	 * mscgen executable path
-	 * Commonly '/usr/bin/', '/usr/local/bin/' or (if set) '$DOT_PATH/'.
-	 *
-	 * '/' will be converted to '\\' later on, so feel free how to write your path C:/ or C:\\
-	 *
-	 * @var string $mscgenPath
-	 */
-	public $mscgenPath;
-
-	/**
-	 * default image type for the output of dot or mscgen
-	 * The "default default" is png.
-	 *
-	 * @var string $defaultImageType
-	 */
-	public $defaultImageType;
-
-	/**
-	 * Whether or not to automatically create category pages for images created by this extension.
-	 * yes|no (case insensitive). The default is no.
-	 *
-	 * @var string $createCategoryPages
-	 */
-	public $createCategoryPages;
-
-	/**
-	 * Constructor for setting configuration variable defaults.
-	 */
-	public function __construct() {
-		// Set execution path
-		if ( stristr( PHP_OS, 'WIN' ) && !stristr( PHP_OS, 'Darwin' ) ) {
-			$this->execPath = 'C:/Program Files/Graphviz/bin/';
-		} else {
-			$this->execPath = '/usr/bin/';
-		}
-
-		$this->mscgenPath = '';
-		$this->defaultImageType = 'png';
-		$this->createCategoryPages = 'no';
-	}
-};
-
-if ( defined( 'MEDIAWIKI' ) ) {
-	$GLOBALS['wgGraphVizSettings'] = new GraphVizSettings();
-
-	// self executing anonymous function to prevent global scope assumptions
-	call_user_func( function () {
-		$dir = __DIR__ . '/';
-
-		$GLOBALS['wgMessagesDirs']['GraphViz'] = $dir . 'i18n';
-		$GLOBALS['wgAutoloadClasses']['GraphViz'] = $dir . "GraphViz_body.php";
-		$GLOBALS['wgAutoloadClasses']['GraphRenderParms'] = $dir . "GraphRenderParms.php";
-		$GLOBALS['wgAutoloadClasses']['UploadLocalFile'] = $dir . "UploadLocalFile.php";
-		$GLOBALS['wgAutoloadClasses']['UploadFromLocalFile'] = $dir . "UploadLocalFile.php";
-		$GLOBALS['wgHooks']['ParserFirstCallInit'][] = 'GraphViz::onParserInit';
-		$GLOBALS['wgHooks']['ArticleDeleteComplete'][] = 'GraphViz::onArticleDeleteComplete';
-		$GLOBALS['wgHooks']['UnitTestsList'][] = 'GraphViz::onUnitTestsList';
-		$GLOBALS['wgHooks']['PageContentSave'][] = 'GraphViz::onPageContentSave';
-		$GLOBALS['wgHooks']['RejectParserCacheValue'][] = 'GraphViz::onRejectParserCacheValue';
-		$GLOBALS['wgExtensionCredits']['parserhook'][] = [
-			'name' => 'Graphviz',
-			'path' => __FILE__,
-			'version' => GraphViz_VERSION,
-			'author' => [
-				'[http://wickle.com CoffMan]',
-				'[mailto://arno.venner@gmail.com MasterOfDesaster]',
-				'[http://hummel-universe.net Thomas Hummel]',
-				'[mailto://welterk@gmail.com Keith Welter]'
-			],
-			'url' => 'https://www.mediawiki.org/wiki/Extension:GraphViz',
-			'descriptionmsg' => 'graphviz-desc',
-			'license-name' => 'GPL-2.0+'
-		];
-	} );
+if ( function_exists( 'wfLoadExtension' ) ) {
+	wfLoadExtension( 'GraphViz' );
+	$wgMessageDirs['GraphViz'] = __DIR__ . '/i18n';
+	wfWarn(
+		'Deprecated PHP entry point used for GraphViz extension. ' .
+		'Please use wfLoadExtension instead, ' .
+		'see https://www.mediawiki.org/wiki/Extension_registration for more details.'
+	);
+} else {
+	die( 'This version of the GraphViz extension requires MediaWiki 1.29+' );
 }
