@@ -1,5 +1,11 @@
 <?php
 
+namespace MediaWiki\Extension\GraphViz\Test;
+
+use MediaWiki\Extension\GraphViz\GraphViz;
+use MediaWikiTestCase;
+use ReflectionClass;
+
 /**
  *  @group GraphViz
  */
@@ -15,7 +21,7 @@ class GraphVizTest extends MediaWikiTestCase {
 	}
 
 	protected static function getGraphVizMethod( $name ) {
-		$class = new ReflectionClass( 'GraphViz' );
+		$class = new ReflectionClass( GraphViz::class );
 		$method = $class->getMethod( $name );
 		$method->setAccessible( true );
 		return $method;

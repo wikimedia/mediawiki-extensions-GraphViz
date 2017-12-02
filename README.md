@@ -16,7 +16,7 @@ The recommended way to install this extension is by using [Composer][composer]. 
 ```json
 {
 	"require": {
-		"mediawiki/graph-viz": "~1.1"
+		"mediawiki/graph-viz": "^2.0"
 	}
 }
 ```

@@ -23,12 +23,21 @@
  * @ingroup Extensions
  */
 
- /**
-  * This is the principal class of the GraphViz extension, responsible
-  * for graph file management and rendering graph images and maps as HTML.
-  * Graph source, image and map files are saved in the file system in order to avoid
-  * regenerating them every time a page containing a graph is rendered.
-  * The ImageMap extension is used for the rendering of graph images and maps as HTML.
+namespace MediaWiki\Extension\GraphViz;
+
+use Html;
+use ImageMap;
+use MWException;
+use Parser;
+use Sanitizer;
+use User;
+
+/**
+  *  This is the principal class of the GraphViz extension, responsible
+  *  for graph file management and rendering graph images and maps as HTML.
+  *  Graph source, image and map files are saved in the file system in order to avoid
+  *  regenerating them every time a page containing a graph is rendered.
+  *  The ImageMap extension is used for the rendering of graph images and maps as HTML.
   *
   * @ingroup Extensions
   */
@@ -171,16 +180,6 @@ class GraphViz {
 	 */
 	protected static function getDotImagePattern() {
 		return "~(?i)image\s*=\s*(" . self::DOT_ID_STRING . "|" . self::DOT_NUMERAL . "|" . self::DOT_QUOTED_STRING . "|" .  self::DOT_HTML_STRING . ")~";
-	}
-
-	/**
-	 * Unit test hook.
-	 * @author Keith Welter
-	 * @return true
-	 */
-	public static function onUnitTestsList( &$files ) {
-		$files = array_merge( $files, glob( __DIR__ . '/tests/phpunit/*Test.php' ) );
-		return true;
 	}
 
 	/**
@@ -480,9 +479,7 @@ class GraphViz {
 	 * @author Keith Welter et al.
 	 */
 	protected static function render( $input, $args, $parser, $frame ) {
-		global
-		$wgUser,
-		$wgGraphVizSettings;
+		global $wgUser;
 
 		// sanity check the input
 		$input = trim( $input );
@@ -537,7 +534,8 @@ class GraphViz {
 		if ( isset( $args['format'] ) ) {
 			$imageType = $args['format'];
 		} else {
-			$imageType = $wgGraphVizSettings->defaultImageType;
+			$settings = new Settings();
+			$imageType = $settings->defaultImageType;
 		}
 
 		// determine user...

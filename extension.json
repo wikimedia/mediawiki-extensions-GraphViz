@@ -1,0 +1,47 @@
+{
+	"name": "GraphViz",
+	"version": "3.0.0",
+	"type": "parserhook",
+	"author": [
+		"Keith Welter",
+		"[https://meta.wikimedia.org/wiki/User:Coffman Victor Fariña]",
+		"[https://www.mediawiki.org/wiki/User:Matthewpearson Matthew Pearson]",
+		"[https://www.mediawiki.org/wiki/User:Hummel-riegel Thomas Hummel]",
+		"Gregory Szorc"
+	],
+	"url": "https://www.mediawiki.org/wiki/Extension:GraphViz",
+	"descriptionmsg": "graphviz-desc",
+	"license-name": "GPL-2.0+",
+	"requires": {
+		"MediaWiki": ">= 1.29.0"
+	},
+	"AutoloadClasses": {
+		"MediaWiki\\Extension\\GraphViz\\GraphViz": "includes/GraphViz.php",
+		"MediaWiki\\Extension\\GraphViz\\Settings": "includes/Settings.php",
+		"MediaWiki\\Extension\\GraphViz\\UploadLocalFile": "includes/UploadLocalFile.php",
+		"MediaWiki\\Extension\\GraphViz\\UploadFromLocalFile": "includes/UploadFromLocalFile.php",
+		"MediaWiki\\Extension\\GraphViz\\GraphRenderParms": "includes/GraphRenderParms.php"
+	},
+	"MessagesDirs": {
+		"GraphViz": [
+			"i18n"
+		]
+	},
+	"config": {
+		"AdminCanReadAll": {
+			"value": true,
+			"description": "Sysop users can read all restricted pages"
+		},
+		"GraphVizRedirect": {
+			"value": true,
+			"description": "Do not redirect from page in search results to restricted pages"
+		}
+	},
+	"Hooks": {
+		"ParserFirstCallInit": "MediaWiki\\Extension\\GraphViz\\GraphViz::onParserInit",
+		"ArticleDeleteComplete": "MediaWiki\\Extension\\GraphViz\\GraphViz::onArticleDeleteComplete",
+		"PageContentSave": "MediaWiki\\Extension\\GraphViz\\GraphViz::onPageContentSave",
+		"RejectParserCacheValue": "MediaWiki\\Extension\\GraphViz\\GraphViz::onRejectParserCacheValue"
+	},
+	"manifest_version": 2
+}
