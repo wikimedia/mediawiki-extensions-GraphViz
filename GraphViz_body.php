@@ -442,7 +442,7 @@ class GraphViz {
 
 		$title = $out->getTitle();
 
-		self::uploadImagesForTitle( $title, $wgUser );
+		self::uploadImagesForTitle( $title, $wgUser, $out );
 
 		return true;
 	}
@@ -453,7 +453,7 @@ class GraphViz {
 	 * @return int number of uploaded images
 	 * @author Keith Welter
 	 */
-	public static function uploadImagesForTitle( $title, $user ) {
+	public static function uploadImagesForTitle( $title, $user, $out ) {
 		// find any stored images for the page
 		$graphName = self::getGraphFileBaseNameFromTitle( $title );
 		$imageDir = self::getImageDir();
