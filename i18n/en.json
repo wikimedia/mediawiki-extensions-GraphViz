@@ -8,7 +8,6 @@
 	"graphviz-desc": "Allows embedding [http://www.graphviz.org Graphviz] markup and generates inline images",
 	"graphviz-reload": "Graph image source changed. Reload page to display updated graph image.",
 	"graphviz-no-input": "Graph source is missing.",
-	"graphviz-no-imagemap-class": "The ImageMap extension is not installed.",
 	"graphviz-dot-invalid-image": "The dot $1 attribute must be the name of an uploaded file.",
 	"graphviz-dot-attr-forbidden": "The dot $1 attribute is forbidden.",
 	"graphviz-read-src-failed": "Unable to read the graph text from the file system.",

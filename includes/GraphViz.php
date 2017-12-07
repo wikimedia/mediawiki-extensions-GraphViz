@@ -487,11 +487,6 @@ class GraphViz {
 			return self::i18nErrorMessageHTML( 'graphviz-no-input' );
 		}
 
-		// make sure the ImageMap extension is installed
-		if ( !class_exists( 'ImageMap' ) ) {
-			return self::i18nErrorMessageHTML( 'graphviz-no-imagemap-class' );
-		}
-
 		// get title text
 		$title = $parser->getTitle();
 		$titleText = $title->getFulltext();

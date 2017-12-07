@@ -13,7 +13,10 @@
 	"descriptionmsg": "graphviz-desc",
 	"license-name": "GPL-2.0+",
 	"requires": {
-		"MediaWiki": ">= 1.29.0"
+		"MediaWiki": ">= 1.29.0",
+		"extensions": {
+			"ImageMap": "*"
+		}
 	},
 	"AutoloadClasses": {
 		"MediaWiki\\Extension\\GraphViz\\GraphViz": "includes/GraphViz.php",
