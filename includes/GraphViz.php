@@ -314,7 +314,10 @@ class GraphViz {
 	 * Graph images for extant wiki source will be regenerated when parsed.
 	 * @author Keith Welter
 	 */
-	public static function onPageContentSave( $wikiPage, $user, $content, $summary, $isMinor, $isWatch, $section, $flags, $status ) {
+	public static function onPageContentSave(
+		\WikiPage $wikiPage, $user, $content,
+		$summary, $isMinor, $isWatch, $section, $flags, $status
+	) {
 		wfDebug( __METHOD__ . ": entering\n" );
 
 		$title = $wikiPage->getTitle();
