@@ -7,7 +7,6 @@
 		]
 	},
 	"graphviz-desc": "[http://www.graphviz.org Graphviz] 記法の埋め込みができるようにし、インライン画像を生成する",
-	"graphviz-no-imagemap-class": "ImageMap 拡張機能がインストールされていません。",
 	"graphviz-read-src-failed": "ファイル システムからグラフ テキストを読み取れません。",
 	"graphviz-write-src-failed": "ファイル システムにグラフ テキストを書き込めません。",
 	"graphviz-mkdir-failed": "ファイル システムにディレクトリを作成できません。",

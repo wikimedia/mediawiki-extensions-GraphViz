@@ -7,7 +7,6 @@
 	"graphviz-desc": "允許內置 [http://www.graphviz.org Graphviz] 標記，並生成內嵌式圖像",
 	"graphviz-reload": "圖表圖片來源已改變，請重新載入頁面來顯示更新後的圖表圖片。",
 	"graphviz-no-input": "圖表來源遺失。",
-	"graphviz-no-imagemap-class": "尚未安裝 ImageMap 擴充套件。",
 	"graphviz-dot-invalid-image": "dot 的 $1 屬性必須為上傳檔案的名稱。",
 	"graphviz-dot-attr-forbidden": "禁止使用 dot $1 屬性。",
 	"graphviz-read-src-failed": "無法自檔案系統讀取圖表文字。",

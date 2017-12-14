@@ -9,7 +9,6 @@
 	"graphviz-desc": "Maakt het mogelijk [http://www.graphviz.org Graphviz]-markup te gebruiken en inline afbeeldingen aan te maken",
 	"graphviz-reload": "Bron van afgebeelde graaf is gewijzigd. Herlaad pagina om bijgewerkte graaf te tonen.",
 	"graphviz-no-input": "Graaf-bron ontbreekt.",
-	"graphviz-no-imagemap-class": "De ImageMap-extensie is niet geïnstalleerd.",
 	"graphviz-dot-invalid-image": "Het dot-attribuut $1 moet de naam van een geüpload bestand zijn.",
 	"graphviz-dot-attr-forbidden": "Het dot-attribuut $1 is niet toegestaan.",
 	"graphviz-read-src-failed": "Kan de graaf-tekst niet lezen van het bestandssysteem.",

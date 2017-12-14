@@ -7,7 +7,6 @@
 	"graphviz-desc": "Permite incorporar llinguax de marques de [http://www.graphviz.org Graphviz] y xenera imaxes en llinia",
 	"graphviz-reload": "La fonte d'imaxe de la gráfica camudó. Recarga la páxina p'amosar la gráfica actualizáu.",
 	"graphviz-no-input": "Falta la fonte de la gráfica.",
-	"graphviz-no-imagemap-class": "La estensión ImageMap nun ta instalada.",
 	"graphviz-dot-invalid-image": "L'atributu $1 del puntu tien de ser el nome d'un ficheru xubíu.",
 	"graphviz-dot-attr-forbidden": "L'atributu $1 del puntu ta torgáu.",
 	"graphviz-read-src-failed": "Nun pudo lleese'l testu de la gráfica dende'l sistema de ficheros.",

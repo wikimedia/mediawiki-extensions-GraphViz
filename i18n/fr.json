@@ -10,7 +10,6 @@
 	"graphviz-desc": "Permet un balisage [http://www.graphviz.org Graphviz] embarqué et génère les images en ligne",
 	"graphviz-reload": "La source de l’image du graphique a changé. Actualisez la page pour afficher l’image du graphique mise à jour.",
 	"graphviz-no-input": "La source du graphique est absente.",
-	"graphviz-no-imagemap-class": "L’extension ImageMap n’est pas installée.",
 	"graphviz-dot-invalid-image": "Le point attribut $1 doit être le nom d’un fichier téléversé.",
 	"graphviz-dot-attr-forbidden": "Le point attribut $1 est interdit.",
 	"graphviz-read-src-failed": "Impossible de lire le texte du graphique depuis le système de fichiers.",

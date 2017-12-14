@@ -8,7 +8,6 @@
 	"graphviz-desc": "מאפשרת הטמעת סימון [http://www.graphviz.org Graphviz] ומייצרת תמונות מתוך הטקסט",
 	"graphviz-reload": "המקור של תמונת הגרף השתנה. יש לרענן את הדף כדי להציג את הגרף המעודכן.",
 	"graphviz-no-input": "מקור הגרף חסר.",
-	"graphviz-no-imagemap-class": "ההרחבה ImageMap אינה מותקנת.",
 	"graphviz-dot-invalid-image": "המאפיין dot $1 צריך להיות השם של הקובץ שהועלה.",
 	"graphviz-dot-attr-forbidden": "המאפיין dot $1 אסור.",
 	"graphviz-read-src-failed": "אין אפשרות לקרוא את טקסט הגרף ממערכת הקבצים.",

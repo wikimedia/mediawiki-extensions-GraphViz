@@ -8,7 +8,6 @@
 	"graphviz-desc": "Permite incorporar notação [http://www.graphviz.org Graphviz] e gera imagens em linha",
 	"graphviz-reload": "A fonte da imagem do gráfico mudou. Atualize a página para apresentar a imagem atualizada do gráfico.",
 	"graphviz-no-input": "Falta a fonte do gráfico.",
-	"graphviz-no-imagemap-class": "A extensão ImageMap não está instalada.",
 	"graphviz-dot-invalid-image": "O atributo ponto $1 tem de ser o nome de um ficheiro carregado.",
 	"graphviz-dot-attr-forbidden": "O atributo ponto $1 é proibido.",
 	"graphviz-read-src-failed": "Não foi possível ler o texto do gráfico a partir do sistema de ficheiros.",

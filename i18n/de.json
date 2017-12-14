@@ -8,7 +8,6 @@
 	"graphviz-desc": "Ermöglicht das auf [http://www.graphviz.org/ Graphviz] gestützte Einbetten und Anzeigen von Grafiken",
 	"graphviz-reload": "Die Grafikbildquelle wurde geändert. Lade die Seite erneut, um das aktualisierte Grafikbild anzuzeigen.",
 	"graphviz-no-input": "Die Grafikquelle fehlt.",
-	"graphviz-no-imagemap-class": "Die Erweiterung „ImageMap“ ist nicht installiert.",
 	"graphviz-dot-invalid-image": "Das Punktattribut „$1“ muss der Name einer hochgeladenen Datei sein.",
 	"graphviz-dot-attr-forbidden": "Das Punktattribut „$1“ ist nicht erlaubt.",
 	"graphviz-read-src-failed": "Der Grafiktext konnte vom Dateisystem nicht gelesen werden.",

@@ -8,7 +8,6 @@
 	"graphviz-desc": "Tillåter inbäddning [http://www.graphviz.org Graphviz] -märkspråk och genererar bilder i texten",
 	"graphviz-reload": "Grafikens bildkälla har ändrats. Ladda om sidan för att visa den uppdaterade grafikbilden.",
 	"graphviz-no-input": "Grafikkällan saknas",
-	"graphviz-no-imagemap-class": "ImageMap-tillägget är inte installerat.",
 	"graphviz-dot-invalid-image": "Punktattributet $1 måste vara namnet på en uppladdad fil.",
 	"graphviz-dot-attr-forbidden": "Punktattributet $1 är förbjudet.",
 	"graphviz-read-src-failed": "Kunde inte läsa grafiktexten från filsystemet.",
