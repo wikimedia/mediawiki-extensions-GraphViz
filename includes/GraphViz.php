@@ -27,8 +27,10 @@ namespace MediaWiki\Extension\GraphViz;
 
 use Html;
 use ImageMap;
+use MediaWiki\MediaWikiServices;
 use MWException;
 use Parser;
+use PPFrame;
 use Sanitizer;
 use User;
 
@@ -122,6 +124,12 @@ class GraphViz {
 	 * @var int MSCGEN
 	 */
 	const MSCGEN = 1;
+
+	/**
+	 * The name of the system message that defines the username to be used for uploading graphs
+	 * when the current user doesn't have upload permission.
+	 */
+	const UPLOAD_USER_MESSAGE = 'graphviz-upload-user';
 
 	/**
 	 * A list of dot attributes that are forbidden.
@@ -359,6 +367,15 @@ class GraphViz {
 	}
 
 	/**
+	 * Add the GraphViz user to the list of reserved usernames.
+	 * @link https://www.mediawiki.org/wiki/Manual:Hooks/UserGetReservedNames
+	 * @param string[] &$reservedUsernames Array of usernames or references to system messages.
+	 */
+	public static function onUserGetReservedNames( &$reservedUsernames ) {
+		$reservedUsernames[] = 'msg:' . self::UPLOAD_USER_MESSAGE;
+	}
+
+	/**
 	 * @param string $graphName is the name of the graph to make "friendly".
 	 * @return string $graphName with non-alphanumerics replaced with underscores.
 	 * @author Keith Welter
@@ -414,6 +431,38 @@ class GraphViz {
 		}
 
 		return self::render( $input, $args, $parser, $frame );
+	}
+
+	/**
+	 * Get the user who should perform GraphViz uploads. If the current user can't upload (e.g.
+	 * this graph generation is being done by an extension and no user is logged in) then fall back
+	 * to the GraphViz system user.
+	 * @return User
+	 */
+	public static function getUser() {
+		global $wgUser;
+		$requiredRights = [ 'upload', 'reupload', 'edit', 'createpage' ];
+
+		// If the user has all the required rights, use them.
+		$rights = is_array( $wgUser->mRights ) ? $wgUser->mRights : [];
+		if ( array_intersect( $rights, $requiredRights ) == $requiredRights ) {
+			return $wgUser;
+		}
+
+		// Otherwise, use a system user.
+		$userName = wfMessage( self::UPLOAD_USER_MESSAGE )->parse();
+		$user = User::newSystemUser( $userName, [ 'steal' => true ] );
+		$user->mRights = array_merge( $user->getRights(), $requiredRights );
+		// Make sure system user's email address is confirmed if required.
+		$emailConfirmToEdit = MediaWikiServices::getInstance()
+			->getMainConfig()
+			->get( 'EmailConfirmToEdit' );
+		if ( $emailConfirmToEdit && !$user->isEmailConfirmed() ) {
+			$user->mEmail = 'graphviz@example.org';
+			$user->setEmailAuthenticationTimestamp( wfTimestampNow() );
+			$user->saveSettings();
+		}
+		return $user;
 	}
 
 	/**
@@ -515,16 +564,15 @@ class GraphViz {
 	 * - The optional "format" attribute allows the user to specify the image type from
 	 * among those supported for the graph language.  @ref Files.
 	 *
-	 * @param Parser $parser
-	 * @param PPFrame $frame
+	 * @param Parser $parser The parser.
+	 *
+	 * @param PPFrame $frame The preprocessor frame.
 	 *
 	 * @return string HTML of a graph image and optional map or an HTML error message.
 	 *
 	 * @author Keith Welter et al.
 	 */
-	protected static function render( $input, $args, $parser, $frame ) {
-		global $wgUser;
-
+	protected static function render( $input, $args, Parser $parser, PPFrame $frame ) {
 		// sanity check the input
 		$input = trim( $input );
 		if ( empty( $input ) ) {
@@ -577,10 +625,10 @@ class GraphViz {
 			$imageType = $settings->defaultImageType;
 		}
 
-		// determine user...
+		// determine user.
 		// In testing I found that $parser->getUser() did not give the logged-in user when doing an edit preview.
 		// So, I've gone against the recommended practice and used the global which gave the desired results.
-		$user = $wgUser;
+		$user = self::getUser();
 		$userName = $user->getName();
 
 		// instantiate an object to hold the graph rendering parameters
@@ -675,6 +723,7 @@ class GraphViz {
 			}
 
 			$upload = new UploadFromLocalFile;
+			$upload->setUser( $user );
 
 			// check if the upload is allowed for the intended title (the image file must exist prior to this check)
 			if ( !UploadLocalFile::isUploadAllowedForTitle(

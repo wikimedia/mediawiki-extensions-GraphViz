@@ -26,5 +26,6 @@
 	"graphviz-unrecognized-preparse-value": "Used as error message.  Parameters:\n* $1 - attribute name",
 	"graphviz-category-desc": "GraphViz category page text.  Parameters:\n* $1 - GraphViz category tag",
 	"graphviz-subcategory-desc": "GraphViz subcategory page text.  Parameters:\n* $1 - GraphViz subcategory tag\n* $2 - graph render command associated with subcategory",
-	"graphviz-map-desc": "Do not translate the tags <code><nowiki></code>, <code><imagemap></code>, <code></imagemap></code> or <code></nowiki></code>.  Parameters:\n* $1 - image file name\n* $2 - image map shape, coordinates and URL (0 or more lines)"
+	"graphviz-map-desc": "Do not translate the tags <code><nowiki></code>, <code><imagemap></code>, <code></imagemap></code> or <code></nowiki></code>.  Parameters:\n* $1 - image file name\n* $2 - image map shape, coordinates and URL (0 or more lines)",
+	"graphviz-upload-user": "The username of the user that graph images should be uploaded as (if the current user doesn't have permission)"
 }

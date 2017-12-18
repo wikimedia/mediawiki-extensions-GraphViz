@@ -6,6 +6,7 @@ use File;
 use RepoGroup;
 use Status;
 use UploadBase;
+use User;
 
 /**
  * Supports local file uploads in the absence of a WebRequest.
@@ -15,6 +16,18 @@ use UploadBase;
  * @author Keith Welter
  */
 class UploadFromLocalFile extends UploadBase {
+
+	/** @var User */
+	protected $user;
+
+	/**
+	 * Set the user to use for the upload.
+	 * @param User $user
+	 */
+	public function setUser( User $user ) {
+		$this->user = $user;
+	}
+
 	/**
 	 * This function is a no-op because a WebRequest is not used.
 	 * It exists here because it is abstract in UploadBase.
@@ -52,9 +65,6 @@ class UploadFromLocalFile extends UploadBase {
 	 * @return Status Indicating the whether the upload succeeded.
 	 */
 	public function performUpload2( $comment ) {
-		global $wgUser;
-		$user = $wgUser;
-
 		$this->getLocalFile()->load( File::READ_LATEST );
 		$props = $this->mFileProps;
 
@@ -64,7 +74,8 @@ class UploadFromLocalFile extends UploadBase {
 			$this->mTempPath,
 			$comment,
 			$props,
-			File::DELETE_SOURCE
+			File::DELETE_SOURCE,
+			$this->user
 		);
 
 		if ( $status->isGood() ) {

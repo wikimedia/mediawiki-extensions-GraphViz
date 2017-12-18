@@ -34,6 +34,7 @@ use File;
 use FileRepo;
 use FSFile;
 use HTMLCacheUpdate;
+use Language;
 use LinksUpdate;
 use LocalFile;
 use MediaHandler;
@@ -41,8 +42,10 @@ use MWException;
 use RepoGroup;
 use SiteStatsUpdate;
 use Status;
+use StubUserLang;
 use Title;
 use UploadBase;
+use User;
 
 /**
  * Implements local file uploads in the absence of a WebRequest in conjunction with UploadFromLocalFile.
@@ -102,13 +105,17 @@ class UploadLocalFile extends LocalFile {
 	 * @param string $desiredDestName the desired destination name of the file to be uploaded.
 	 * @param string $localPath the local path of the file to be uploaded.
 	 * @param bool $removeLocalFile remove the local file?
-	 * @param Language $language to use for
-	 * @param string &$errorText is populated with an error message if the user is not allowed to upload.
+	 * @param Language|StubUserLang $language to use for
+	 * @param string &$errorText is populated with an error message if the user is not allowed to
+	 * upload.
 	 * @return bool true if the user is allowed to upload, false if not.
 	 */
-	static function isUploadAllowedForTitle( $upload, $user, $desiredDestName, $localPath, $removeLocalFile, $language, &$errorText ) {
+	static function isUploadAllowedForTitle(
+		UploadFromLocalFile $upload, User $user, $desiredDestName, $localPath, $removeLocalFile,
+		$language, &$errorText
+	) {
 		// Initialize path info
-		$fileSize = filesize( $localPath );
+		$fileSize = file_exists( $localPath ) ? filesize( $localPath ) : null;
 		$upload->initializePathInfo( $desiredDestName, $localPath, $fileSize, $removeLocalFile );
 
 		// Upload verification
@@ -198,7 +205,7 @@ class UploadLocalFile extends LocalFile {
 	 * @param string $filename is the name of the file for which upload verification failed.
 	 * @return string upload error message.
 	 */
-	static function getUploadErrorMessage( $message, $filename ) {
+	static function getUploadErrorMessage( $message, $filename = '' ) {
 		return wfMessage( 'graphviz-uploaderror', $filename )->text() . $message;
 	}
 
@@ -256,7 +263,9 @@ class UploadLocalFile extends LocalFile {
 	 *
 	 * @return bool true if the upload succeeds, false if it fails.
 	 */
-	static function uploadWithoutFilePage( $upload, $desiredDestName, $localPath, $removeLocalFile ) {
+	static function uploadWithoutFilePage(
+		UploadFromLocalFile $upload, $desiredDestName, $localPath, $removeLocalFile
+	) {
 		// Initialize path info
 		$fileSize = filesize( $localPath );
 		$upload->initializePathInfo( $desiredDestName, $localPath, $fileSize, $removeLocalFile );
@@ -282,10 +291,11 @@ class UploadLocalFile extends LocalFile {
 	 *   reduce the upload time when uploading virtual URLs for which the file
 	 *   info is already known
 	 * @param int|bool $flags Flags for publish()
+	 * @param User $user The user who should upload the file.
 	 * @return Status On success, the value member contains the
 	 *     archive name, or an empty string if it was a new file.
 	 */
-	function upload2( $src, $comment, $props, $flags ) {
+	function upload2( $src, $comment, $props, $flags, User $user ) {
 		if ( $this->getRepo()->getReadOnlyReason() !== false ) {
 			return $this->readOnlyFatalStatus();
 		}
@@ -311,7 +321,7 @@ class UploadLocalFile extends LocalFile {
 			// Once the second operation goes through, then the current version was
 			// updated and we must therefore update the DB too.
 			$oldver = $status->value;
-			if ( !$this->recordUpload3( $oldver, $comment, $props ) ) {
+			if ( !$this->recordUpload3( $oldver, $comment, $props, $user ) ) {
 				$status->fatal( 'filenotfound', $srcPath );
 			}
 		}
@@ -326,12 +336,10 @@ class UploadLocalFile extends LocalFile {
 	 * @param string $oldver
 	 * @param string $comment
 	 * @param bool|array $props
+	 * @param User $user The user (either the current user, or the special GraphViz user).
 	 * @return bool
 	 */
-	function recordUpload3( $oldver, $comment, $props ) {
-		global $wgUser;
-		$user = $wgUser;
-
+	function recordUpload3( $oldver, $comment, $props, User $user ) {
 		$dbw = $this->repo->getMasterDB();
 
 		$timestamp = $dbw->timestamp();

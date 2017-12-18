@@ -1,5 +1,8 @@
 These are the release notes for the [MediaWiki][mediawiki] [GraphViz extension][gv_ext].
 
+## GraphViz 3.1.0
+* Allow any user to generate graph images.
+
 ## GraphViz 3.0.0
 * Add support for MediaWiki 1.29 [bug T173209](https://phabricator.wikimedia.org/T173209)
 * Drop support for MediaWiki 1.28 and earlier.

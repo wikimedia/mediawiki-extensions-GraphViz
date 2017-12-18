@@ -44,7 +44,8 @@
 		"ParserFirstCallInit": "MediaWiki\\Extension\\GraphViz\\GraphViz::onParserInit",
 		"ArticleDeleteComplete": "MediaWiki\\Extension\\GraphViz\\GraphViz::onArticleDeleteComplete",
 		"PageContentSave": "MediaWiki\\Extension\\GraphViz\\GraphViz::onPageContentSave",
-		"RejectParserCacheValue": "MediaWiki\\Extension\\GraphViz\\GraphViz::onRejectParserCacheValue"
+		"RejectParserCacheValue": "MediaWiki\\Extension\\GraphViz\\GraphViz::onRejectParserCacheValue",
+		"UserGetReservedNames": "MediaWiki\\Extension\\GraphViz\\GraphViz::onUserGetReservedNames"
 	},
 	"manifest_version": 2
 }
