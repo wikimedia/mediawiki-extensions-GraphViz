@@ -56,8 +56,8 @@ class UploadLocalFile extends LocalFile {
 	 * Check if uploading is allowed for the given user.
 	 * Based on SpecialUpload::execute.
 	 *
-	 * @param[in] User $user is the user to check.
-	 * @param[out] string $errorText is populated with an error message if the user is not allowed to upload.
+	 * @param User $user is the user to check.
+	 * @param string &$errorText is populated with an error message if the user is not allowed to upload.
 	 * @return bool true if the user is allowed to upload, false if not.
 	 */
 	static function isUploadAllowedForUser( $user, &$errorText ) {
@@ -97,13 +97,13 @@ class UploadLocalFile extends LocalFile {
 	 * Check if the upload is allowed for the given user and destination name.
 	 * Based on SpecialUpload::processUpload.
 	 *
-	 * @param[in] UploadFromLocalFile $upload
-	 * @param[in] User $user is the user to check.
-	 * @param[in] string $desiredDestName the desired destination name of the file to be uploaded.
-	 * @param[in] string $localPath the local path of the file to be uploaded.
-	 * @param[in] bool $removeLocalFile remove the local file?
-	 * @param[in] Language $langauge to use for
-	 * @param[out] string $errorText is populated with an error message if the user is not allowed to upload.
+	 * @param UploadFromLocalFile $upload
+	 * @param User $user is the user to check.
+	 * @param string $desiredDestName the desired destination name of the file to be uploaded.
+	 * @param string $localPath the local path of the file to be uploaded.
+	 * @param bool $removeLocalFile remove the local file?
+	 * @param Language $language to use for
+	 * @param string &$errorText is populated with an error message if the user is not allowed to upload.
 	 * @return bool true if the user is allowed to upload, false if not.
 	 */
 	static function isUploadAllowedForTitle( $upload, $user, $desiredDestName, $localPath, $removeLocalFile, $language, &$errorText ) {
@@ -135,9 +135,9 @@ class UploadLocalFile extends LocalFile {
 	 * Provides output to the user for an error result from UploadBase::verifyUpload
 	 * Based on SpecialUpload::processVerificationError.
 	 *
-	 * @param[in] array $details result of UploadBase::verifyUpload
-	 * @param[in] Language $language for adding comma-separated lists to some messages.
-	 * @param[in] string $filename is the name of the file for which upload verification failed.
+	 * @param array $details result of UploadBase::verifyUpload
+	 * @param Language $language for adding comma-separated lists to some messages.
+	 * @param string $filename is the name of the file for which upload verification failed.
 	 * @return string error message.
 	 * @throws MWException
 	 */
@@ -194,8 +194,8 @@ class UploadLocalFile extends LocalFile {
 	/**
 	 * Based on SpecialUpload::showUploadError.
 	 *
-	 * @param[in] string $message message to be included in the result
-	 * @param[in] string $filename is the name of the file for which upload verification failed.
+	 * @param string $message message to be included in the result
+	 * @param string $filename is the name of the file for which upload verification failed.
 	 * @return string upload error message.
 	 */
 	static function getUploadErrorMessage( $message, $filename ) {
@@ -204,7 +204,7 @@ class UploadLocalFile extends LocalFile {
 
 	/**
 	 * Given an i18n message name and arguments, return the message text.
-	 * @param[in] string $messageName is the name of a message in the i18n file.
+	 * @param string $messageName is the name of a message in the i18n file.
 	 * A variable number of message arguments is supported.
 	 * @return string error message for $messageName.
 	 * @author Keith Welter
@@ -221,7 +221,7 @@ class UploadLocalFile extends LocalFile {
 	/**
 	 * Check if the given file has been uploaded to the wiki.
 	 *
-	 * @param[in] string $filename is the name of the file to check.
+	 * @param string $fileName is the name of the file to check.
 	 * @return File file, or null on failure
 	 */
 	static function getUploadedFile( $fileName ) {
@@ -237,6 +237,7 @@ class UploadLocalFile extends LocalFile {
 	 *
 	 * @param Title $title
 	 * @param FileRepo $repo
+	 * @param null $unused
 	 *
 	 * @return UploadLocalFile
 	 */
@@ -248,10 +249,10 @@ class UploadLocalFile extends LocalFile {
 	 * Upload a file from the given local path to the given destination name.
 	 * Based on SpecialUpload::processUpload
 	 *
-	 * @param[in] UploadFromLocalFile $upload
-	 * @param[in] string $desiredDestName the desired destination name of the file to be uploaded.
-	 * @param[in] string $localPath the local path of the file to be uploaded.
-	 * @param[in] bool $removeLocalFile remove the local file?
+	 * @param UploadFromLocalFile $upload
+	 * @param string $desiredDestName the desired destination name of the file to be uploaded.
+	 * @param string $localPath the local path of the file to be uploaded.
+	 * @param bool $removeLocalFile remove the local file?
 	 *
 	 * @return bool true if the upload succeeds, false if it fails.
 	 */

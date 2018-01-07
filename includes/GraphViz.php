@@ -185,7 +185,8 @@ class GraphViz {
 	/**
 	 * Check if a given image type is probably allowed to be uploaded
 	 * (does not consult any file extension blacklists).
-	 * @param[in] string $imageType is the type of image (e.g. png) to check.
+	 * @param string $imageType is the type of image (e.g. png) to check.
+	 * @return bool
 	 * @author Keith Welter
 	 */
 	public static function imageTypeAllowed( $imageType ) {
@@ -201,6 +202,7 @@ class GraphViz {
 	/**
 	 * Set parser hook functions for supported graph types.
 	 * @author Keith Welter
+	 * @param Parser &$parser
 	 * @return true
 	 */
 	public static function onParserInit( Parser &$parser ) {
@@ -213,6 +215,10 @@ class GraphViz {
 	/**
 	 * When an article is deleted, delete all the associated graph files.
 	 * @author Keith Welter
+	 * @param Article &$article
+	 * @param User &$user
+	 * @param string $reason
+	 * @param int $id
 	 */
 	public static function onArticleDeleteComplete( &$article, User &$user, $reason, $id ) {
 		self::deleteArticleUploadedFiles( $article, self::getImageDir() );
@@ -223,6 +229,8 @@ class GraphViz {
 	/**
 	 * For a given title, get the corresponding graph file base name.
 	 * @author Keith Welter
+	 * @param Title $title
+	 * @return string
 	 */
 	public static function getGraphFileBaseNameFromTitle( $title ) {
 		$baseName = $title->getFulltext();
@@ -233,6 +241,8 @@ class GraphViz {
 	/**
 	 * Delete all the graph files associated with the given article and path.
 	 * @author Keith Welter
+	 * @param Article $article
+	 * @param string $path
 	 */
 	public static function deleteArticleFiles( $article, $path ) {
 		$title = $article->getTitle();
@@ -244,6 +254,8 @@ class GraphViz {
 
 	/**
 	 * Detect if the given title has associated graph files at the given path.
+	 * @param Title $title
+	 * @param string $path
 	 * @return True if the title has associated graph files.  Otherwise false.
 	 * @author Keith Welter
 	 */
@@ -262,6 +274,8 @@ class GraphViz {
 	/**
 	 * Delete all uploaded files associated with the given article and path.
 	 * @author Keith Welter
+	 * @param Article $article
+	 * @param string $path
 	 */
 	public static function deleteArticleUploadedFiles( $article, $path ) {
 		wfDebug( __METHOD__ . ": entering\n" );
@@ -280,6 +294,8 @@ class GraphViz {
 	/**
 	 * Delete all the graph files associated with the graph name and path.
 	 * @author Keith Welter
+	 * @param string $graphName
+	 * @param string $path
 	 */
 	public static function deleteGraphFiles( $graphName, $path ) {
 		$globPattern = $path . $graphName . "*.*";
@@ -293,6 +309,10 @@ class GraphViz {
 	 * the parser cache reflects the canceled edit rather than the saved graph so we must
 	 * reject it.
 	 * @author Keith Welter
+	 * @param ParserOutput $parserOutput
+	 * @param WikiPage $wikiPage
+	 * @param ParserOptions $parserOptions
+	 * @return bool
 	 */
 	public static function onRejectParserCacheValue( $parserOutput, $wikiPage, $parserOptions ) {
 		$title = $wikiPage->getTitle();
@@ -313,6 +333,16 @@ class GraphViz {
 	 * (graph images for which the source wiki text has been deleted).
 	 * Graph images for extant wiki source will be regenerated when parsed.
 	 * @author Keith Welter
+	 * @param \WikiPage $wikiPage
+	 * @param User $user
+	 * @param Content $content
+	 * @param string $summary
+	 * @param bool $isMinor
+	 * @param bool $isWatch
+	 * @param string|int $section
+	 * @param int $flags
+	 * @param Status $status
+	 * @return true
 	 */
 	public static function onPageContentSave(
 		\WikiPage $wikiPage, $user, $content,
@@ -329,7 +359,7 @@ class GraphViz {
 	}
 
 	/**
-	 * @param[in] string $graphName is the name of the graph to make "friendly".
+	 * @param string $graphName is the name of the graph to make "friendly".
 	 * @return string $graphName with non-alphanumerics replaced with underscores.
 	 * @author Keith Welter
 	 */
@@ -343,6 +373,11 @@ class GraphViz {
 	 * This is a front-end to self::render which does the heavy lifting.
 	 * @see http://www.mcternan.me.uk/mscgen/
 	 * @author Matthew Pearson
+	 * @param string $input
+	 * @param array $args
+	 * @param Parser $parser
+	 * @param PPFrame $frame
+	 * @return string
 	 */
 	public static function mscgenParserHook( $input, $args, $parser, $frame ) {
 		$args['renderer'] = self::$graphLanguages[self::MSCGEN];
@@ -355,6 +390,11 @@ class GraphViz {
 	 * This is a front-end to self::render which does the heavy lifting.
 	 * @see http://www.graphviz.org/content/dot-language
 	 * @author Thomas Hummel
+	 * @param string $input
+	 * @param array $args
+	 * @param Parser $parser
+	 * @param PPFrame $frame
+	 * @return string
 	 */
 	public static function graphvizParserHook( $input, $args, $parser, $frame ) {
 		if ( isset( $args['renderer'] ) ) {
@@ -459,14 +499,14 @@ class GraphViz {
 	 * responsibility of the ImageMap extension (as is the case when the ImageMap extension
 	 * parses links directly from ImageMap tag content).
 	 *
-	 * @param[in] string $input contains the graph description.  URL attribute values in the graph
+	 * @param string $input contains the graph description.  URL attribute values in the graph
 	 * description should be specified as described at http://en.wikipedia.org/wiki/Help:Link.
 	 * Examples:
 	 * - URL="[[wikilink]]"
 	 * - URL="[[interwiki link]]"
 	 * - URL="[external link]"
 	 *
-	 * @param[in] array $args contains the graph tag attributes.  Applicable attribute names
+	 * @param array $args contains the graph tag attributes.  Applicable attribute names
 	 * are those listed for generateImageMapInput() as well as "uniquifier" and "format":
 	 * - The optional "uniquifier" attribute value is used to disambiguate
 	 * graphs of the same name or those with no graph name at all.  The mscgen language
@@ -475,7 +515,8 @@ class GraphViz {
 	 * - The optional "format" attribute allows the user to specify the image type from
 	 * among those supported for the graph language.  @ref Files.
 	 *
-	 * @param[in] Parser $parser
+	 * @param Parser $parser
+	 * @param PPFrame $frame
 	 *
 	 * @return string HTML of a graph image and optional map or an HTML error message.
 	 *
@@ -729,6 +770,9 @@ class GraphViz {
 	 * @see http://www.graphviz.org/content/attrs#dimagepath
 	 * @see http://www.graphviz.org/content/attrs#dshapefile
 	 * @see http://www.graphviz.org/content/attrs#afontpath
+	 * @param string &$input
+	 * @param array &$errorText
+	 * @return bool
 	 */
 	protected static function sanitizeDotInput( &$input, &$errorText ) {
 		// reject forbidden attributes from the input
@@ -768,7 +812,7 @@ class GraphViz {
 	 * Ensure a dot image attribute value corresponds to the name of an uploaded file.
 	 * @return string image attribute name-value pair with the value set to a validated uploaded
 	 *   file name or 'image=""' to indicate an invalid image attribute value.
-	 * @param[in] array $matches corresponds to the pattern returned by GraphViz::getDotImagePattern().
+	 * @param array $matches corresponds to the pattern returned by GraphViz::getDotImagePattern().
 	 * @author Keith Welter
 	 * @see GraphViz::sanitizeDotInput
 	 */
@@ -805,7 +849,7 @@ class GraphViz {
 	 * Ensure a dot IMG SRC attribute value corresponds to the name of an uploaded file.
 	 * @return string IMG SRC attribute name-value pair with the value set to a validated uploaded
 	 *   file name or 'src=""' to indicate an invalid image attribute value.
-	 * @param[in] array $matches corresponds to GraphViz::DOT_IMG_PATTERN.
+	 * @param array $matches corresponds to GraphViz::DOT_IMG_PATTERN.
 	 * @author Keith Welter
 	 * @see GraphViz::sanitizeDotInput
 	 */
@@ -825,7 +869,7 @@ class GraphViz {
 	}
 
 	/**
-	 * @param[in] string $mapPath is the file system path of the graph map file.
+	 * @param string $mapPath is the file system path of the graph map file.
 	 * @return string contents of the given graph map file.
 	 * @author Keith Welter
 	 */
@@ -845,9 +889,9 @@ class GraphViz {
 	/**
 	 * Delete the given graph source, image and map files.
 	 *
-	 * @param[in] GraphRenderParms $graphParms contains the names of the graph source, image and map files to delete.
-	 * @param[in] boolean $userSpecific indicates whether or not the files to be deleted are user specific.
-	 * @param[in] boolean $deleteUploads indicates whether or not to delete the uploaded image file.
+	 * @param GraphRenderParms $graphParms contains the names of the graph source, image and map files to delete.
+	 * @param bool $userSpecific indicates whether or not the files to be deleted are user specific.
+	 * @param bool $deleteUploads indicates whether or not to delete the uploaded image file.
 	 *
 	 * @author Keith Welter
 	 */
@@ -864,8 +908,8 @@ class GraphViz {
 	}
 
 	/**
-	 * @param[in] string $command is the command line to execute.
-	 * @param[out] string $output is the output of the command.
+	 * @param string $command is the command line to execute.
+	 * @param string &$output is the output of the command.
 	 * @return bool true upon success, false upon failure.
 	 * @author Keith Welter et al.
 	 */
@@ -897,10 +941,10 @@ class GraphViz {
 	 *   - [URL description]
 	 * @see http://www.mediawiki.org/wiki/Extension:ImageMap#Syntax_description
 	 *
-	 * @param[in] string $mapPath is the map file (including path).
-	 * @param[in] string $renderer is the name of the renderer used to produce the map.
-	 * @param[in] string $pageTitle is the page title to supply for DOT tooltips that do not have URLs.
-	 * @param[out] string $errorText is populated with an error message in the event of an error.
+	 * @param string $mapPath is the map file (including path).
+	 * @param string $renderer is the name of the renderer used to produce the map.
+	 * @param string $pageTitle is the page title to supply for DOT tooltips that do not have URLs.
+	 * @param string &$errorText is populated with an error message in the event of an error.
 	 *
 	 * @return bool true upon success, false upon failure.
 	 *
@@ -1006,7 +1050,7 @@ class GraphViz {
 	 * Convert the input into a syntax acceptable by the ImageMap extension.
 	 * @see http://www.mediawiki.org/wiki/Extension:ImageMap#Syntax_description
 	 *
-	 * @param[in] array $args is an optional list of image display attributes
+	 * @param array $args is an optional list of image display attributes
 	 * to be applied to the rendered image.  Attribute usage is documented here:
 	 * http://en.wikipedia.org/wiki/Wikipedia:Extended_image_syntax
 	 * Applicable attributes are:
@@ -1019,8 +1063,8 @@ class GraphViz {
 	 * - alt
 	 * - caption
 	 *
-	 * @param[in] string $imageFileName is the filename (without path) of the graph image to render.
-	 * @param[in] string $map is map data which is one or more lines each with the following order:
+	 * @param string $imageFileName is the filename (without path) of the graph image to render.
+	 * @param string $map is map data which is one or more lines each with the following order:
 	 * -# shape name
 	 * -# coordinates
 	 * -# link (see http://en.wikipedia.org/wiki/Help:Link)
@@ -1070,9 +1114,9 @@ class GraphViz {
 	/**
 	 * Update the graph source on disk.
 	 *
-	 * @param[in] string $sourceFilePath is the path of the graph source file to update.
-	 * @param[in] string $source is the text to save in $sourceFilePath.
-	 * @param[out] string $errorText is populated with an error message in case of error.
+	 * @param string $sourceFilePath is the path of the graph source file to update.
+	 * @param string $source is the text to save in $sourceFilePath.
+	 * @param string &$errorText is populated with an error message in case of error.
 	 *
 	 * @return bool true upon success, false upon failure.
 	 *
@@ -1093,11 +1137,11 @@ class GraphViz {
 	/**
 	 * Check if the source text matches the contents of the source file.
 	 *
-	 * @param[in] string $sourceFilePath is the path of existing source in the file system.
-	 * @param[in] string $source is the wikitext to be compared with the contents of $sourceFilePath.
-	 * @param[out] boolean $sourceChanged is set to true if $source does not match the contents of $sourceFilePath
+	 * @param string $sourceFilePath is the path of existing source in the file system.
+	 * @param string $source is the wikitext to be compared with the contents of $sourceFilePath.
+	 * @param bool &$sourceChanged is set to true if $source does not match the contents of $sourceFilePath
 	 * (otherwise it is set to false).
-	 * @param[out] string $errorText is populated with an error message in case of error.
+	 * @param string &$errorText is populated with an error message in case of error.
 	 *
 	 * @return bool true upon success, false upon failure.
 	 *
@@ -1127,7 +1171,7 @@ class GraphViz {
 
 	/**
 	 * Given a message name, return an HTML error message.
-	 * @param[in] string $messageName is the name of a message in the i18n file.
+	 * @param string $messageName is the name of a message in the i18n file.
 	 * A variable number of message arguments is supported.
 	 * @return string escaped HTML error message for $messageName.
 	 * @author Keith Welter
@@ -1142,7 +1186,7 @@ class GraphViz {
 	}
 
 	/**
-	 * @param[in] string $text is text to be escaped and rendered as an HTML error.
+	 * @param string $text is text to be escaped and rendered as an HTML error.
 	 * @return string HTML escaped and rendered as an error.
 	 * @author Keith Welter
 	 */
@@ -1151,7 +1195,7 @@ class GraphViz {
 	}
 
 	/**
-	 * @param[in] string $multilineText is one or more PHP_EOL delimited lines to be escaped and rendered as an HTML error.
+	 * @param string $multilineText is one or more PHP_EOL delimited lines to be escaped and rendered as an HTML error.
 	 * @see escapeHTML()
 	 * @return string HTML escaped and rendered as an error.
 	 * @author Keith Welter
@@ -1168,7 +1212,7 @@ class GraphViz {
 	 * Escape the input text for HTML rendering (wrapper for htmlspecialchars).
 	 * @see http://www.mediawiki.org/wiki/Cross-site_scripting#Stopping_Cross-site_scripting
 	 * @return string escaped HTML.
-	 * @param[in] string $text is the text to be escaped.
+	 * @param string $text is the text to be escaped.
 	 * @author Keith Welter
 	 */
 	static function escapeHTML( $text ) {
@@ -1192,7 +1236,7 @@ class GraphViz {
 	}
 
 	/**
-	 * @param[in] $subdir is the path of a subdirectory relative to $wgUploadDirectory.
+	 * @param string $subdir is the path of a subdirectory relative to $wgUploadDirectory.
 	 * If the subdirectory does not exist, it is created with the same permissions as $wgUploadDirectory.
 	 * @return string path of a subdirectory of the wiki upload directory ($wgUploadDirectory) or false upon failure.
 	 * @author Keith Welter

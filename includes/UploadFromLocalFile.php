@@ -18,6 +18,7 @@ class UploadFromLocalFile extends UploadBase {
 	/**
 	 * This function is a no-op because a WebRequest is not used.
 	 * It exists here because it is abstract in UploadBase.
+	 * @param WebRequest &$request
 	 */
 	function initializeFromRequest( &$request ) {
 	}
