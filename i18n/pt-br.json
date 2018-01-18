@@ -1,0 +1,11 @@
+{
+	"@metadata": {
+		"authors": [
+			"Eduardo Addad de Oliveira"
+		]
+	},
+	"graphviz-desc": "Permite incorporar notação [http://www.graphviz.org Graphviz] e gera imagens em linha",
+	"graphviz-reload": "A fonte da imagem do gráfico mudou. Atualize a página para apresentar a imagem atualizada do gráfico.",
+	"graphviz-no-input": "Falta a fonte do gráfico.",
+	"graphviz-dot-attr-forbidden": "O atributo ponto $1 é proibido."
+}
