@@ -10,16 +10,6 @@ use ReflectionClass;
  *  @group GraphViz
  */
 class GraphVizTest extends MediaWikiTestCase {
-	protected function setUp() {
-		parent::setUp();
-		// ...GraphVizTest set-up
-	}
-
-	protected function tearDown() {
-		// GraphVizTest tear-down...
-		parent::tearDown();
-	}
-
 	protected static function getGraphVizMethod( $name ) {
 		$class = new ReflectionClass( GraphViz::class );
 		$method = $class->getMethod( $name );
@@ -27,6 +17,9 @@ class GraphVizTest extends MediaWikiTestCase {
 		return $method;
 	}
 
+	/**
+	 * @covers \MediaWiki\Extension\GraphViz\GraphViz::sanitizeDotInput
+	 */
 	public function testForbiddenDotAttributes() {
 		$sanitizeDotInput = self::getGraphVizMethod( 'sanitizeDotInput' );
 		$graphviz = new GraphViz();
