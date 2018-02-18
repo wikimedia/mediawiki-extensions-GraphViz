@@ -7,5 +7,22 @@
 	"graphviz-desc": "Permite incorporar notação [http://www.graphviz.org Graphviz] e gera imagens em linha",
 	"graphviz-reload": "A fonte da imagem do gráfico mudou. Atualize a página para apresentar a imagem atualizada do gráfico.",
 	"graphviz-no-input": "Falta a fonte do gráfico.",
-	"graphviz-dot-attr-forbidden": "O atributo ponto $1 é proibido."
+	"graphviz-dot-invalid-image": "O atributo ponto $1 tem de ser o nome de um arquivo carregado.",
+	"graphviz-dot-attr-forbidden": "O atributo ponto $1 é proibido.",
+	"graphviz-read-src-failed": "Não foi possível ler o texto do gráfico a partir do sistema de arquivos.",
+	"graphviz-write-src-failed": "Não foi possível escrever o texto do gráfico no sistema de arquivos.",
+	"graphviz-write-map-failed": "Não foi possível escrever o mapa do gráfico no sistema de arquivos.",
+	"graphviz-mkdir-failed": "Não foi possível criar um diretório no sistema de arquivos.",
+	"graphviz-delete-reason": "Este arquivo temporário foi eliminado pela extensão GraphViz.",
+	"graphviz-alt": "Este gráfico tem bordas e nós que podem conter hiperlinks.",
+	"graphviz-uploaddisabledtext": "Não é permitida a criação de imagens de gráficos porque o carregamento de arquivos está desativado.",
+	"graphviz-upload-not-permitted": "A criação de imagens de gráficos precisa de permissão para fazer carregamentos.",
+	"graphviz-user-blocked": "A criação de imagens de gráficos não é permitida para usuários bloqueados.",
+	"graphviz-read-only": "A criação de imagens de gráficos não é permitida porque a wiki está em modo exclusivo de leitura.",
+	"graphviz-uploaderror": "O carregamento da imagem do gráfico falhou para o arquivo: $1",
+	"graphviz-upload-comment": "gerado pela [[Special:Version#Installed_extensions|extensão]] GraphViz a partir da página [[$1]]",
+	"graphviz-unrecognized-preparse-value": "O valor de pré-análise \"$1\" não é reconhecido.",
+	"graphviz-category-desc": "$1 contém páginas criadas pela extensão GraphViz.",
+	"graphviz-subcategory-desc": "$1 contém páginas criadas usando o comando $2.",
+	"graphviz-map-desc": "= ImageMap =\nQuando incluir esta imagem numa página da wiki, use a seguinte notação para ativar hiperligações:\n <nowiki>\n<imagemap>\nFile:$1\n$2</imagemap>\n</nowiki>\nConsulte [https://www.mediawiki.org/wiki/Extension:ImageMap ImageMap] para mais informações."
 }
