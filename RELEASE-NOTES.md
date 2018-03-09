@@ -6,8 +6,8 @@ These are the release notes for the [MediaWiki][mediawiki] [GraphViz extension][
 * Add extension registration and move classes to their own namespace.
 
 ## GraphViz 2.1.0 ## (2017-08-02)
-* Remove compatibilty with PHP 5.3 and earlier.
-* Remove compatiblity with MW 1.22 and earlier.
+* Remove compatibility with PHP 5.3 and earlier.
+* Remove compatibility with MW 1.22 and earlier.
 * Remove I18n php shim [bug T168353](https://phabricator.wikimedia.org/T168353).
 * Fix for dying on phpcs run [bug T168738](https://phabricator.wikimedia.org/T168738).
 
