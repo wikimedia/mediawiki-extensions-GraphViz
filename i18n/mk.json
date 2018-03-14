@@ -24,5 +24,6 @@
 	"graphviz-unrecognized-preparse-value": "Предразложената вредност „$1“ не е препознаена.",
 	"graphviz-category-desc": "$1 содржи страници создадени од додатокот GraphViz.",
 	"graphviz-subcategory-desc": "$1 содржи страници создадени користејќи ја наредбата $2.",
-	"graphviz-map-desc": "= ImageMap =\nКога сакате да ја ставите сликава во викистраница, послужете се со следниве викиознаки за да овозможите врски:\n <nowiki>\n<imagemap>\nПодатотека:$1\n$2</imagemap>\n</nowiki>\nПовеќе информации ќе најдете на [https://www.mediawiki.org/wiki/Extension:ImageMap ImageMap]."
+	"graphviz-map-desc": "= ImageMap =\nКога сакате да ја ставите сликава во викистраница, послужете се со следниве викиознаки за да овозможите врски:\n <nowiki>\n<imagemap>\nПодатотека:$1\n$2</imagemap>\n</nowiki>\nПовеќе информации ќе најдете на [https://www.mediawiki.org/wiki/Extension:ImageMap ImageMap].",
+	"graphviz-upload-user": "GraphViz"
 }
