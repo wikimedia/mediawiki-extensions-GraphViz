@@ -25,5 +25,6 @@
 	"graphviz-unrecognized-preparse-value": "O valor de pré-análise \"$1\" não é reconhecido.",
 	"graphviz-category-desc": "$1 contém páginas criadas pela extensão GraphViz.",
 	"graphviz-subcategory-desc": "$1 contém páginas criadas usando o comando $2.",
-	"graphviz-map-desc": "= ImageMap =\nQuando incluir esta imagem numa página da wiki, use a seguinte notação para ativar hiperligações:\n <nowiki>\n<imagemap>\nFile:$1\n$2</imagemap>\n</nowiki>\nConsulte [https://www.mediawiki.org/wiki/Extension:ImageMap ImageMap] para mais informações."
+	"graphviz-map-desc": "= ImageMap =\nQuando incluir esta imagem numa página da wiki, use a seguinte notação para ativar hiperligações:\n <nowiki>\n<imagemap>\nFile:$1\n$2</imagemap>\n</nowiki>\nConsulte [https://www.mediawiki.org/wiki/Extension:ImageMap ImageMap] para mais informações.",
+	"graphviz-upload-user": "GraphViz"
 }

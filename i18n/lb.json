@@ -6,5 +6,6 @@
 	},
 	"graphviz-desc": "Erlaabt d'Abannen an d'Weise vu Biller mat Hëllef vu [http://www.graphviz.org Graphviz]",
 	"graphviz-no-input": "Quell vum Grafik feelt.",
-	"graphviz-delete-reason": "Dësen temporäre Fichier gouf vun der Erweiderung GraphViz geläscht."
+	"graphviz-delete-reason": "Dësen temporäre Fichier gouf vun der Erweiderung GraphViz geläscht.",
+	"graphviz-upload-user": "GraphViz"
 }

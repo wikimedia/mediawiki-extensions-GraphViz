@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"아라"
+			"아라",
+			"Ykhwong"
 		]
 	},
-	"graphviz-desc": "[http://www.graphviz.org Graphviz] 마크업을 넣고 인라인 그림을 생성할 수 있게 합니다"
+	"graphviz-desc": "[http://www.graphviz.org Graphviz] 마크업을 넣고 인라인 그림을 생성할 수 있게 합니다",
+	"graphviz-upload-user": "GraphViz"
 }

@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"BeginaFelicysym"
+			"BeginaFelicysym",
+			"Chrumps"
 		]
 	},
-	"graphviz-desc": "Pozwala na osadzanie znaczników [http://www.graphviz.org Graphviz] i generuje wbudowane obrazy"
+	"graphviz-desc": "Pozwala na osadzanie znaczników [http://www.graphviz.org Graphviz] i generuje wbudowane obrazy",
+	"graphviz-upload-user": "GraphViz"
 }
