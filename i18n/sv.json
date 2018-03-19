@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Ainali",
-			"Lokal Profil"
+			"Lokal Profil",
+			"WikiPhoenix"
 		]
 	},
 	"graphviz-desc": "Tillåter inbäddning [http://www.graphviz.org Graphviz] -märkspråk och genererar bilder i texten",
@@ -25,5 +26,6 @@
 	"graphviz-unrecognized-preparse-value": "Det förtolkade värdet \"$1\" är okänt.",
 	"graphviz-category-desc": "$1 innehåller sidor som skapas av GraphViz-tillägget.",
 	"graphviz-subcategory-desc": "$1 innehåller sidor skapade med $2-kommandot.",
-	"graphviz-map-desc": "= ImageMap =\nNär denna bild ska inkluderas på en wikisida, använd följande uppmärkning för att aktivera länkar:\n <nowiki>\n<imagemap>\nFile:$1\n$2</imagemap>\n</nowiki>\nSe [https://www.mediawiki.org/wiki/Extension:ImageMap ImageMap] för mer information."
+	"graphviz-map-desc": "= ImageMap =\nNär denna bild ska inkluderas på en wikisida, använd följande uppmärkning för att aktivera länkar:\n <nowiki>\n<imagemap>\nFile:$1\n$2</imagemap>\n</nowiki>\nSe [https://www.mediawiki.org/wiki/Extension:ImageMap ImageMap] för mer information.",
+	"graphviz-upload-user": "GraphViz"
 }

@@ -24,5 +24,6 @@
 	"graphviz-unrecognized-preparse-value": "Nun se reconoz el valor de preanálisis «$1».",
 	"graphviz-category-desc": "$1 contien páxines creaes pola estensión GraphViz.",
 	"graphviz-subcategory-desc": "$1 contien páxines creaes pol comandu $2.",
-	"graphviz-map-desc": "= ImageMap =\nCando incluyas esta imaxe nuna páxina wiki, usa les marques siguientes p'activar los enllaces:\n <nowiki>\n<imagemap>\nFile:$1\n$2</imagemap>\n</nowiki>\nVisita [https://www.mediawiki.org/wiki/Extension:ImageMap ImageMap] pa más información."
+	"graphviz-map-desc": "= ImageMap =\nCando incluyas esta imaxe nuna páxina wiki, usa les marques siguientes p'activar los enllaces:\n <nowiki>\n<imagemap>\nFile:$1\n$2</imagemap>\n</nowiki>\nVisita [https://www.mediawiki.org/wiki/Extension:ImageMap ImageMap] pa más información.",
+	"graphviz-upload-user": "GraphViz"
 }
