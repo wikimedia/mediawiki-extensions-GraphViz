@@ -25,6 +25,7 @@
 
 namespace MediaWiki\Extension\GraphViz;
 
+use File;
 use Html;
 use ImageMap;
 use MediaWiki\MediaWikiServices;
@@ -673,7 +674,12 @@ class GraphViz {
 		}
 
 		// determine if the image to render exists
-		$imageExists = UploadLocalFile::getUploadedFile( $graphParms->getImageFileName( $userSpecific ) ) ? true : false;
+		$imageFileName = $graphParms->getImageFileName( $userSpecific );
+		$imageFile = UploadLocalFile::getUploadedFile( $imageFileName );
+		$imageExists = false;
+		if ( $imageFile instanceof File && !$imageFile->isMissing() ) {
+			$imageExists = true;
+		}
 
 		// get the path of the map to render
 		$mapPath = $graphParms->getMapPath( $userSpecific );
