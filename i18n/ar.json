@@ -1,0 +1,29 @@
+{
+	"@metadata": {
+		"authors": [
+			"ديفيد"
+		]
+	},
+	"graphviz-desc": "يسمح بتضمين ترميز [http://www.graphviz.org Graphviz] وإنشاء صور مضمنة",
+	"graphviz-reload": "تم تغيير مصدر صورة الرسم البياني; أعد تحميل الصفحة لعرض صورة الرسم البياني المحدثة.",
+	"graphviz-no-input": "مصدر الرسم البياني مفقود.",
+	"graphviz-dot-invalid-image": "يجب أن تكون سمة النقطة $1 اسم ملف مرفوع.",
+	"graphviz-dot-attr-forbidden": "تم حظر سمة النقطة $1.",
+	"graphviz-read-src-failed": "غير قادر على قراءة النص البياني من نظام الملفات.",
+	"graphviz-write-src-failed": "غير قادر على كتابة النص البياني لنظام الملفات.",
+	"graphviz-write-map-failed": "غير قادر على كتابة خريطة الرسم البياني لنظام الملفات.",
+	"graphviz-mkdir-failed": "غير قادر على إنشاء دليل في نظام الملفات.",
+	"graphviz-delete-reason": "تم حذف هذا الملف المؤقت بواسطة ملحق GraphViz.",
+	"graphviz-alt": "هذا رسم بياني له حدود وعقد قد يحتوي على ارتباطات تشعبية.",
+	"graphviz-uploaddisabledtext": "لا يُسمح بإنشاء الصورة الرسومية بسبب تعطيل عمليات رفع الملفات.",
+	"graphviz-upload-not-permitted": "يتطلب إنشاء صورة الرسم البياني صلاحية الرفع.",
+	"graphviz-user-blocked": "لا يُسمَح للمستخدمين الممنوعين بإنشاء الصورة الرسومية.",
+	"graphviz-read-only": "لا يُسمَح بإنشاء صورة رسم بياني لأن الويكي في وضع القراءة فقط.",
+	"graphviz-uploaderror": "فشل رفع صورة الرسم البياني للملف: $1",
+	"graphviz-upload-comment": "تم إنشاؤه بواسطة [[Special:Version#Installed_extensions|امتداد]] GraphViz من صفحة [[$1]]",
+	"graphviz-unrecognized-preparse-value": "قيمة الإعداد \"$1\" غير معروفة.",
+	"graphviz-category-desc": "$1 يحتوي على صفحات تم إنشاؤها بواسطة الملحق GraphViz.",
+	"graphviz-subcategory-desc": "يحتوي $1 على صفحات تم إنشاؤها باستخدام الأمر $2.",
+	"graphviz-map-desc": "= ImageMap =\nعند تضمين هذه الصورة في صفحة ويكي، استخدم العلامة التالية لتمكين الروابط: \n<nowiki>\n<imagemap>\nFile:$1\n$2</imagemap>\n</nowiki>\nراجع [https://www.mediawiki.org/wiki/Extension:ImageMap ImageMap] لمزيد من المعلومات.",
+	"graphviz-upload-user": "GraphViz"
+}
