@@ -30,16 +30,6 @@
 			"i18n"
 		]
 	},
-	"config": {
-		"AdminCanReadAll": {
-			"value": true,
-			"description": "Sysop users can read all restricted pages"
-		},
-		"GraphVizRedirect": {
-			"value": true,
-			"description": "Do not redirect from page in search results to restricted pages"
-		}
-	},
 	"Hooks": {
 		"ParserFirstCallInit": "MediaWiki\\Extension\\GraphViz\\GraphViz::onParserInit",
 		"ArticleDeleteComplete": "MediaWiki\\Extension\\GraphViz\\GraphViz::onArticleDeleteComplete",
