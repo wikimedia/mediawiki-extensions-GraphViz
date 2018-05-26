@@ -1105,7 +1105,7 @@ class GraphViz {
 	 * Convert the input into a syntax acceptable by the ImageMap extension.
 	 * @see http://www.mediawiki.org/wiki/Extension:ImageMap#Syntax_description
 	 *
-	 * @param array $args is an optional list of image display attributes
+	 * @param array|null $args is an optional list of image display attributes
 	 * to be applied to the rendered image.  Attribute usage is documented here:
 	 * http://en.wikipedia.org/wiki/Wikipedia:Extended_image_syntax
 	 * Applicable attributes are:
