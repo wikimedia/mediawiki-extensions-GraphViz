@@ -4,6 +4,7 @@ namespace MediaWiki\Extension\GraphViz\Test;
 
 use MediaWiki\Extension\GraphViz\GraphViz;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Shell\Shell;
 use MediaWikiTestCase;
 use ParserOptions;
 use ReflectionClass;
@@ -17,6 +18,12 @@ class GraphVizTest extends MediaWikiTestCase {
 	protected function setUp() {
 		parent::setUp();
 		$this->setMwGlobals( 'wgEnableUploads', true );
+	}
+
+	public function skipIfDotNotAvailable() {
+		if ( Shell::command( 'which', 'dot' )->execute()->getExitCode() ) {
+			$this->markTestSkipped( 'Graphviz is not installed. Can not find "dot"' );
+		}
 	}
 
 	protected static function getGraphVizMethod( $name ) {
@@ -51,6 +58,8 @@ class GraphVizTest extends MediaWikiTestCase {
 	 * @covers \MediaWiki\Extension\GraphViz\GraphViz::render()
 	 */
 	public function testCreateGraph() {
+		$this->skipIfDotNotAvailable();
+
 		$uploadDir = MediaWikiServices::getInstance()->getMainConfig()->get( 'UploadDirectory' );
 		$dotSource = '<graphviz>digraph testGraph { A -> B }</graphviz>';
 
