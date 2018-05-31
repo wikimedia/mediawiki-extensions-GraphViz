@@ -4,5 +4,9 @@
 			"Nikosgranturismogt"
 		]
 	},
+	"graphviz-desc": "Επιτρέπει την ενσωμάτωση επισήμανσης [http://www.graphviz.org Graphviz] και δημιουργεί εσωτερικές εικόνες",
+	"graphviz-no-input": "Η πηγή γραφήματος λείπει.",
+	"graphviz-category-desc": "Το $1 περιέχει σελίδες δημιουργημένες από την επέκταση GraphViz.",
+	"graphviz-subcategory-desc": "Το $1 περιέχει σελίδες δημιουργημένες χρησιμοποιώντας την εντολή $2.",
 	"graphviz-upload-user": "GraphViz"
 }
