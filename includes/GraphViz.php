@@ -738,7 +738,6 @@ class GraphViz {
 				$imageFileName,
 				$imageFilePath,
 				false,
-				wfGetLangObj(),
 				$errorText )
 			) {
 				wfDebug( __METHOD__ . ": $errorText\n" );

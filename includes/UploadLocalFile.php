@@ -34,7 +34,6 @@ use File;
 use FileRepo;
 use FSFile;
 use HTMLCacheUpdate;
-use Language;
 use LinksUpdate;
 use LocalFile;
 use MediaHandler;
@@ -42,7 +41,6 @@ use MWException;
 use RepoGroup;
 use SiteStatsUpdate;
 use Status;
-use StubUserLang;
 use Title;
 use UploadBase;
 use User;
@@ -105,14 +103,13 @@ class UploadLocalFile extends LocalFile {
 	 * @param string $desiredDestName the desired destination name of the file to be uploaded.
 	 * @param string $localPath the local path of the file to be uploaded.
 	 * @param bool $removeLocalFile remove the local file?
-	 * @param Language|StubUserLang $language to use for
 	 * @param string &$errorText is populated with an error message if the user is not allowed to
 	 * upload.
 	 * @return bool true if the user is allowed to upload, false if not.
 	 */
 	static function isUploadAllowedForTitle(
 		UploadFromLocalFile $upload, User $user, $desiredDestName, $localPath, $removeLocalFile,
-		$language, &$errorText
+		&$errorText
 	) {
 		// Initialize path info
 		$fileSize = file_exists( $localPath ) ? filesize( $localPath ) : null;
@@ -122,7 +119,7 @@ class UploadLocalFile extends LocalFile {
 		$details = $upload->verifyUpload();
 		if ( $details['status'] != UploadBase::OK ) {
 			wfDebug( __METHOD__ . ": upload->verifyUpload() failed.\n" );
-			$errorText = self::processVerificationError( $details, $language, $desiredDestName );
+			$errorText = self::processVerificationError( $details, $desiredDestName );
 			return false;
 		}
 
@@ -143,13 +140,12 @@ class UploadLocalFile extends LocalFile {
 	 * Based on SpecialUpload::processVerificationError.
 	 *
 	 * @param array $details result of UploadBase::verifyUpload
-	 * @param Language $language for adding comma-separated lists to some messages.
 	 * @param string $filename is the name of the file for which upload verification failed.
 	 * @return string error message.
 	 * @throws MWException
 	 */
-	static function processVerificationError( $details, $language, $filename ) {
-		global $wgFileExtensions;
+	static function processVerificationError( $details, $filename ) {
+		global $wgFileExtensions, $wgLang;
 
 		switch ( $details['status'] ) {
 			case UploadBase::ILLEGAL_FILENAME:
@@ -163,11 +159,11 @@ class UploadLocalFile extends LocalFile {
 			case UploadBase::FILETYPE_BADTYPE:
 				$msg = wfMessage( 'filetype-banned-type' );
 				if ( isset( $details['blacklistedExt'] ) ) {
-					$msg->params( $language->commaList( $details['blacklistedExt'] ) );
+					$msg->params( $wgLang->commaList( $details['blacklistedExt'] ) );
 				} else {
 					$msg->params( $details['finalExt'] );
 				}
-				$msg->params( $language->commaList( $wgFileExtensions ), count( $wgFileExtensions ) );
+				$msg->params( $wgLang->commaList( $wgFileExtensions ), count( $wgFileExtensions ) );
 
 				// Add PLURAL support for the first parameter. This results
 				// in a bit unlogical parameter sequence, but does not break
