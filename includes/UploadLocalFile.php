@@ -47,7 +47,8 @@ use UploadBase;
 use User;
 
 /**
- * Implements local file uploads in the absence of a WebRequest in conjunction with UploadFromLocalFile.
+ * Implements local file uploads in the absence of a WebRequest in conjunction with
+ * UploadFromLocalFile.
  *
  * @ingroup Extensions
  * @ingroup Upload
@@ -59,7 +60,8 @@ class UploadLocalFile extends LocalFile {
 	 * Based on SpecialUpload::execute.
 	 *
 	 * @param User $user is the user to check.
-	 * @param string &$errorText is populated with an error message if the user is not allowed to upload.
+	 * @param string &$errorText is populated with an error message if the user is not allowed to
+	 * upload.
 	 * @return bool true if the user is allowed to upload, false if not.
 	 */
 	static function isUploadAllowedForUser( $user, &$errorText ) {
@@ -148,13 +150,17 @@ class UploadLocalFile extends LocalFile {
 	static function processVerificationError( $details, $filename ) {
 		switch ( $details['status'] ) {
 			case UploadBase::ILLEGAL_FILENAME:
-				return self::getUploadErrorMessage( wfMessage( 'illegalfilename', $details['filtered'] )->parse(), $filename );
+				$message = wfMessage( 'illegalfilename', $details['filtered'] );
+				return self::getUploadErrorMessage( $message->parse(), $filename );
 			case UploadBase::FILENAME_TOO_LONG:
-				return self::getUploadErrorMessage( wfMessage( 'filename-toolong' )->text(), $filename );
+				$message = wfMessage( 'filename-toolong' );
+				return self::getUploadErrorMessage( $message->text(), $filename );
 			case UploadBase::WINDOWS_NONASCII_FILENAME:
-				return self::getUploadErrorMessage( wfMessage( 'windows-nonascii-filename' )->parse(), $filename );
+				$message = wfMessage( 'windows-nonascii-filename' );
+				return self::getUploadErrorMessage( $message->parse(), $filename );
 			case UploadBase::FILE_TOO_LARGE:
-				return self::getUploadErrorMessage( wfMessage( 'largefileserver' )->text(), $filename );
+				$message = wfMessage( 'largefileserver' );
+				return self::getUploadErrorMessage( $message->text(), $filename );
 			case UploadBase::FILETYPE_BADTYPE:
 				$lang = RequestContext::getMain()->getLanguage();
 				$fileExtensions = RequestContext::getMain()->getConfig()->get( 'FileExtensions' );
@@ -179,7 +185,8 @@ class UploadLocalFile extends LocalFile {
 			case UploadBase::VERIFICATION_ERROR:
 				unset( $details['status'] );
 				$code = array_shift( $details['details'] );
-				return self::getUploadErrorMessage( wfMessage( $code, $details['details'] )->parse(), $filename );
+				$message = wfMessage( $code, $details['details'] );
+				return self::getUploadErrorMessage( $message->parse(), $filename );
 			case UploadBase::HOOK_ABORTED:
 				if ( is_array( $details['error'] ) ) { # allow hooks to return error details in an array
 					$args = $details['error'];

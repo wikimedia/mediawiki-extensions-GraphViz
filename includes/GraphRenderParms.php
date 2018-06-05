@@ -74,7 +74,9 @@ class GraphRenderParms {
 	private $sourceAndMapDir = '';
 	private $imageDir = '';
 
-	public function __construct( $renderer, $graphName, $userName, $imageType, $sourceAndMapDir, $imageDir ) {
+	public function __construct(
+		$renderer, $graphName, $userName, $imageType, $sourceAndMapDir, $imageDir
+	) {
 		$this->graphName = $graphName;
 		$this->userName = $userName;
 		$this->renderer = $renderer;
@@ -135,18 +137,20 @@ class GraphRenderParms {
 
 	public function getImageCommand( $userSpecific ) {
 		if ( $this->imageCommand == '' ) {
-			$this->imageCommand = wfEscapeShellArg( $this->renderCommand ) . ' -T ' . wfEscapeShellArg( $this->imageType ) .
-				' -o ' . wfEscapeShellArg( $this->getImagePath( $userSpecific ) ) . ' ' .
-				wfEscapeShellArg( $this->getSourcePath( $userSpecific ) );
+			$this->imageCommand = wfEscapeShellArg( $this->renderCommand )
+				. ' -T ' . wfEscapeShellArg( $this->imageType )
+				. ' -o ' . wfEscapeShellArg( $this->getImagePath( $userSpecific ) )
+				. ' ' . wfEscapeShellArg( $this->getSourcePath( $userSpecific ) );
 		}
 		return $this->imageCommand;
 	}
 
 	public function getMapCommand( $userSpecific ) {
 		if ( $this->mapCommand == '' ) {
-			$this->mapCommand = wfEscapeShellArg( $this->renderCommand ) . ' -T ' . wfEscapeShellArg( $this->mapType ) .
-				' -o ' . wfEscapeShellArg( $this->getMapPath( $userSpecific ) ) . ' ' .
-				wfEscapeShellArg( $this->getSourcePath( $userSpecific ) );
+			$this->mapCommand = wfEscapeShellArg( $this->renderCommand )
+				. ' -T ' . wfEscapeShellArg( $this->mapType )
+				. ' -o ' . wfEscapeShellArg( $this->getMapPath( $userSpecific ) )
+				. ' ' . wfEscapeShellArg( $this->getSourcePath( $userSpecific ) );
 		}
 		return $this->mapCommand;
 	}

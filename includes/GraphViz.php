@@ -46,9 +46,11 @@ use User;
   * @ingroup Extensions
   */
 class GraphViz {
+
 	/**
 	 * A regular expression for matching the following ID form in the DOT language:
-	 * - "Any string of alphabetic ([a-zA-Z\200-\377]) characters, underscores ('_') or digits ([0-9]), not beginning with a digit"
+	 * any string of alphabetic ([a-zA-Z\200-\377]) characters, underscores ('_'),
+	 * or digits ([0-9]), not beginning with a digit.
 	 *
 	 * @see http://www.graphviz.org/content/dot-language
 	 * @var string DOT_ID_STRING
@@ -189,7 +191,12 @@ class GraphViz {
 	 * @see http://www.graphviz.org/content/dot-language
 	 */
 	protected static function getDotImagePattern() {
-		return "~(?i)image\s*=\s*(" . self::DOT_ID_STRING . "|" . self::DOT_NUMERAL . "|" . self::DOT_QUOTED_STRING . "|" .  self::DOT_HTML_STRING . ")~";
+		return "~(?i)image\s*=\s*("
+			. self::DOT_ID_STRING
+			. "|" . self::DOT_NUMERAL
+			. "|" . self::DOT_QUOTED_STRING
+			. "|" . self::DOT_HTML_STRING
+			. ")~";
 	}
 
 	/**
@@ -217,7 +224,9 @@ class GraphViz {
 	 */
 	public static function onParserInit( Parser &$parser ) {
 		foreach ( self::$graphTypes as $graphType ) {
-			$parser->setHook( self::$tags[$graphType], [ __CLASS__, self::$parserHookFunctions[$graphType] ] );
+			$parser->setHook(
+				self::$tags[$graphType], [ __CLASS__, self::$parserHookFunctions[$graphType] ]
+			);
 		}
 		return true;
 	}
@@ -468,7 +477,8 @@ class GraphViz {
 	}
 
 	/**
-	 * @section Overview
+	 * # Overview
+	 *
 	 * This is the main function of the extension which handles rendering graph descriptions as HTML.
 	 * A graph description is the content of a graph tag supported by this extension.
 	 *
@@ -476,19 +486,19 @@ class GraphViz {
 	 * the graph description as an image which is stored on the file system and later stored in
 	 * the wiki file repository.
 	 *
-	 * @section Maps
+	 * ## Maps
 	 * If the graph description contains links then a map file is populated with the coordinates of
 	 * the shape corresponding to each link.  The map file is also stored on the file system but it
 	 * is not uploaded.
 	 *
-	 * @section Regeneration
+	 * ## Regeneration
 	 * The graph description is stored in a source file on the file system (independently of the
 	 * wiki page that contains it) so that this extension can detect when it is
 	 * necessary to regenerate the image and map files.
 	 * If the graph description from the wiki page matches the graph description stored in
 	 * the graph source file then the image and map files are not regenerated.
 	 *
-	 * @section Files
+	 * ## Files
 	 * As described above, three kinds of files are stored by this extension:
 	 * -# graph source files (stored in GraphViz::SOURCE_AND_MAP_SUBDIR)
 	 * -# graph image files (stored in GraphViz::IMAGE_SUBDIR, deleted after upload)
@@ -517,12 +527,12 @@ class GraphViz {
 	 * - onArticleDeleteComplete()
 	 * - onPageContentSaveComplete()
 	 *
-	 * @section ImageMap
+	 * ## ImageMap
 	 * This function depends on the ImageMap extension to do the final rendering of the graph image
 	 * and map as HTML as well as validation of the image attributes and links.  The existence of
 	 * the graph image as an uploaded file is a requirement of the ImageMap extension.
 	 *
-	 * @section Security
+	 * ## Security
 	 * Upload restrictions (described above) and Cross-site scripting (XSS) are the main security
 	 * concerns for this extension.
 	 * @see http://www.mediawiki.org/wiki/Cross-site_scripting.
@@ -627,14 +637,14 @@ class GraphViz {
 			$imageType = $settings->defaultImageType;
 		}
 
-		// determine user.
-		// In testing I found that $parser->getUser() did not give the logged-in user when doing an edit preview.
-		// So, I've gone against the recommended practice and used the global which gave the desired results.
+		// Determine user.
 		$user = self::getUser();
 		$userName = $user->getName();
 
 		// instantiate an object to hold the graph rendering parameters
-		$graphParms = new GraphRenderParms( $renderer, $graphName, $userName, $imageType, $sourceAndMapDir, $imageDir );
+		$graphParms = new GraphRenderParms(
+			$renderer, $graphName, $userName, $imageType, $sourceAndMapDir, $imageDir
+		);
 
 		// initialize context variables
 		$isPreview = false;
@@ -656,10 +666,15 @@ class GraphViz {
 				$doRecursiveTagParse = true;
 				$parser->disableCache();
 			} else {
-				return self::i18nErrorMessageHTML( 'graphviz-unrecognized-preparse-value', $preParseType );
+				return self::i18nErrorMessageHTML(
+					'graphviz-unrecognized-preparse-value', $preParseType
+				);
 			}
 		}
-		wfDebug( __METHOD__ . ": preParseType: $preParseType doRecursiveTagParse: $doRecursiveTagParse\n" );
+		wfDebug(
+			__METHOD__ . ": preParseType: $preParseType"
+			. " doRecursiveTagParse: $doRecursiveTagParse\n"
+		);
 
 		// call recursiveTagParse if appropriate
 		if ( $doRecursiveTagParse ) {
@@ -693,16 +708,17 @@ class GraphViz {
 		wfDebug( __METHOD__ . ": imageExists: $imageExists mapExists: $mapExists\n" );
 
 		$sourceChanged = false;
-		if ( !self::isSourceChanged( $graphParms->getSourcePath( $userSpecific ), $input, $sourceChanged, $errorText ) ) {
+		$sourcePath = $graphParms->getSourcePath( $userSpecific );
+		if ( !self::isSourceChanged( $sourcePath, $input, $sourceChanged, $errorText ) ) {
 			return self::errorHTML( $errorText );
 		}
 		wfDebug( __METHOD__ . ": sourceChanged: $sourceChanged\n" );
 
-		$imageFileName = $graphParms->getImageFileName( $userSpecific );
 		$imageFilePath = $graphParms->getImagePath( $userSpecific );
 		$uploaded = false;
 
-		// generate image and map files only if the graph source changed or the image or map files do not exist
+		// Generate image and map files only if the graph source changed
+		// or the image or map files do not exist.
 		if ( $sourceChanged || !$imageExists || !$mapExists ) {
 			// first, check if the user is allowed to upload the image
 			if ( !UploadLocalFile::isUploadAllowedForUser( $user, $errorText ) ) {
@@ -712,7 +728,7 @@ class GraphViz {
 
 			// if the source changed, update it on disk
 			if ( $sourceChanged ) {
-				if ( !self::updateSource( $graphParms->getSourcePath( $userSpecific ), $input, $errorText ) ) {
+				if ( !self::updateSource( $sourcePath, $input, $errorText ) ) {
 					wfDebug( __METHOD__ . ": $errorText\n" );
 					self::deleteFiles( $graphParms, $userSpecific, false );
 					return self::errorHTML( $errorText );
@@ -732,7 +748,8 @@ class GraphViz {
 			$upload = new UploadFromLocalFile;
 			$upload->setUser( $user );
 
-			// check if the upload is allowed for the intended title (the image file must exist prior to this check)
+			// Check if the upload is allowed for the intended title
+			// (the image file must exist prior to this check).
 			if ( !UploadLocalFile::isUploadAllowedForTitle(
 				$upload,
 				$user,
@@ -747,7 +764,10 @@ class GraphViz {
 			}
 
 			// execute the map creation command
-			if ( !self::executeCommand( $graphParms->getMapCommand( $userSpecific ), $errorText ) ) {
+			$commandOutput = self::executeCommand(
+				$graphParms->getMapCommand( $userSpecific ), $errorText
+			);
+			if ( !$commandOutput ) {
 				self::deleteFiles( $graphParms, $userSpecific, false );
 
 				// remove path info from the errorText (file base names are allowed to pass)
@@ -757,8 +777,11 @@ class GraphViz {
 			}
 
 			// normalize the map file contents
-			if ( !self::normalizeMapFileContents( $graphParms->getMapPath( $userSpecific ), $graphParms->getRenderer(),
-				$titleText, $errorText ) ) {
+			$normalizedMapFileContents = self::normalizeMapFileContents(
+				$graphParms->getMapPath( $userSpecific ), $graphParms->getRenderer(),
+				$titleText, $errorText
+			);
+			if ( !$normalizedMapFileContents ) {
 				wfDebug( __METHOD__ . ": $errorText\n" );
 				self::deleteFiles( $graphParms, $userSpecific, false );
 				return self::errorHTML( $errorText );
@@ -768,7 +791,13 @@ class GraphViz {
 			$removeTempFile = true;
 
 			// Store the graph image in the wiki file repository.
-			if ( !UploadLocalFile::uploadWithoutFilePage( $upload, $imageFileName, $imageFilePath, $removeTempFile ) ) {
+			$uploadSuccessful = UploadLocalFile::uploadWithoutFilePage(
+				$upload,
+				$imageFileName,
+				$imageFilePath,
+				$removeTempFile
+			);
+			if ( !$uploadSuccessful ) {
 				wfDebug( __METHOD__ . ": upload failed for $imageFileName\n" );
 				if ( file_exists( $imageFilePath ) ) {
 					wfDebug( __METHOD__ . ": unlinking $imageFilePath\n" );
@@ -833,7 +862,8 @@ class GraphViz {
 		// reject forbidden attributes from the input
 		foreach ( self::$forbiddenDotAttributes as $forbiddenAttribute ) {
 			if ( stripos( $input, $forbiddenAttribute ) !== false ) {
-				$errorText = wfMessage( 'graphviz-dot-attr-forbidden', $forbiddenAttribute )->text();
+				$errorText = wfMessage( 'graphviz-dot-attr-forbidden', $forbiddenAttribute )
+					->text();
 				return false;
 			}
 		}
@@ -850,10 +880,13 @@ class GraphViz {
 			return false;
 		}
 
-		// convert any img src attributes (in HTML-like labels) in the input to specify the full file system path
+		// convert any img src attributes (in HTML-like labels) in the input to specify the full
+		// filesystem path.
 
 		$count = 0;
-		$input = preg_replace_callback( self::DOT_IMG_PATTERN, "self::fixImgSrc", $input, $limit, $count );
+		$input = preg_replace_callback(
+			self::DOT_IMG_PATTERN, "self::fixImgSrc", $input, $limit, $count
+		);
 
 		if ( $count > 0 && stripos( $input, 'src=""' ) !== false ) {
 			$errorText = wfMessage( 'graphviz-dot-invalid-image', 'IMG SRC' )->text();
@@ -944,7 +977,8 @@ class GraphViz {
 	/**
 	 * Delete the given graph source, image and map files.
 	 *
-	 * @param GraphRenderParms $graphParms contains the names of the graph source, image and map files to delete.
+	 * @param GraphRenderParms $graphParms contains the names of the graph source, image and map
+	 * files to delete.
 	 * @param bool $userSpecific indicates whether or not the files to be deleted are user specific.
 	 * @param bool $deleteUploads indicates whether or not to delete the uploaded image file.
 	 *
@@ -1005,7 +1039,9 @@ class GraphViz {
 	 *
 	 * @author Keith Welter
 	 */
-	protected static function normalizeMapFileContents( $mapPath, $renderer, $pageTitle, &$errorText ) {
+	protected static function normalizeMapFileContents(
+		$mapPath, $renderer, $pageTitle, &$errorText
+	) {
 		// read the map file contents
 		$map = file_get_contents( $mapPath );
 		if ( !empty( $map ) ) {
@@ -1051,7 +1087,8 @@ class GraphViz {
 				$map = str_replace( '</map>', '', $map );
 
 				// DOT and HTML allow tooltips without URLs but ImageMap does not.
-				// We want to allow tooltips without URLs (hrefs) so supply the page title if it is missing.
+				// We want to allow tooltips without URLs (hrefs)
+				// so supply the page title if it is missing.
 
 				// detect missing hrefs and add them as needed
 				$missingHrefReplacement = 'id="$1" href="[[' . $pageTitle . ']]" title="$2"';
@@ -1194,15 +1231,17 @@ class GraphViz {
 	 *
 	 * @param string $sourceFilePath is the path of existing source in the file system.
 	 * @param string $source is the wikitext to be compared with the contents of $sourceFilePath.
-	 * @param bool &$sourceChanged is set to true if $source does not match the contents of $sourceFilePath
-	 * (otherwise it is set to false).
+	 * @param bool &$sourceChanged is set to true if $source does not match the contents of
+	 * $sourceFilePath (otherwise it is set to false).
 	 * @param string &$errorText is populated with an error message in case of error.
 	 *
 	 * @return bool true upon success, false upon failure.
 	 *
 	 * @author Keith Welter
 	 */
-	protected static function isSourceChanged( $sourceFilePath, $source, &$sourceChanged, &$errorText ) {
+	protected static function isSourceChanged(
+		$sourceFilePath, $source, &$sourceChanged, &$errorText
+	) {
 		if ( file_exists( $sourceFilePath ) ) {
 			$contents = file_get_contents( $sourceFilePath );
 			if ( $contents === false ) {
@@ -1250,7 +1289,8 @@ class GraphViz {
 	}
 
 	/**
-	 * @param string $multilineText is one or more PHP_EOL delimited lines to be escaped and rendered as an HTML error.
+	 * @param string $multilineText is one or more PHP_EOL delimited lines to be escaped and
+	 * rendered as an HTML error.
 	 * @see escapeHTML()
 	 * @return string HTML escaped and rendered as an error.
 	 * @author Keith Welter
@@ -1291,9 +1331,10 @@ class GraphViz {
 	}
 
 	/**
-	 * @param string $subdir is the path of a subdirectory relative to $wgUploadDirectory.
-	 * If the subdirectory does not exist, it is created with the same permissions as $wgUploadDirectory.
-	 * @return string path of a subdirectory of the wiki upload directory ($wgUploadDirectory) or false upon failure.
+	 * @param string $subdir is the path of a subdirectory relative to $wgUploadDirectory. If the
+	 * subdirectory does not exist, it is created with the same permissions as $wgUploadDirectory.
+	 * @return string path of a subdirectory of the wiki upload directory ($wgUploadDirectory)
+	 * or false upon failure.
 	 * @author Keith Welter
 	 */
 	protected static function getUploadSubdir( $subdir ) {
