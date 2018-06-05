@@ -39,6 +39,7 @@ use LocalFile;
 use MediaHandler;
 use MWException;
 use RepoGroup;
+use RequestContext;
 use SiteStatsUpdate;
 use Status;
 use Title;
@@ -145,8 +146,6 @@ class UploadLocalFile extends LocalFile {
 	 * @throws MWException
 	 */
 	static function processVerificationError( $details, $filename ) {
-		global $wgFileExtensions, $wgLang;
-
 		switch ( $details['status'] ) {
 			case UploadBase::ILLEGAL_FILENAME:
 				return self::getUploadErrorMessage( wfMessage( 'illegalfilename', $details['filtered'] )->parse(), $filename );
@@ -157,13 +156,15 @@ class UploadLocalFile extends LocalFile {
 			case UploadBase::FILE_TOO_LARGE:
 				return self::getUploadErrorMessage( wfMessage( 'largefileserver' )->text(), $filename );
 			case UploadBase::FILETYPE_BADTYPE:
+				$lang = RequestContext::getMain()->getLanguage();
+				$fileExtensions = RequestContext::getMain()->getConfig()->get( 'FileExtensions' );
 				$msg = wfMessage( 'filetype-banned-type' );
 				if ( isset( $details['blacklistedExt'] ) ) {
-					$msg->params( $wgLang->commaList( $details['blacklistedExt'] ) );
+					$msg->params( $lang->commaList( $details['blacklistedExt'] ) );
 				} else {
 					$msg->params( $details['finalExt'] );
 				}
-				$msg->params( $wgLang->commaList( $wgFileExtensions ), count( $wgFileExtensions ) );
+				$msg->params( $lang->commaList( $fileExtensions ), count( $fileExtensions ) );
 
 				// Add PLURAL support for the first parameter. This results
 				// in a bit unlogical parameter sequence, but does not break

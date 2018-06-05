@@ -32,6 +32,7 @@ use MediaWiki\MediaWikiServices;
 use MWException;
 use Parser;
 use PPFrame;
+use RequestContext;
 use Sanitizer;
 use User;
 
@@ -199,9 +200,9 @@ class GraphViz {
 	 * @author Keith Welter
 	 */
 	public static function imageTypeAllowed( $imageType ) {
-		global $wgFileExtensions;
+		$fileExtensions = RequestContext::getMain()->getConfig()->get( 'FileExtensions' );
 
-		if ( !in_array( strtolower( $imageType ), $wgFileExtensions ) ) {
+		if ( !in_array( strtolower( $imageType ), $fileExtensions ) ) {
 			return false;
 		}
 
@@ -441,13 +442,13 @@ class GraphViz {
 	 * @return User
 	 */
 	public static function getUser() {
-		global $wgUser;
+		$user = RequestContext::getMain()->getUser();
 		$requiredRights = [ 'upload', 'reupload', 'edit', 'createpage' ];
 
 		// If the user has all the required rights, use them.
-		$rights = is_array( $wgUser->mRights ) ? $wgUser->mRights : [];
+		$rights = is_array( $user->mRights ) ? $user->mRights : [];
 		if ( array_intersect( $rights, $requiredRights ) == $requiredRights ) {
-			return $wgUser;
+			return $user;
 		}
 
 		// Otherwise, use a system user.
@@ -1296,14 +1297,14 @@ class GraphViz {
 	 * @author Keith Welter
 	 */
 	protected static function getUploadSubdir( $subdir ) {
-		global $wgUploadDirectory;
+		$uploadDirectory = RequestContext::getMain()->getConfig()->get( 'UploadDirectory' );
 
 		// prevent directory traversal
 		if ( strpos( $subdir, "../" ) !== false ) {
 			throw new MWException( "directory traversal detected in $subdir" );
 		}
 
-		$uploadSubdir = $wgUploadDirectory . $subdir;
+		$uploadSubdir = $uploadDirectory . $subdir;
 
 		// switch the slashes for windows
 		if ( wfIsWindows() ) {
@@ -1312,7 +1313,7 @@ class GraphViz {
 
 		// create the output directory if it does not exist
 		if ( !is_dir( $uploadSubdir ) ) {
-			$mode = fileperms( $wgUploadDirectory );
+			$mode = fileperms( $uploadDirectory );
 			if ( !mkdir( $uploadSubdir, $mode, true ) ) {
 				wfDebug( __METHOD__ . ": mkdir($uploadSubdir, $mode) failed\n" );
 				return false;
