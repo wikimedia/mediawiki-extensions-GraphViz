@@ -2,9 +2,30 @@
 	"@metadata": {
 		"authors": [
 			"Александр Сигачёв",
-			"Okras"
+			"Okras",
+			"Evs"
 		]
 	},
 	"graphviz-desc": "Позволяет использовать разметку [http://www.graphviz.org Graphviz] и создавать встроенные изображения",
-	"graphviz-upload-comment": "создано с помощью [[Special:Version#Installed_extensions|расширения]] GraphViz со страницы [[$1]]"
+	"graphviz-reload": "Изменён источник изображения графа. Перезагрузите страницу для отображения обновлённого изображения графа.",
+	"graphviz-no-input": "Отсутствует источник графа.",
+	"graphviz-dot-invalid-image": "Атрибут dot $1 должен быть именем загруженного файла.",
+	"graphviz-dot-attr-forbidden": "Атрибут dot $1 запрещён.",
+	"graphviz-read-src-failed": "Не удалось прочитать текст графа из файловой системы.",
+	"graphviz-write-src-failed": "Не удалось записать текст графа в файловую систему.",
+	"graphviz-write-map-failed": "Не удалось записать карту графа в файловую систему.",
+	"graphviz-mkdir-failed": "Не удалось создать каталог в файловой системе.",
+	"graphviz-delete-reason": "Этот временный файл был удалён расширением GraphViz.",
+	"graphviz-alt": "Это граф с границами и узлами, которые могут содержать гиперссылки.",
+	"graphviz-uploaddisabledtext": "Создание изображения графа недопустимо, поскольку загрузка файлов отключена.",
+	"graphviz-upload-not-permitted": "Для создания изображения графа требуется разрешение на загрузку.",
+	"graphviz-user-blocked": "Создание изображения графа запрещено для заблокированных пользователей.",
+	"graphviz-read-only": "Создание изображения графа запрещено, так как вики находится в режиме только для чтения.",
+	"graphviz-uploaderror": "Ошибка загрузки изображения графа для файла: $1",
+	"graphviz-upload-comment": "создано с помощью [[Special:Version#Installed_extensions|расширения]] GraphViz со страницы [[$1]]",
+	"graphviz-unrecognized-preparse-value": "Предварительное значение \"$1\" не распознано.",
+	"graphviz-category-desc": "$1 содержит страницы, созданные расширением GraphViz.",
+	"graphviz-subcategory-desc": "$1 содержит страницы, созданные с помощью команды $2.",
+	"graphviz-map-desc": "= ImageMap =\nПри включении этого изображения на вики-страницу используйте следующую разметку для включения ссылок:\n <nowiki>\n<imagemap>\nFile:$1\n$2</imagemap>\n</nowiki>\nСм. [https://www.mediawiki.org/wiki/Extension:ImageMap ImageMap] для дополнительной информации.",
+	"graphviz-upload-user": "GraphViz"
 }
