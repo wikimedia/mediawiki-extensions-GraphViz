@@ -12,6 +12,7 @@ use WikiPage;
 
 /**
  *  @group GraphViz
+ *  @group Database
  */
 class GraphVizTest extends MediaWikiTestCase {
 
