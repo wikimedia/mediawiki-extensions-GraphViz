@@ -22,7 +22,9 @@ class GraphVizTest extends MediaWikiTestCase {
 	}
 
 	public function skipIfDotNotAvailable() {
-		if ( Shell::command( 'which', 'dot' )->execute()->getExitCode() ) {
+		// Cannot use "which" command, as it doesn't exist in windows.
+		// -V is for version info.
+		if ( Shell::command( 'dot', '-V' )->execute()->getExitCode() ) {
 			$this->markTestSkipped( 'Graphviz is not installed. Can not find "dot"' );
 		}
 	}
@@ -86,5 +88,18 @@ class GraphVizTest extends MediaWikiTestCase {
 			$testPage2->getParserOutput( $parserOptions2, null, true )->getText()
 		);
 		$this->assertFileExists( $uploadDir . "/3/3b/GraphViz_test_2_digraph_testGraph_dot.png" );
+
+		// Test image node with a label. See bug T207248.
+		// Using previous graph image as input for this one.
+		$this->setMwGlobals( 'wgUser', $user );
+		$imageNode = 'A[image="GraphViz_test_2_digraph_testGraph_dot.png", label="test"];';
+		$dotSource3 = "<graphviz>digraph testGraph{ {$imageNode} }</graphviz>";
+		$testTitle3 = $this->insertPage( 'GraphViz test 3', $dotSource3 );
+		$testPage3 = new WikiPage( $testTitle3['title'] );
+		$this->assertRegExp(
+			'|src=".*/0/0d/GraphViz_test_3_digraph_testGraph_dot.png"|',
+			$testPage3->getParserOutput( $parserOptions1 )->getText()
+		);
+		$this->assertFileExists( $uploadDir . "/0/0d/GraphViz_test_3_digraph_testGraph_dot.png" );
 	}
 }
