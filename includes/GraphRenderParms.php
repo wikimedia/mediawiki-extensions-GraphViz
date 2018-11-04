@@ -26,6 +26,8 @@
 
 namespace MediaWiki\Extension\GraphViz;
 
+use MediaWiki\Shell\Shell;
+
 /**
  * A convenience class for holding the parameters pertaining to graph rendering using dot or mscgen.
  * @author Keith Welter
@@ -69,8 +71,6 @@ class GraphRenderParms {
 	private $mapType = '';
 	private $execPath = '';
 	private $renderCommand = '';
-	private $imageCommand = '';
-	private $mapCommand = '';
 	private $sourceAndMapDir = '';
 	private $imageDir = '';
 
@@ -135,24 +135,36 @@ class GraphRenderParms {
 		return $this->renderer;
 	}
 
+	/**
+	 * Get the image-creation command.
+	 * @param bool $userSpecific Whether to use user-specific file paths.
+	 * @return \MediaWiki\Shell\Command
+	 */
 	public function getImageCommand( $userSpecific ) {
-		if ( $this->imageCommand == '' ) {
-			$this->imageCommand = wfEscapeShellArg( $this->renderCommand )
-				. ' -T ' . wfEscapeShellArg( $this->imageType )
-				. ' -o ' . wfEscapeShellArg( $this->getImagePath( $userSpecific ) )
-				. ' ' . wfEscapeShellArg( $this->getSourcePath( $userSpecific ) );
-		}
-		return $this->imageCommand;
+		return Shell::command(
+			$this->renderCommand,
+			'-T',
+			$this->imageType,
+			'-o',
+			$this->getImagePath( $userSpecific ),
+			$this->getSourcePath( $userSpecific )
+		);
 	}
 
+	/**
+	 * Get the map-creation command.
+	 * @param bool $userSpecific Whether to use user-specific file paths.
+	 * @return \MediaWiki\Shell\Command
+	 */
 	public function getMapCommand( $userSpecific ) {
-		if ( $this->mapCommand == '' ) {
-			$this->mapCommand = wfEscapeShellArg( $this->renderCommand )
-				. ' -T ' . wfEscapeShellArg( $this->mapType )
-				. ' -o ' . wfEscapeShellArg( $this->getMapPath( $userSpecific ) )
-				. ' ' . wfEscapeShellArg( $this->getSourcePath( $userSpecific ) );
-		}
-		return $this->mapCommand;
+		return Shell::command(
+			$this->renderCommand,
+			'-T',
+			$this->mapType,
+			'-o',
+			$this->getMapPath( $userSpecific ),
+			$this->getSourcePath( $userSpecific )
+		);
 	}
 
 	public function getGraphName( $userSpecific ) {

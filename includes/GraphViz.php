@@ -735,12 +735,13 @@ class GraphViz {
 				}
 			}
 
-			// execute the image creation command
-			if ( !self::executeCommand( $graphParms->getImageCommand( $userSpecific ), $errorText ) ) {
+			// Execute the image-creation command.
+			$imageCommand = $graphParms->getImageCommand( $userSpecific )->execute();
+			if ( $imageCommand->getExitCode() !== 0 ) {
 				self::deleteFiles( $graphParms, $userSpecific, false );
 
 				// remove path info from the errorText
-				$errorText = str_replace( $imageDir, "", $errorText );
+				$errorText = str_replace( $imageDir, "", $imageCommand->getStderr() );
 				$errorText = str_replace( $sourceAndMapDir, "", $errorText );
 				return self::multilineErrorHTML( $errorText );
 			}
@@ -763,15 +764,13 @@ class GraphViz {
 				return self::errorHTML( $errorText );
 			}
 
-			// execute the map creation command
-			$commandOutput = self::executeCommand(
-				$graphParms->getMapCommand( $userSpecific ), $errorText
-			);
-			if ( !$commandOutput ) {
+			// Execute the map-creation command.
+			$mapCommand = $graphParms->getMapCommand( $userSpecific )->execute();
+			if ( $mapCommand->getExitCode() !== 0 ) {
 				self::deleteFiles( $graphParms, $userSpecific, false );
 
 				// remove path info from the errorText (file base names are allowed to pass)
-				$errorText = str_replace( $imageDir, "", $errorText );
+				$errorText = str_replace( $imageDir, "", $mapCommand->getStderr() );
 				$errorText = str_replace( $sourceAndMapDir, "", $errorText );
 				return self::multilineErrorHTML( $errorText );
 			}
@@ -994,27 +993,6 @@ class GraphViz {
 				$imageFile->delete( wfMessage( 'graphviz-delete-reason' )->text() );
 			}
 		}
-	}
-
-	/**
-	 * @param string $command is the command line to execute.
-	 * @param string &$output is the output of the command.
-	 * @return bool true upon success, false upon failure.
-	 * @author Keith Welter et al.
-	 */
-	protected static function executeCommand( $command, &$output ) {
-		if ( !wfIsWindows() ) {
-			// redirect stderr to stdout so that it will be included in outputArray
-			$command .= " 2>&1";
-		}
-		$output = wfShellExec( $command, $ret );
-
-		if ( $ret != 0 || $output ) {
-			wfDebug( __METHOD__ . ": command: $command ret: $ret output: $output\n" );
-			return false;
-		}
-
-		return true;
 	}
 
 	/**
