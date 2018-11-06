@@ -68,12 +68,12 @@ class GraphViz {
 
 	/**
 	 * A regular expression for matching the following ID form in the DOT language:
-	 * - "any double-quoted string ("...") possibly containing escaped quotes ('")"
+	 * - "any double-quoted string ("...") possibly containing escaped quotes (\")"
 	 *
 	 * @see http://www.graphviz.org/content/dot-language
 	 * @var string DOT_QUOTED_STRING
 	 */
-	const DOT_QUOTED_STRING = '"(.|\")*"';
+	const DOT_QUOTED_STRING = '"([^"]|\\\")*"';
 
 	/**
 	 * A regular expression for matching the following ID form in the DOT language:
