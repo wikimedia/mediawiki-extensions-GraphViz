@@ -37,5 +37,31 @@
 		"RejectParserCacheValue": "MediaWiki\\Extension\\GraphViz\\GraphViz::onRejectParserCacheValue",
 		"UserGetReservedNames": "MediaWiki\\Extension\\GraphViz\\GraphViz::onUserGetReservedNames"
 	},
+	"config": {
+		"GraphVizExecPath": {
+			"description": "The executable binary path of GraphViz.",
+			"descriptionmsg": "graphviz-setting-execpath",
+			"value": null,
+			"path": false,
+			"public": true
+		},
+		"GraphVizMscgenPath": {
+			"description": "The executable binary path of mscgen for GraphViz.",
+			"descriptionmsg": "graphviz-setting-mscgenpath",
+			"value": "",
+			"path": false,
+			"public": true
+		},
+		"GraphVizDefaultImageType": {
+			"description": "The default output image type for GraphViz.",
+			"descriptionmsg": "graphviz-setting-defaultimg",
+			"value": "png",
+			"path": false,
+			"public": true
+		}
+	},
+	"ConfigRegistry": {
+		"GraphViz": "GlobalVarConfig::newInstance"
+	},
 	"manifest_version": 2
 }

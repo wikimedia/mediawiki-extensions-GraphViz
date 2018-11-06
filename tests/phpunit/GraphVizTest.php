@@ -3,6 +3,7 @@
 namespace MediaWiki\Extension\GraphViz\Test;
 
 use MediaWiki\Extension\GraphViz\GraphViz;
+use MediaWiki\Extension\GraphViz\GraphRenderParms;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Shell\Shell;
 use MediaWikiTestCase;
@@ -101,5 +102,30 @@ class GraphVizTest extends MediaWikiTestCase {
 			$testPage3->getParserOutput( $parserOptions1 )->getText()
 		);
 		$this->assertFileExists( $uploadDir . "/0/0d/GraphViz_test_3_digraph_testGraph_dot.png" );
+	}
+
+	/**
+	 * Tests that render parameters reflect the extension settings.
+	 * @covers \MediaWiki\Extension\GraphViz\GraphRenderParms::__construct
+	 */
+	public function testRenderParams() {
+		$this->setMwGlobals( 'wgGraphVizExecPath', '/usr/test/path/' );
+
+		$class = new ReflectionClass( GraphRenderParms::class );
+
+		// The only parameter affecting the render command is the renderer.
+		// The rest of the parameters only affect the command arguments.
+		$renderer = 'dot';
+		$instance = new GraphRenderParms( $renderer, '', '', '', '', '' );
+
+		$property = $class->getProperty( 'renderCommand' );
+		$property->setAccessible( true );
+		$result = $property->getValue( $instance );
+
+		if ( wfIsWindows() ) {
+			$this->assertEquals( '/usr/test/path/dot.exe', $result );
+		} else {
+			$this->assertEquals( '/usr/test/path/dot', $result );
+		}
 	}
 }

@@ -21,6 +21,13 @@ The recommended way to install this extension is by using [Composer][composer]. 
 }
 ```
 
+## Configuration
+To configure this extension, you may set any of the following after `wfLoadExtension( 'GraphViz' );` in your `LocalSettings.php`:
+
+ * `$wfGraphVizExecPath`, defines the path to the GraphViz binaries, such as `dot`. Default is `null`, which gets converted to `/usr/bin/` on POSIX and `C:\Program Files\Graphviz\bin\` on Windows.
+ * `$wfGraphVizMscgenPath`, defines the path to the mscgen binaries. Default is `""`.
+ * `$wfGraphVizDefaultImageType`, defines the default output image format. Default is `"png"`.
+
 ## Contribution and support
 
 Development is coordinated by Keith Welter and Jeroen De Dauw.

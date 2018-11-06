@@ -2,6 +2,8 @@
 
 namespace MediaWiki\Extension\GraphViz;
 
+use MediaWiki\MediaWikiServices;
+
 /**
  * The GraphViz settings class.
  */
@@ -47,15 +49,27 @@ class Settings {
 	 * Constructor for setting configuration variable defaults.
 	 */
 	public function __construct() {
-		// Set execution path
-		if ( stristr( PHP_OS, 'WIN' ) && !stristr( PHP_OS, 'Darwin' ) ) {
-			$this->execPath = 'C:/Program Files/Graphviz/bin/';
+		$settings = MediaWikiServices::getInstance()
+			->getConfigFactory()
+			->makeConfig( 'GraphViz' );
+
+		// Path to GraphViz executables
+		// Since default depends on OS, the default value on extension.json
+		// is null. This way, if for any reason someone wants to have
+		// the path be '/usr/bin/' on windows, they can just set it as such.
+		$execPath = $settings->get( 'GraphVizExecPath' );
+		if ( $execPath !== null && $execPath !== '' ) {
+			$this->execPath = $execPath;
+		} elseif ( wfIsWindows() ) {
+			$this->execPath = 'C:\\Program Files\\Graphviz\\bin\\';
 		} else {
 			$this->execPath = '/usr/bin/';
 		}
 
-		$this->mscgenPath = '';
-		$this->defaultImageType = 'png';
+		$this->mscgenPath = $settings->get( 'GraphVizMscgenPath' );
+		$this->defaultImageType = $settings->get( 'GraphVizDefaultImageType' );
+
+		// TODO: currently not used
 		$this->createCategoryPages = 'no';
 	}
 }
