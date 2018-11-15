@@ -1,0 +1,8 @@
+{
+	"@metadata": {
+		"authors": [
+			"BadDog"
+		]
+	},
+	"graphviz-setting-defaultimg": "Подразумевани излазни тип слике за GraphViz."
+}

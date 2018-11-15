@@ -26,5 +26,8 @@
 	"graphviz-category-desc": "$1 enthält Seiten, die mithilfe der Erweiterung „GraphViz“ erstellt wurden.",
 	"graphviz-subcategory-desc": "$1 enthält Seiten, die mithilfe des $2-Befehls erstellt wurden.",
 	"graphviz-map-desc": "= ImageMap =\nVerwende beim Einbinden dieses Bildes in eine Wikiseite den folgenden Code, um Links zu ermöglichen:\n <nowiki>\n<imagemap>\nDatei:$1\n$2</imagemap>\n</nowiki>\nSiehe [https://www.mediawiki.org/wiki/Extension:ImageMap ImageMap] für weitere Informationen.",
-	"graphviz-upload-user": "GraphViz"
+	"graphviz-upload-user": "GraphViz",
+	"graphviz-setting-execpath": "Der ausführbare binäre Pfad von GraphViz.",
+	"graphviz-setting-mscgenpath": "Der ausführbare binäre Pfad von mscgen für GraphViz.",
+	"graphviz-setting-defaultimg": "Der Standard-Ausgabe-Bildtyp für GraphViz."
 }

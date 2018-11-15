@@ -25,5 +25,8 @@
 	"graphviz-category-desc": "$1 يحتوي على صفحات تم إنشاؤها بواسطة الملحق GraphViz.",
 	"graphviz-subcategory-desc": "يحتوي $1 على صفحات تم إنشاؤها باستخدام الأمر $2.",
 	"graphviz-map-desc": "= ImageMap =\nعند تضمين هذه الصورة في صفحة ويكي، استخدم العلامة التالية لتمكين الروابط: \n<nowiki>\n<imagemap>\nFile:$1\n$2</imagemap>\n</nowiki>\nراجع [https://www.mediawiki.org/wiki/Extension:ImageMap ImageMap] لمزيد من المعلومات.",
-	"graphviz-upload-user": "GraphViz"
+	"graphviz-upload-user": "GraphViz",
+	"graphviz-setting-execpath": "المسار الثنائي القابل للتنفيذ من GraphViz.",
+	"graphviz-setting-mscgenpath": "مسار mscgen الثنائي القابل للتنفيذ لـGraphViz.",
+	"graphviz-setting-defaultimg": "نوع صورة الإخراج الافتراضية لـGraphViz."
 }

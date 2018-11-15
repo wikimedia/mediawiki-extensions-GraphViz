@@ -26,5 +26,8 @@
 	"graphviz-category-desc": "$1 contém páginas criadas pela extensão GraphViz.",
 	"graphviz-subcategory-desc": "$1 contém páginas criadas usando o comando $2.",
 	"graphviz-map-desc": "= ImageMap =\nQuando incluir esta imagem numa página da wiki, use a seguinte notação para ativar hiperligações:\n <nowiki>\n<imagemap>\nFile:$1\n$2</imagemap>\n</nowiki>\nConsulte [https://www.mediawiki.org/wiki/Extension:ImageMap ImageMap] para mais informações.",
-	"graphviz-upload-user": "GraphViz"
+	"graphviz-upload-user": "GraphViz",
+	"graphviz-setting-execpath": "O caminho do binário executável do GraphViz.",
+	"graphviz-setting-mscgenpath": "O caminho do binário executável do mscgen para o GraphViz.",
+	"graphviz-setting-defaultimg": "O tipo de imagem de saída padrão para o GraphViz."
 }

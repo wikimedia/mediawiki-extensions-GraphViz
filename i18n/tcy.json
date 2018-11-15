@@ -1,0 +1,10 @@
+{
+	"@metadata": {
+		"authors": [
+			"Ravi Mundkur"
+		]
+	},
+	"graphviz-setting-execpath": "GraphViz ದ ಪಾಲಿಸಾರೆ-ಆಪಿನ ದ್ವಯಾಂಕ ಪಥ",
+	"graphviz-setting-mscgenpath": "GraphViz ಗ್ mscgen ದ ಪಾಲಿಸರೆ-ಆಪಿನ ದ್ವಯಾಂಕ ಪಥ",
+	"graphviz-setting-defaultimg": "GraphViz ಗ್ ಸ್ಥಾಪಕ ಉತ್ಪತ್ತ ಚಿತ್ರಿಕೆ ನಮೂನೆ"
+}
