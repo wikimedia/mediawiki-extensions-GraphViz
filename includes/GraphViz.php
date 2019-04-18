@@ -535,7 +535,7 @@ class GraphViz {
 	 * ## Security
 	 * Upload restrictions (described above) and Cross-site scripting (XSS) are the main security
 	 * concerns for this extension.
-	 * @see http://www.mediawiki.org/wiki/Cross-site_scripting.
+	 * @see https://www.mediawiki.org/wiki/Cross-site_scripting.
 	 *
 	 * To prevent XSS we should validate input and must escape output.
 	 * The input to validate includes the tag attributes (the $args parameter here) and
@@ -1006,7 +1006,7 @@ class GraphViz {
 	 *   - [[Page title|description]]
 	 *   - [URL]
 	 *   - [URL description]
-	 * @see http://www.mediawiki.org/wiki/Extension:ImageMap#Syntax_description
+	 * @see https://www.mediawiki.org/wiki/Extension:ImageMap#Syntax_description
 	 *
 	 * @param string $mapPath is the map file (including path).
 	 * @param string $renderer is the name of the renderer used to produce the map.
@@ -1118,7 +1118,7 @@ class GraphViz {
 
 	/**
 	 * Convert the input into a syntax acceptable by the ImageMap extension.
-	 * @see http://www.mediawiki.org/wiki/Extension:ImageMap#Syntax_description
+	 * @see https://www.mediawiki.org/wiki/Extension:ImageMap#Syntax_description
 	 *
 	 * @param array|null $args is an optional list of image display attributes
 	 * to be applied to the rendered image.  Attribute usage is documented here:
@@ -1283,7 +1283,7 @@ class GraphViz {
 
 	/**
 	 * Escape the input text for HTML rendering (wrapper for htmlspecialchars).
-	 * @see http://www.mediawiki.org/wiki/Cross-site_scripting#Stopping_Cross-site_scripting
+	 * @see https://www.mediawiki.org/wiki/Cross-site_scripting#Stopping_Cross-site_scripting
 	 * @return string escaped HTML.
 	 * @param string $text is the text to be escaped.
 	 * @author Keith Welter
