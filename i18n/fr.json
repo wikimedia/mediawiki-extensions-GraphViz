@@ -19,7 +19,7 @@
 	"graphviz-delete-reason": "Ce fichier temporaire a été supprimé par l’extension GraphViz.",
 	"graphviz-alt": "Voici un graphique avec des bordures et des nœuds qui peut contenir des hyperliens.",
 	"graphviz-uploaddisabledtext": "La création d’une image de graphique n’est pas autorisée car les téléversements de fichier sont désactivés.",
-	"graphviz-upload-not-permitted": "La création d’image de graphique nécessite le droit d’importer.",
+	"graphviz-upload-not-permitted": "La création d’image de graphique nécessite le droit de téléverser.",
 	"graphviz-user-blocked": "La création d’image de graphique n’est pas autorisée pour les utilisateurs bloqués.",
 	"graphviz-read-only": "La création d’image de graphique n’est pas autorisée car le wiki est en mode lecture seule.",
 	"graphviz-uploaderror": "Le téléversement d’image de graphique a échoué pour le fichier : $1",
