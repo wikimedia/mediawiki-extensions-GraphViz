@@ -824,7 +824,7 @@ class GraphViz {
 		// render the image map (image must be uploaded first)
 		$imageMapOutput = ImageMap::render( $imageMapInput, null, $parser );
 
-		// if no upload occured, clear the recently uploaded file marker (if any)
+		// if no upload occurred, clear the recently uploaded file marker (if any)
 		if ( !$uploaded ) {
 			if ( file_exists( $imageFilePath ) ) {
 				wfDebug( __METHOD__ . ": unlinking $imageFilePath\n" );
