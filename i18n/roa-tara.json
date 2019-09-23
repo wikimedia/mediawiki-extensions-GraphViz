@@ -5,5 +5,19 @@
 		]
 	},
 	"graphviz-desc": "Permette de 'ngapsulà [http://www.graphviz.org Graphviz] segnalatore e ccreje immaggine in linèe",
-	"graphviz-no-input": "Manghe 'a sorgende d'u grafeche."
+	"graphviz-reload": "L'immaggine sorgende d'u grafeche ave cangiate. Careche arrete 'a pàgene pe 'ndrucà l'immaggine d'u grafeche aggiornate.",
+	"graphviz-no-input": "Manghe 'a sorgende d'u grafeche.",
+	"graphviz-dot-invalid-image": "L'attribute d'u punde $1 adda essere 'nu nome de 'nu file carecate.",
+	"graphviz-dot-attr-forbidden": "L'attribute d'u punde $1 jè vietate.",
+	"graphviz-read-src-failed": "'Mbossibbilitate a leggere 'u teste d'u grafeche da 'u file system.",
+	"graphviz-write-src-failed": "'Mbossibbilitate a scrivere 'u teste d'u grafeche sus a 'u file system.",
+	"graphviz-write-map-failed": "'Mbossibbilitate a scrivere 'a mappe d'u grafeche sus a 'u file system.",
+	"graphviz-mkdir-failed": "'Mbossibbilitate a ccrejà 'na cartelle jndr'à 'u file system.",
+	"graphviz-delete-reason": "Stu file temboranèe ha state scangellate da l'estenzione GraphViz.",
+	"graphviz-alt": "Quiste jè 'nu grafeche cu borde e node ca ponne tenè collegaminde.",
+	"graphviz-uploaddisabledtext": "'A ccrejazione de l'immaggine d'u grafeche non g'è permesse purcé 'u carecamende de le file jè disabbilitate.",
+	"graphviz-upload-not-permitted": "'A ccrejazione de l'immaggine d'u grafeche vole permesse de carecamende.",
+	"graphviz-user-blocked": "'A ccrejazione de l'immaggine d'u grafeche non g'è permesse pe le utinde bloccate.",
+	"graphviz-read-only": "'A ccrejazione de l'immaggine d'u grafeche non g'è permesse purcé 'a uicchi ste in modalità de sola letture.",
+	"graphviz-upload-user": "GraphViz"
 }
