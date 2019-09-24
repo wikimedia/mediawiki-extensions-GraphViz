@@ -19,5 +19,14 @@
 	"graphviz-upload-not-permitted": "'A ccrejazione de l'immaggine d'u grafeche vole permesse de carecamende.",
 	"graphviz-user-blocked": "'A ccrejazione de l'immaggine d'u grafeche non g'è permesse pe le utinde bloccate.",
 	"graphviz-read-only": "'A ccrejazione de l'immaggine d'u grafeche non g'è permesse purcé 'a uicchi ste in modalità de sola letture.",
-	"graphviz-upload-user": "GraphViz"
+	"graphviz-uploaderror": "Carecamende de l'immaggine d'u grafeche fallite pu file: $1",
+	"graphviz-upload-comment": "generate da l'[[Special:Version#Installed_extensions|estenzione]] GraphViz da 'a pàgene [[$1]]",
+	"graphviz-unrecognized-preparse-value": "'U valore preanalizzate \"$1\" non g'è canusciute.",
+	"graphviz-category-desc": "$1 tène pàggene ccrejate da l'estenzione GraphViz.",
+	"graphviz-subcategory-desc": "$1 tène pàggene ccrejate ausanne 'u comande $2.",
+	"graphviz-map-desc": "= ImageMap =\nQuanne 'nglude ste immaggine jndr'à 'na pàgene uicchi, ause stu mark-up pe abbilità le collegaminde:\n <nowiki>\n<imagemap>\nFile:$1\n$2</imagemap>\n</nowiki>\n'Ndruche [https://www.mediawiki.org/wiki/Extension:ImageMap ImageMap] pe cchiù 'mbormaziune.",
+	"graphviz-upload-user": "GraphViz",
+	"graphviz-setting-execpath": "'U percorse binarie de l'eseguibbele de GraphViz.",
+	"graphviz-setting-mscgenpath": "'U percorse binarie de l'eseguibbele de mscgen de GraphViz.",
+	"graphviz-setting-defaultimg": "'U tipe de immaggine finale predefinite pe GraphViz."
 }
