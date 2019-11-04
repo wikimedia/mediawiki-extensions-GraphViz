@@ -664,7 +664,7 @@ class GraphViz {
 			$preParseType = $args['preparse'];
 			if ( $preParseType == "dynamic" ) {
 				$doRecursiveTagParse = true;
-				$parser->disableCache();
+				$parser->getOutput()->updateCacheExpiry( 0 );
 			} else {
 				return self::i18nErrorMessageHTML(
 					'graphviz-unrecognized-preparse-value', $preParseType
