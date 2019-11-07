@@ -4,5 +4,29 @@
 			"Jon Harald Søby"
 		]
 	},
-	"graphviz-desc": "Muliggjør innbygging av [http://www.graphviz.org Graphviz]-merking og bruk av bilder i teksten"
+	"graphviz-desc": "Muliggjør innbygging av [http://www.graphviz.org Graphviz]-merking og bruk av bilder i teksten",
+	"graphviz-reload": "Grafbildekilde endret. Last siden på nytt for å vise det oppdaterte grafbildet.",
+	"graphviz-no-input": "Grafkilden mangler.",
+	"graphviz-dot-invalid-image": "Punktattributtet $1 må være navnet på en opplastet fil.",
+	"graphviz-dot-attr-forbidden": "Punktattributtet $1 er forbudt.",
+	"graphviz-read-src-failed": "Kunne ikke lese graftekst fra filsystemet.",
+	"graphviz-write-src-failed": "Kunne ikke skrive graftekst til filsystemet.",
+	"graphviz-write-map-failed": "Kunne ikke skrive grafkart til filsystemet.",
+	"graphviz-mkdir-failed": "Kunne ikke opprette en mappe i filsystemet.",
+	"graphviz-delete-reason": "Denne midlertidige filen ble slettet av GraphViz-utvidelsen.",
+	"graphviz-alt": "Dette er en graf med grenser og noder som kan inneholde hyperlenker.",
+	"graphviz-uploaddisabledtext": "Grafbildeopprettelse er ikke tillatt fordi filopplasting er slått av.",
+	"graphviz-upload-not-permitted": "Grafbildeopprettelse krever tillatelse til å laste opp.",
+	"graphviz-user-blocked": "Grafbildeopprettelse er ikke tillatt for blokkerte brukere.",
+	"graphviz-read-only": "Grafbildeopprettelse er ikke tillatt fordi wikien er skrivebeskyttet.",
+	"graphviz-uploaderror": "Grafbildeopplasting mislyktes for filen: $1",
+	"graphviz-upload-comment": "generert av [[Special:Version#Installed_extensions|GraphViz-utvidelsen]] fra siden [[$1]]",
+	"graphviz-unrecognized-preparse-value": "Forhåndsparserverdien «$1» er ukjent.",
+	"graphviz-category-desc": "$1 inneholder sider opprettet av GraphViz-utvidelsen.",
+	"graphviz-subcategory-desc": "$1 inneholder sider opprettet med kommandoen $2.",
+	"graphviz-map-desc": "= Bildekart =\nNår du inkluderer dette bildet i en wikiside, bruk følgende oppmerking for å aktivere lenker:\n <nowiki>\n<imagemap>\nFile:$1\n$2</imagemap>\n</nowiki>\nSe [https://www.mediawiki.org/wiki/Extension:ImageMap ImageMap] for mer informasjon.",
+	"graphviz-upload-user": "GraphViz",
+	"graphviz-setting-execpath": "Den kjørbare binærstien til GraphViz.",
+	"graphviz-setting-mscgenpath": "Den kjørbare binærstien til GraphViz' mscgen.",
+	"graphviz-setting-defaultimg": "Standard resultatbildetype for GraphViz."
 }
