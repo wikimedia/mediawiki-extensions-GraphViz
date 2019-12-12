@@ -25,5 +25,8 @@
 	"graphviz-category-desc": "$1 contien páxines creaes pola estensión GraphViz.",
 	"graphviz-subcategory-desc": "$1 contien páxines creaes pol comandu $2.",
 	"graphviz-map-desc": "= ImageMap =\nCando incluyas esta imaxe nuna páxina wiki, usa les marques siguientes p'activar los enllaces:\n <nowiki>\n<imagemap>\nFile:$1\n$2</imagemap>\n</nowiki>\nVisita [https://www.mediawiki.org/wiki/Extension:ImageMap ImageMap] pa más información.",
-	"graphviz-upload-user": "GraphViz"
+	"graphviz-upload-user": "GraphViz",
+	"graphviz-setting-execpath": "El camín al binariu executable de GraphViz.",
+	"graphviz-setting-mscgenpath": "El camín al binariu executable de mscgen pa GraphViz.",
+	"graphviz-setting-defaultimg": "El tipu de salida d'imaxe predetermináu pa GraphViz."
 }
