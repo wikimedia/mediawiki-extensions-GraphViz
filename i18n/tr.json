@@ -1,0 +1,32 @@
+{
+	"@metadata": {
+		"authors": [
+			"BaRaN6161 TURK"
+		]
+	},
+	"graphviz-desc": "[http://www.graphviz.org Graphviz] işaretlemesini katıştırmaya izin verir ve satır içi görüntüler oluşturur",
+	"graphviz-reload": "Grafik görüntü kaynağı değişti. Güncellenmiş grafik görüntüsünü görüntülemek için sayfayı yeniden yükle.",
+	"graphviz-no-input": "Grafik kaynağı eksik.",
+	"graphviz-dot-invalid-image": "Dot $1 özniteliği, yüklenen bir dosyanın adı olmalıdır.",
+	"graphviz-dot-attr-forbidden": "$1 nokta özniteliği yasaktır.",
+	"graphviz-read-src-failed": "Grafik metni dosya sisteminden okunamıyor.",
+	"graphviz-write-src-failed": "Grafik metni dosya sistemine yazılamıyor.",
+	"graphviz-write-map-failed": "Grafik eşlemesi dosya sistemine yazılamıyor.",
+	"graphviz-mkdir-failed": "Dosya sisteminde dizin oluşturulamıyor.",
+	"graphviz-delete-reason": "Bu geçici dosya GraphViz uzantısı tarafından silindi.",
+	"graphviz-alt": "Bu, köprüler içerebilecek sınırları ve düğümleri olan bir grafiktir.",
+	"graphviz-uploaddisabledtext": "Dosya yüklemeleri devre dışı bırakıldığı için grafik görüntüsü oluşturmaya izin verilmiyor.",
+	"graphviz-upload-not-permitted": "Grafik görüntüsü oluşturmak için yükleme izni gerekiyor.",
+	"graphviz-user-blocked": "Grafik görüntü oluşturmaya engellenen kullanıcılar için izin verilmez.",
+	"graphviz-read-only": "Wiki salt okunur modda olduğu için grafik görüntüsü oluşturmaya izin verilmiyor.",
+	"graphviz-uploaderror": "Dosya için grafik resmi yüklenemedi: $1",
+	"graphviz-upload-comment": "[[$1]] sayfasından GraphViz [[Special:Version#Installed_extensions|uzantı]] tarafından oluşturuldu",
+	"graphviz-unrecognized-preparse-value": "\"$1\" hazırlık değeri tanınmıyor.",
+	"graphviz-category-desc": "$1, GraphViz uzantısı tarafından oluşturulan sayfaları içerir.",
+	"graphviz-subcategory-desc": "$1, $2 komutu kullanılarak oluşturulan sayfaları içerir.",
+	"graphviz-map-desc": "= ImageMap =\nBu resmi bir wiki sayfasına eklerken bağlantıları etkinleştirmek için aşağıdaki işaretlemeyi kullanın:\n <nowiki>\n<imagemap>\nFile:$1\n$2</imagemap>\n</nowiki>\nDaha fazla bilgi için bkz. [Https://www.mediawiki.org/wiki/Extension:ImageMap ImageMap].",
+	"graphviz-upload-user": "GraphViz",
+	"graphviz-setting-execpath": "GraphViz'in yürütülebilir ikili yolu.",
+	"graphviz-setting-mscgenpath": "GraphViz için mscgen'in çalıştırılabilir ikili yolu.",
+	"graphviz-setting-defaultimg": "GraphViz için varsayılan çıkış görüntü türü."
+}
