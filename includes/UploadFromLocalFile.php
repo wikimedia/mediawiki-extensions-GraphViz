@@ -49,10 +49,12 @@ class UploadFromLocalFile extends UploadBase {
 	 * @return UploadLocalFile|null
 	 */
 	public function getLocalFile() {
-		if ( is_null( $this->mLocalFile ) ) {
+		if ( !$this->mLocalFile ) {
 			$nt = $this->getTitle();
-			$repo = RepoGroup::singleton()->getLocalRepo();
-			$this->mLocalFile = is_null( $nt ) ? null : UploadLocalFile::newFromTitle( $nt, $repo );
+			if ( $nt ) {
+				$repo = RepoGroup::singleton()->getLocalRepo();
+				$this->mLocalFile = UploadLocalFile::newFromTitle( $nt, $repo );
+			}
 		}
 
 		return $this->mLocalFile;

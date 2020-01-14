@@ -37,14 +37,14 @@ use Sanitizer;
 use User;
 
 /**
-  *  This is the principal class of the GraphViz extension, responsible
-  *  for graph file management and rendering graph images and maps as HTML.
-  *  Graph source, image and map files are saved in the file system in order to avoid
-  *  regenerating them every time a page containing a graph is rendered.
-  *  The ImageMap extension is used for the rendering of graph images and maps as HTML.
-  *
-  * @ingroup Extensions
-  */
+ * This is the principal class of the GraphViz extension, responsible
+ * for graph file management and rendering graph images and maps as HTML.
+ * Graph source, image and map files are saved in the file system in order to avoid
+ * regenerating them every time a page containing a graph is rendered.
+ * The ImageMap extension is used for the rendering of graph images and maps as HTML.
+ *
+ * @ingroup Extensions
+ */
 class GraphViz {
 
 	/**

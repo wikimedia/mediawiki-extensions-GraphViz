@@ -2,8 +2,8 @@
 
 namespace MediaWiki\Extension\GraphViz\Test;
 
-use MediaWiki\Extension\GraphViz\GraphViz;
 use MediaWiki\Extension\GraphViz\GraphRenderParms;
+use MediaWiki\Extension\GraphViz\GraphViz;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Shell\Shell;
 use MediaWikiTestCase;
@@ -12,8 +12,8 @@ use ReflectionClass;
 use WikiPage;
 
 /**
- *  @group GraphViz
- *  @group Database
+ * @group GraphViz
+ * @group Database
  */
 class GraphVizTest extends MediaWikiTestCase {
 
