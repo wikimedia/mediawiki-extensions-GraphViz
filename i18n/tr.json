@@ -18,7 +18,7 @@
 	"graphviz-uploaddisabledtext": "Dosya yüklemeleri devre dışı bırakıldığı için grafik görüntüsü oluşturmaya izin verilmiyor.",
 	"graphviz-upload-not-permitted": "Grafik görüntüsü oluşturmak için yükleme izni gerekiyor.",
 	"graphviz-user-blocked": "Grafik görüntü oluşturmaya engellenen kullanıcılar için izin verilmez.",
-	"graphviz-read-only": "Wiki salt okunur modda olduğu için grafik görüntüsü oluşturmaya izin verilmiyor.",
+	"graphviz-read-only": "Viki salt okunur modda olduğu için grafik görüntüsü oluşturmaya izin verilmiyor.",
 	"graphviz-uploaderror": "Dosya için grafik resmi yüklenemedi: $1",
 	"graphviz-upload-comment": "[[$1]] sayfasından GraphViz [[Special:Version#Installed_extensions|uzantı]] tarafından oluşturuldu",
 	"graphviz-unrecognized-preparse-value": "\"$1\" hazırlık değeri tanınmıyor.",
