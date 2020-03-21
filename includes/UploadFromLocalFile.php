@@ -3,6 +3,7 @@
 namespace MediaWiki\Extension\GraphViz;
 
 use File;
+use MediaWiki\MediaWikiServices;
 use RepoGroup;
 use Status;
 use UploadBase;
@@ -52,7 +53,12 @@ class UploadFromLocalFile extends UploadBase {
 		if ( !$this->mLocalFile ) {
 			$nt = $this->getTitle();
 			if ( $nt ) {
-				$repo = RepoGroup::singleton()->getLocalRepo();
+				if ( method_exists( MediaWikiServices::class, 'getRepoGroup' ) ) {
+					// MediaWiki 1.34+
+					$repo = MediaWikiServices::getInstance()->getRepoGroup()->getLocalRepo();
+				} else {
+					$repo = RepoGroup::singleton()->getLocalRepo();
+				}
 				$this->mLocalFile = UploadLocalFile::newFromTitle( $nt, $repo );
 			}
 		}

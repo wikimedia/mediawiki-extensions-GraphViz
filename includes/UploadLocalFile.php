@@ -37,6 +37,7 @@ use HTMLCacheUpdate;
 use LinksUpdate;
 use LocalFile;
 use MediaHandler;
+use MediaWiki\MediaWikiServices;
 use MWException;
 use RepoGroup;
 use RequestContext;
@@ -239,7 +240,12 @@ class UploadLocalFile extends LocalFile {
 		$upload = new UploadFromLocalFile;
 		$upload->initializePathInfo( $fileName, "", 0, false );
 		$title = $upload->getTitle();
-		$file = wfFindFile( $title );
+		if ( method_exists( MediaWikiServices::class, 'getRepoGroup' ) ) {
+			// MediaWiki 1.34+
+			$file = MediaWikiServices::getInstance()->getRepoGroup()->findFile( $title );
+		} else {
+			$file = wfFindFile( $title );
+		}
 		return $file;
 	}
 
@@ -282,7 +288,12 @@ class UploadLocalFile extends LocalFile {
 			return false;
 		}
 
-		RepoGroup::singleton()->clearCache( $title );
+		if ( method_exists( MediaWikiServices::class, 'getRepoGroup' ) ) {
+			// MediaWiki 1.34+
+			MediaWikiServices::getInstance()->getRepoGroup()->clearCache( $title );
+		} else {
+			RepoGroup::singleton()->clearCache( $title );
+		}
 
 		return true;
 	}
