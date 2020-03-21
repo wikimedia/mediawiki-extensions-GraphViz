@@ -240,7 +240,7 @@ class GraphViz {
 	 * @param int $id
 	 */
 	public static function onArticleDeleteComplete( &$article, User &$user, $reason, $id ) {
-		self::deleteArticleUploadedFiles( $article, self::getImageDir() );
+		self::deleteArticleUploadedFiles( $article, self::getImageDir(), $user );
 		self::deleteArticleFiles( $article, self::getSourceAndMapDir() );
 		self::deleteArticleFiles( $article, self::getImageDir() );
 	}
@@ -295,8 +295,9 @@ class GraphViz {
 	 * @author Keith Welter
 	 * @param Article $article
 	 * @param string $path
+	 * @param User $user
 	 */
-	public static function deleteArticleUploadedFiles( $article, $path ) {
+	private static function deleteArticleUploadedFiles( $article, $path, User $user ) {
 		wfDebug( __METHOD__ . ": entering\n" );
 		$title = $article->getTitle();
 		$globPattern = self::getGraphFileBaseNameFromTitle( $title );
@@ -305,7 +306,13 @@ class GraphViz {
 			$uploadedFile = UploadLocalFile::getUploadedFile( $file );
 			if ( $uploadedFile ) {
 				wfDebug( __METHOD__ . ": deleting uploaded file: $file\n" );
-				$uploadedFile->delete( wfMessage( 'graphviz-delete-reason' )->text() );
+				$reason = wfMessage( 'graphviz-delete-reason' )->text();
+				if ( method_exists( $uploadedFile, 'deleteFile' ) ) {
+					// MW 1.35+
+					$uploadedFile->deleteFile( $reason, $user );
+				} else {
+					$uploadedFile->delete( $reason );
+				}
 			}
 		}
 	}
@@ -371,7 +378,7 @@ class GraphViz {
 
 		$title = $wikiPage->getTitle();
 
-		self::deleteArticleUploadedFiles( $wikiPage, self::getImageDir() );
+		self::deleteArticleUploadedFiles( $wikiPage, self::getImageDir(), $user );
 		self::deleteArticleFiles( $wikiPage, self::getSourceAndMapDir() );
 
 		return true;
@@ -730,7 +737,7 @@ class GraphViz {
 			if ( $sourceChanged ) {
 				if ( !self::updateSource( $sourcePath, $input, $errorText ) ) {
 					wfDebug( __METHOD__ . ": $errorText\n" );
-					self::deleteFiles( $graphParms, $userSpecific, false );
+					self::deleteFiles( $graphParms, $userSpecific, false, $user );
 					return self::errorHTML( $errorText );
 				}
 			}
@@ -738,7 +745,7 @@ class GraphViz {
 			// Execute the image-creation command.
 			$imageCommand = $graphParms->getImageCommand( $userSpecific )->execute();
 			if ( $imageCommand->getExitCode() !== 0 ) {
-				self::deleteFiles( $graphParms, $userSpecific, false );
+				self::deleteFiles( $graphParms, $userSpecific, false, $user );
 
 				// remove path info from the errorText
 				$errorText = str_replace( $imageDir, "", $imageCommand->getStderr() );
@@ -760,14 +767,14 @@ class GraphViz {
 				$errorText )
 			) {
 				wfDebug( __METHOD__ . ": $errorText\n" );
-				self::deleteFiles( $graphParms, $userSpecific, false );
+				self::deleteFiles( $graphParms, $userSpecific, false, $user );
 				return self::errorHTML( $errorText );
 			}
 
 			// Execute the map-creation command.
 			$mapCommand = $graphParms->getMapCommand( $userSpecific )->execute();
 			if ( $mapCommand->getExitCode() !== 0 ) {
-				self::deleteFiles( $graphParms, $userSpecific, false );
+				self::deleteFiles( $graphParms, $userSpecific, false, $user );
 
 				// remove path info from the errorText (file base names are allowed to pass)
 				$errorText = str_replace( $imageDir, "", $mapCommand->getStderr() );
@@ -782,7 +789,7 @@ class GraphViz {
 			);
 			if ( !$normalizedMapFileContents ) {
 				wfDebug( __METHOD__ . ": $errorText\n" );
-				self::deleteFiles( $graphParms, $userSpecific, false );
+				self::deleteFiles( $graphParms, $userSpecific, false, $user );
 				return self::errorHTML( $errorText );
 			}
 
@@ -980,17 +987,23 @@ class GraphViz {
 	 * files to delete.
 	 * @param bool $userSpecific indicates whether or not the files to be deleted are user specific.
 	 * @param bool $deleteUploads indicates whether or not to delete the uploaded image file.
-	 *
+	 * @param User $user
 	 * @author Keith Welter
 	 */
-	protected static function deleteFiles( $graphParms, $userSpecific, $deleteUploads ) {
+	private static function deleteFiles( $graphParms, $userSpecific, $deleteUploads, User $user ) {
 		$graphParms->deleteFiles( $userSpecific );
 
 		if ( $deleteUploads ) {
 			$imageFileName = $graphParms->getImageFileName( $userSpecific );
 			$imageFile = UploadLocalFile::getUploadedFile( $imageFileName );
 			if ( $imageFile ) {
-				$imageFile->delete( wfMessage( 'graphviz-delete-reason' )->text() );
+				$reason = wfMessage( 'graphviz-delete-reason' )->text();
+				if ( method_exists( $imageFile, 'deleteFile' ) ) {
+					// MW 1.35+
+					$imageFile->deleteFile( $reason, $user );
+				} else {
+					$imageFile->delete( $reason );
+				}
 			}
 		}
 	}
