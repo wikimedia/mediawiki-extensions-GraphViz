@@ -33,7 +33,8 @@ use DeferredUpdates;
 use File;
 use FileRepo;
 use FSFile;
-use HTMLCacheUpdate;
+use HTMLCacheUpdateJob;
+use JobQueueGroup;
 use LinksUpdate;
 use LocalFile;
 use MediaHandler;
@@ -489,14 +490,16 @@ class UploadLocalFile extends LocalFile {
 			# Delete old thumbnails
 			$this->purgeThumbnails();
 
-			# Remove the old file from the squid cache
+			# Remove the old file from the CDN cache
 			CdnCacheUpdate::purge( [ $this->getURL() ] );
 		}
 
 		# Invalidate cache for all pages using this file
-		$update = new HTMLCacheUpdate( $this->getTitle(), 'imagelinks' );
-		$update->doUpdate();
+		$job = HTMLCacheUpdateJob::newForBacklinks( $this->getTitle(), 'imagelinks' );
+		JobQueueGroup::singleton()->push( $job );
+
 		if ( !$reupload ) {
+			# Update link tracking for all pages using this file
 			LinksUpdate::queueRecursiveJobsForTable( $this->getTitle(), 'imagelinks' );
 		}
 
