@@ -1,8 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Toliño",
-			"Elisardojm"
+			"Elisardojm",
+			"Toliño"
 		]
 	},
 	"graphviz-desc": "Permite a incorporación de formato [http://www.graphviz.org Graphviz] e xera imaxes en liña",

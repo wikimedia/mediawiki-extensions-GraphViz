@@ -1,9 +1,9 @@
 {
 	"@metadata": {
 		"authors": [
+			"Ilimanaq29",
 			"Jezevec",
-			"Mormegil",
-			"Ilimanaq29"
+			"Mormegil"
 		]
 	},
 	"graphviz-desc": "Umožňuje vkládat skripty pro [http://www.graphviz.org Graphviz] a vytváří vložené obrázky",

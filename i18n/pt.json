@@ -1,8 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Vitorvicentevalente",
-			"Hamilton Abreu"
+			"Hamilton Abreu",
+			"Vitorvicentevalente"
 		]
 	},
 	"graphviz-desc": "Permite incorporar notação [http://www.graphviz.org Graphviz] e gera imagens em linha",

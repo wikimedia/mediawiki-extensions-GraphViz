@@ -1,9 +1,9 @@
 {
 	"@metadata": {
 		"authors": [
-			"Ата",
+			"Piramidion",
 			"Vlad5250",
-			"Piramidion"
+			"Ата"
 		]
 	},
 	"graphviz-desc": "Дозволяє використовувати розмітку [http://www.graphviz.org Graphviz] і генерує вбудовані зображення",

@@ -1,10 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Gomoko",
 			"0x010C",
-			"Wladek92",
-			"Urhixidur"
+			"Gomoko",
+			"Urhixidur",
+			"Wladek92"
 		]
 	},
 	"graphviz-desc": "Permet un balisage [http://www.graphviz.org Graphviz] embarqué et génère les images en ligne",

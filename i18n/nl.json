@@ -1,9 +1,9 @@
 {
 	"@metadata": {
 		"authors": [
-			"Siebrand",
 			"Esketti",
-			"Rcdeboer"
+			"Rcdeboer",
+			"Siebrand"
 		]
 	},
 	"graphviz-desc": "Maakt het mogelijk [http://www.graphviz.org Graphviz]-markup te gebruiken en inline afbeeldingen aan te maken",

@@ -3,8 +3,8 @@
 		"authors": [
 			"Linforest",
 			"Liuxinyu970226",
-			"御坂美琴",
-			"Yfdyh000"
+			"Yfdyh000",
+			"御坂美琴"
 		]
 	},
 	"graphviz-desc": "允许内置 [http://www.graphviz.org Graphviz] 标记，并生成内嵌式图像",
