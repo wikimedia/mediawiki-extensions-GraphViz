@@ -25,7 +25,7 @@
 	"graphviz-unrecognized-preparse-value": "The preparse value \"$1\" is unrecognized.",
 	"graphviz-category-desc": "$1 contains pages created by the GraphViz extension.",
 	"graphviz-subcategory-desc": "$1 contains pages created using the $2 command.",
-	"graphviz-map-desc": "= ImageMap =\nWhen including this image in a wiki page, use the following mark-up to enable links:\n <nowiki>\n<imagemap>\nFile:$1\n$2</imagemap>\n</nowiki>\nSee [https://www.mediawiki.org/wiki/Extension:ImageMap ImageMap] for more information.",
+	"graphviz-map-desc": "= ImageMap =\nWhen including this image in a wiki page, use the following mark-up to enable links:\n <nowiki>\n<imagemap>\nFile:$1\n$2</imagemap>\n</nowiki>\nSee [https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:ImageMap ImageMap] for more information.",
 	"graphviz-upload-user": "GraphViz",
 	"graphviz-setting-execpath":"The executable binary path of GraphViz.",
 	"graphviz-setting-mscgenpath":"The executable binary path of mscgen for GraphViz.",
