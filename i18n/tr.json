@@ -24,7 +24,7 @@
 	"graphviz-unrecognized-preparse-value": "\"$1\" hazırlık değeri tanınmıyor.",
 	"graphviz-category-desc": "$1, GraphViz uzantısı tarafından oluşturulan sayfaları içerir.",
 	"graphviz-subcategory-desc": "$1, $2 komutu kullanılarak oluşturulan sayfaları içerir.",
-	"graphviz-map-desc": "= ImageMap =\nBu resmi bir wiki sayfasına eklerken bağlantıları etkinleştirmek için aşağıdaki işaretlemeyi kullanın:\n <nowiki>\n<imagemap>\nFile:$1\n$2</imagemap>\n</nowiki>\nDaha fazla bilgi için bkz. [Https://www.mediawiki.org/wiki/Extension:ImageMap ImageMap].",
+	"graphviz-map-desc": "= ImageMap =\nBu resmi bir wiki sayfasına eklerken bağlantıları etkinleştirmek için aşağıdaki işaretlemeyi kullanın:\n <nowiki>\n<imagemap>\nFile:$1\n$2</imagemap>\n</nowiki>\nDaha fazla bilgi için [Https://www.mediawiki.org/wiki//Special:MyLanguage/Extension:ImageMap ImageMap] sayfasına bakın.",
 	"graphviz-upload-user": "GraphViz",
 	"graphviz-setting-execpath": "GraphViz'in yürütülebilir ikili yolu.",
 	"graphviz-setting-mscgenpath": "GraphViz için mscgen'in çalıştırılabilir ikili yolu.",

@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Esketti",
+			"PonkoSasuke",
 			"Rcdeboer",
 			"Siebrand"
 		]
@@ -26,5 +27,5 @@
 	"graphviz-unrecognized-preparse-value": "De preparse-waarde van \"$1\" is niet herkend.",
 	"graphviz-category-desc": "$1 bevat pagina's die gemaakt zijn door de GraphViz-extensie.",
 	"graphviz-subcategory-desc": "$1 bevat pagina's gemaakt met de $2-opdracht.",
-	"graphviz-map-desc": "= ImageMap =\nBij het invoegen van deze afbeelding op een wikipagina past u de volgende mark-up toe om verwijzingen te gebruiken:\n <nowiki>\n<imagemap>\nBestand:$1\n$2</imagemap>\n</nowiki>\nZie [https://www.mediawiki.org/wiki/Extension:ImageMap ImageMap] voor meer informatie."
+	"graphviz-map-desc": "= ImageMap =\nBij het invoegen van deze afbeelding op een wikipagina past u de volgende mark-up toe om verwijzingen te gebruiken:\n <nowiki>\n<imagemap>\nBestand:$1\n$2</imagemap>\n</nowiki>\nZie [https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:ImageMap ImageMap] voor meer informatie."
 }

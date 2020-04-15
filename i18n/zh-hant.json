@@ -25,7 +25,7 @@
 	"graphviz-unrecognized-preparse-value": "無法辨識預先解析的值 \"$1\"。",
 	"graphviz-category-desc": "$1 含有由 GraphViz 擴充套件建立的頁面。",
 	"graphviz-subcategory-desc": "$1 含有使用 $2 指令建立的頁面。",
-	"graphviz-map-desc": "= ImageMap =\n當在一頁 wiki 頁面引用此圖片時，可使用以下標籤來開啟連結功能：\n <nowiki>\n<imagemap>\nFile:$1\n$2</imagemap>\n</nowiki>\n請參考 [https://www.mediawiki.org/wiki/Extension:ImageMap ImageMap] 來取得更多資訊。",
+	"graphviz-map-desc": "= ImageMap =\n當在一頁 wiki 頁面引用此圖片時，可使用以下標籤來開啟連結功能：\n <nowiki>\n<imagemap>\nFile:$1\n$2</imagemap>\n</nowiki>\n請參考 [https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:ImageMap ImageMap] 來取得更多資訊。",
 	"graphviz-upload-user": "GraphViz",
 	"graphviz-setting-execpath": "GraphViz 執行二位元檔路徑。",
 	"graphviz-setting-mscgenpath": "用於 GraphViz 的 mscgen 執行二位元檔路徑。",

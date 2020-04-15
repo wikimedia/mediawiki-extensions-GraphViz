@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Movses",
 			"Piramidion",
 			"Vlad5250",
 			"Ата"
@@ -26,7 +27,7 @@
 	"graphviz-unrecognized-preparse-value": "Значення попереднього аналізу «$1» не розпізнано.",
 	"graphviz-category-desc": "$1 містить сторінки, створені розширенням GraphViz.",
 	"graphviz-subcategory-desc": "$1 містить сторінки, створені командою $2.",
-	"graphviz-map-desc": "= ImageMap =\nПри включенні цього зображення у вікі-сторінку використовуйте наступну розмітку для ввімкнення посилань:\n <nowiki>\n<imagemap>\nFile:$1\n$2</imagemap>\n</nowiki>\nДив. [https://www.mediawiki.org/wiki/Extension:ImageMap ImageMap] для додаткової інформації.",
+	"graphviz-map-desc": "= ImageMap =\nПри включенні цього зображення у вікі-сторінку використовуйте наступну розмітку для ввімкнення посилань:\n <nowiki>\n<imagemap>\nFile:$1\n$2</imagemap>\n</nowiki>\nДив. [https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:ImageMap ImageMap] для додаткової інформації.",
 	"graphviz-upload-user": "GraphViz",
 	"graphviz-setting-execpath": "Виконуваний бінарний шлях GraphViz.",
 	"graphviz-setting-mscgenpath": "Виконуваний бінарний шлях mscgen для GraphViz.",
