@@ -27,7 +27,7 @@ namespace MediaWiki\Extension\GraphViz;
 
 use File;
 use Html;
-use ImageMap;
+use MediaWiki\Extensions\ImageMap\ImageMap;
 use MediaWiki\MediaWikiServices;
 use MWException;
 use Parser;
