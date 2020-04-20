@@ -470,7 +470,10 @@ class GraphViz {
 		// Otherwise, use a system user.
 		$userName = wfMessage( self::UPLOAD_USER_MESSAGE )->parse();
 		$user = User::newSystemUser( $userName, [ 'steal' => true ] );
-		$user->mRights = array_merge( $user->getRights(), $requiredRights );
+		$pmgr = MediaWikiServices::getInstance()->getPermissionManager();
+		// Attach ScopedCallback to user so that it's consume() method will be
+		// called when needed.
+		$user->guard = $pmgr->addTemporaryUserRights( $user, $requiredRights );
 		// Make sure system user's email address is confirmed if required.
 		$emailConfirmToEdit = MediaWikiServices::getInstance()
 			->getMainConfig()
