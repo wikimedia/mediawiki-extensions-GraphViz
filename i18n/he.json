@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Amire80",
-			"Ronel1"
+			"Ronel1",
+			"Steeve815"
 		]
 	},
 	"graphviz-desc": "מאפשרת הטמעת סימון [http://www.graphviz.org Graphviz] ומייצרת תמונות מתוך הטקסט",
@@ -22,5 +23,5 @@
 	"graphviz-read-only": "יצירת תמונת גרף אינה מותרת כיוון שהוויקי נמצא במצב קריאה בלבד.",
 	"graphviz-uploaderror": "טעינה של תמונה גרף נכשלה עבור קובץ: $1",
 	"graphviz-upload-comment": "חולל באמצעות [[Special:Version#Installed_extensions|ההרחבה]] מהדף [[$1]]",
-	"graphviz-map-desc": "= ImageMap =\nבעת הוספת תמונה זו לדף ויקי, יש להשתמש בסימון הבא להפעלת קישורים:\n <nowiki>\n<imagemap>\nFile:$1\n$2</imagemap>\n</nowiki>\nלקבלת מידע נוסף, ראה [https://www.mediawiki.org/wiki/Extension:ImageMap ImageMap]."
+	"graphviz-map-desc": "= ImageMap =\nבעת הוספת תמונה זו לדף ויקי, יש להשתמש בסימון הבא להפעלת קישורים:\n <nowiki>\n<imagemap>\nFile:$1\n$2</imagemap>\n</nowiki>\nלקבלת מידע נוסף, ראה [https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:ImageMap ImageMap]."
 }
