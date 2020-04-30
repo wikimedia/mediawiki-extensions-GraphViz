@@ -24,7 +24,7 @@
 	"graphviz-unrecognized-preparse-value": "'U valore preanalizzate \"$1\" non g'è canusciute.",
 	"graphviz-category-desc": "$1 tène pàggene ccrejate da l'estenzione GraphViz.",
 	"graphviz-subcategory-desc": "$1 tène pàggene ccrejate ausanne 'u comande $2.",
-	"graphviz-map-desc": "= ImageMap =\nQuanne 'nglude ste immaggine jndr'à 'na pàgene uicchi, ause stu mark-up pe abbilità le collegaminde:\n <nowiki>\n<imagemap>\nFile:$1\n$2</imagemap>\n</nowiki>\n'Ndruche [https://www.mediawiki.org/wiki/Extension:ImageMap ImageMap] pe cchiù 'mbormaziune.",
+	"graphviz-map-desc": "= ImageMap =\nQuanne 'nglude ste immaggine jndr'à 'na pàgene uicchi, ause stu mark-up pe abbilità le collegaminde:\n <nowiki>\n<imagemap>\nFile:$1\n$2</imagemap>\n</nowiki>\n'Ndruche [https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:ImageMap ImageMap] pe cchiù 'mbormaziune.",
 	"graphviz-upload-user": "GraphViz",
 	"graphviz-setting-execpath": "'U percorse binarie de l'eseguibbele de GraphViz.",
 	"graphviz-setting-mscgenpath": "'U percorse binarie de l'eseguibbele de mscgen de GraphViz.",
