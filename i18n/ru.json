@@ -27,7 +27,7 @@
 	"graphviz-unrecognized-preparse-value": "Предварительное значение \"$1\" не распознано.",
 	"graphviz-category-desc": "$1 содержит страницы, созданные расширением GraphViz.",
 	"graphviz-subcategory-desc": "$1 содержит страницы, созданные с помощью команды $2.",
-	"graphviz-map-desc": "= ImageMap =\nПри включении этого изображения на вики-страницу используйте следующую разметку для включения ссылок:\n <nowiki>\n<imagemap>\nFile:$1\n$2</imagemap>\n</nowiki>\nСм. [https://www.mediawiki.org/wiki/Extension:ImageMap ImageMap] для дополнительной информации.",
+	"graphviz-map-desc": "= ImageMap =\nПри включении этого изображения на вики-страницу используйте следующую разметку для включения ссылок:\n <nowiki>\n<imagemap>\nFile:$1\n$2</imagemap>\n</nowiki>\nСм. [https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:ImageMap ImageMap] для дополнительной информации.",
 	"graphviz-upload-user": "GraphViz",
 	"graphviz-setting-execpath": "Исполняемый бинарный путь GraphViz.",
 	"graphviz-setting-mscgenpath": "Исполняемый бинарный путь mscgen для GraphViz.",
