@@ -24,7 +24,7 @@
 	"graphviz-unrecognized-preparse-value": "Forhåndsparserverdien «$1» er ukjent.",
 	"graphviz-category-desc": "$1 inneholder sider opprettet av GraphViz-utvidelsen.",
 	"graphviz-subcategory-desc": "$1 inneholder sider opprettet med kommandoen $2.",
-	"graphviz-map-desc": "= Bildekart =\nNår du inkluderer dette bildet i en wikiside, bruk følgende oppmerking for å aktivere lenker:\n <nowiki>\n<imagemap>\nFile:$1\n$2</imagemap>\n</nowiki>\nSe [https://www.mediawiki.org/wiki/Extension:ImageMap ImageMap] for mer informasjon.",
+	"graphviz-map-desc": "= Bildekart =\nNår du inkluderer dette bildet i en wikiside, bruk følgende oppmerking for å aktivere lenker:\n <nowiki>\n<imagemap>\nFile:$1\n$2</imagemap>\n</nowiki>\nSe [https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:ImageMap ImageMap] for mer informasjon.",
 	"graphviz-upload-user": "GraphViz",
 	"graphviz-setting-execpath": "Den kjørbare binærstien til GraphViz.",
 	"graphviz-setting-mscgenpath": "Den kjørbare binærstien til GraphViz' mscgen.",
