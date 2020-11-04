@@ -41,7 +41,7 @@ class GraphRenderParms {
 	/**
 	 * The graph image type to output.
 	 * @see http://www.graphviz.org/doc/info/output.html
-	 * @var string $imageType
+	 * @var string
 	 */
 	private $imageType = '';
 

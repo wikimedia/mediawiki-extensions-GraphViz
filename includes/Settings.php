@@ -15,7 +15,7 @@ class Settings {
 	 *
 	 * '/' will be converted to '\\' later on, so feel free how to write your path C:/ or C:\\
 	 *
-	 * @var string $execPath
+	 * @var string
 	 */
 	public $execPath;
 
@@ -25,7 +25,7 @@ class Settings {
 	 *
 	 * '/' will be converted to '\\' later on, so feel free how to write your path C:/ or C:\\
 	 *
-	 * @var string $mscgenPath
+	 * @var string
 	 */
 	public $mscgenPath;
 
@@ -33,7 +33,7 @@ class Settings {
 	 * default image type for the output of dot or mscgen
 	 * The "default default" is png.
 	 *
-	 * @var string $defaultImageType
+	 * @var string
 	 */
 	public $defaultImageType;
 
@@ -41,7 +41,7 @@ class Settings {
 	 * Whether or not to automatically create category pages for images created by this extension.
 	 * yes|no (case insensitive). The default is no.
 	 *
-	 * @var string $createCategoryPages
+	 * @var string
 	 */
 	public $createCategoryPages;
 
