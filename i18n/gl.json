@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"ArenaL5",
 			"Elisardojm",
 			"Toliño"
 		]
@@ -25,6 +26,6 @@
 	"graphviz-unrecognized-preparse-value": "Non se recoñece o valor de preanálise \"$1\".",
 	"graphviz-category-desc": "$1 conten páxinas creadas mediante a extension GraphViz.",
 	"graphviz-subcategory-desc": "$1 conten páxinas creadas mediante a orde $2.",
-	"graphviz-map-desc": "= ImageMap =\nCando inclúa esta imaxe nunha páxina wiki, use o seguinte etiquetado para activar as ligazóns:\n <nowiki>\n<imagemap>\nFile:$1\n$2</imagemap>\n</nowiki>\nVexa [https://www.mediawiki.org/wiki/Extension:ImageMap ImageMap] para máis información.",
+	"graphviz-map-desc": "= ImageMap =\nCando inclúa esta imaxe nunha páxina wiki, use o seguinte etiquetado para activar as ligazóns:\n <nowiki>\n<imagemap>\nFile:$1\n$2</imagemap>\n</nowiki>\nVexa [https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:ImageMap ImageMap] para máis información.",
 	"graphviz-upload-user": "GraphViz"
 }
