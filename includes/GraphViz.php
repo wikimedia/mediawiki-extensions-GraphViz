@@ -974,7 +974,7 @@ class GraphViz {
 		$mapContents = "";
 		if ( file_exists( $mapPath ) ) {
 			$mapContents = file_get_contents( $mapPath );
-			if ( false == $mapContents ) {
+			if ( $mapContents == false ) {
 				wfDebug( __METHOD__ . ": map file: $mapPath is empty.\n" );
 			}
 		} else {
