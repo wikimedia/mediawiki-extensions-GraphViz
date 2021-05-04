@@ -1101,7 +1101,7 @@ class GraphViz {
 				$hrefPattern = '~href="([^"]+)"~';
 				$map = preg_replace_callback(
 					$hrefPattern,
-					function ( $matches ) {
+					static function ( $matches ) {
 						if ( $matches[1] !== '' ) {
 							$decoded = Sanitizer::decodeCharReferences( $matches[1] );
 							return 'href="' . $decoded . '"';
